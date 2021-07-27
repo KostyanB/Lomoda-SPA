@@ -7,13 +7,15 @@ import { SubHeader } from './modules/Headers/SubHeader';
 import { Footer } from './modules/Footer/Footer';
 import { PromoPage } from './modules/PromoPage/PromoPage';
 import { GoodsListPage } from './modules/GoodsListPage/GoodsListPage';
+import { GoodCard } from './modules/GoodPage/GoodCard';
+import { ErrorLoad, Preloader } from './modules/Styled/Preloader';
 import { useUserCity } from './modules/Hooks/useUserSity';
 import { useHash } from './modules/Hooks/useHash';
 import { useFetch } from './modules/Hooks/useFetch';
 import { usePageName } from './modules/Hooks/usePageName';
 import { useShowPage } from './modules/Hooks/useShowPage';
-import { ErrorLoad, Preloader } from './modules/Styled/Preloader';
-
+import { usePageTitle } from './modules/Hooks/usePageTitle';
+import { useSelectGood } from './modules/Hooks/useSelectGood';
 
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
   const pageNameSet = usePageName();
   const dataBase = useFetch();
   const pageShow = useShowPage();
+  const pageTitle = usePageTitle();
+  const selectedGood = useSelectGood()
 
   return (
     <Context.Provider value={{
@@ -30,6 +34,8 @@ function App() {
       pageNameSet,
       dataBase,
       pageShow,
+      pageTitle,
+      selectedGood,
     }}>
     {dataBase.responce ?
       <>
@@ -39,8 +45,10 @@ function App() {
           <SubHeader/>
           { (pageShow.showPage === 'promo') ?
             <PromoPage/> : (pageShow.showPage === 'list') ?
-              <GoodsListPage/> :
-                <h3>Хрен</h3>
+              <GoodsListPage/> : (pageShow.showPage === 'card') ?
+                <GoodCard/> : (pageShow.showPage === 'cart') ?
+                  <h2>Корзина</h2> :
+                    <ErrorLoad>Sorry, nework error. Please, reload page.</ErrorLoad>
           }
         </main>
       </> : dataBase.error ?
@@ -49,8 +57,6 @@ function App() {
     }
     <Footer/>
     </Context.Provider>
-
-
   );
 }
 

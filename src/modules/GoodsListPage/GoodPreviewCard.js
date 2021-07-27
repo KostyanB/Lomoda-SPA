@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { Context } from '../Functions/context';
 import more from '../../image/more.svg';
 
 
@@ -70,20 +71,38 @@ const GoodLink = styled.a`
     margin: 0 auto;
     padding-left: 20px;
 `;
-const MainLink = props => <GoodLink href={props.href}>Подробнее</GoodLink>;
 
 const Preview = props => <img className="good__img" src={`db/goods-image/${props.src}`} alt={props.alt}/>;
 
-const ImgLink = props => <a className="good__link-img" href={`#${props.id}`}><Preview src={props.src} alt={props.alt}/></a>;
+// const ImgLink = props => <a className="good__link-img" href={`#${props.id}`}><Preview src={props.src} alt={props.alt}/></a>;
 
 // ----------------------------------------------------------------
 export const GoodPrewiewCard = props => {
-    const { brand, cost, id, name, preview, sizes } = props.param
+    const { brand, cost, id, name, preview, sizes } = props.param;
+
+    const {
+        hashSet: { setHash },
+        pageShow: { checkShowPage },
+        pageTitle: { setPageTitle },
+        dataBase: { responce },
+        selectedGood: { setSelectGood }
+    } = useContext(Context);
+
+    const handleGoodCard = idValue => {
+        const good = responce.filter(item => (item.id === idValue) && item)[0];
+        const title = `${good.name} "${good.brand}"`;
+        setHash(idValue);
+        checkShowPage('card');
+        setPageTitle(title);
+        setSelectGood(good);
+    };
 
     return (
     <ItemWrap>
         <Good>
-            <ImgLink id={id} src={preview} alt={name}/>
+            <a className="good__link-img" href={`#${id}`} onClick={() => handleGoodCard(id)}>
+                <Preview src={preview} alt={name}/>
+            </a>
             {/* <a className="good__link-img" href={`#${props.id}`}>
                 <img className="good__img" src={`db/goods-image/${props.preview}`} alt={props.name}/>
             </a> */}
@@ -94,7 +113,7 @@ export const GoodPrewiewCard = props => {
                 {(sizes) &&
                     <GoodSizes>Размеры (RUS): <span>{sizes.join(' ')}</span></GoodSizes>
                 }
-                <MainLink href={`#${id}`}/>
+                <GoodLink href={`#${id}`} onClick={() => handleGoodCard(id)}>Подробнее</GoodLink>;
             </GoodDescription>
         </Good>
     </ItemWrap>

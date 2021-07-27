@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { Context } from '../Functions/context';
-import { showTitle } from '../Functions/showTitle';
 import styled from 'styled-components';
 
 const Link = styled.a`
@@ -14,14 +13,15 @@ export const NavLink = props => {
     const {
         hashSet: { setHash },
         pageNameSet: { setPageName },
-        pageShow: { checkShowPage }
+        pageShow: { checkShowPage },
+        pageTitle: { setPageTitle },
     } = useContext(Context);
 
     const handleGoodsList = (valHash, namePage) => {
         setHash(valHash);
         setPageName(namePage)
-        showTitle(namePage);
         checkShowPage(valHash);
+        setPageTitle(namePage);
     };
 
     return (

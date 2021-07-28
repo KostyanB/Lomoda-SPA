@@ -88,34 +88,34 @@ export const GoodPrewiewCard = props => {
         selectedGood: { setSelectGood }
     } = useContext(Context);
 
-    const handleGoodCard = idValue => {
+    const HandleGoodCard = idValue => {
         const good = responce.filter(item => (item.id === idValue) && item)[0];
-        const title = `${good.name} "${good.brand}"`;
+        // const title = `${good.name} "${good.brand}"`;
         setHash(idValue);
         checkShowPage('card');
-        setPageTitle(title);
+        setPageTitle(`${good.name} "${good.brand}"`);
         setSelectGood(good);
     };
 
     return (
-    <ItemWrap>
-        <Good>
-            <a className="good__link-img" href={`#${id}`} onClick={() => handleGoodCard(id)}>
-                <Preview src={preview} alt={name}/>
-            </a>
-            {/* <a className="good__link-img" href={`#${props.id}`}>
-                <img className="good__img" src={`db/goods-image/${props.preview}`} alt={props.name}/>
-            </a> */}
-            <GoodDescription>
-                <GoodPrice>{cost} &#8381;</GoodPrice>
-                <GoodTitle>{brand}<TitleSpan>/ {name}</TitleSpan>
-                </GoodTitle>
-                {(sizes) &&
-                    <GoodSizes>Размеры (RUS): <span>{sizes.join(' ')}</span></GoodSizes>
-                }
-                <GoodLink href={`#${id}`} onClick={() => handleGoodCard(id)}>Подробнее</GoodLink>;
-            </GoodDescription>
-        </Good>
-    </ItemWrap>
+        <ItemWrap>
+            <Good>
+                <a className="good__link-img" href={`#${id}`} onClick={() => HandleGoodCard(id)}>
+                    <Preview src={preview} alt={name}/>
+                </a>
+                {/* <a className="good__link-img" href={`#${props.id}`}>
+                    <img className="good__img" src={`db/goods-image/${props.preview}`} alt={props.name}/>
+                </a> */}
+                <GoodDescription>
+                    <GoodPrice>{cost} &#8381;</GoodPrice>
+                    <GoodTitle>{brand}<TitleSpan>/ {name}</TitleSpan>
+                    </GoodTitle>
+                    {(sizes) &&
+                        <GoodSizes>Размеры (RUS): <span>{sizes.join(' ')}</span></GoodSizes>
+                    }
+                    <GoodLink href={`#${id}`} onClick={() => HandleGoodCard(id)}>Подробнее</GoodLink>
+                </GoodDescription>
+            </Good>
+        </ItemWrap>
     );
 }

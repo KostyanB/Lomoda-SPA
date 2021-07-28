@@ -11,7 +11,7 @@ export const NavLink = props => {
     const { hash, name, text } = props.param;
 
     const {
-        hashSet: { setHash },
+        hashSet: { setHash, handleHash },
         pageNameSet: { setPageName },
         pageShow: { checkShowPage },
         pageTitle: { setPageTitle },
@@ -19,6 +19,7 @@ export const NavLink = props => {
 
     const handleGoodsList = (valHash, namePage) => {
         setHash(valHash);
+        // handleHash(valHash);
         setPageName(namePage)
         checkShowPage(valHash);
         setPageTitle(namePage);

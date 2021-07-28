@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import { Context, ContextGoodCard } from '../Functions/context';
 import { Container } from '../Styled/Container';
 import { GoodSelector } from './GoodSelector';
-import { useOpenColorSelector } from '../Hooks/useOpenColorSelector';
-import { useOpenSizeSelector } from '../Hooks/useOpenSizeSelector';
+import { useOpenColorSelector } from '../Hooks/GoodPageHooks/useOpenColorSelector';
+import { useOpenSizeSelector } from '../Hooks/GoodPageHooks/useOpenSizeSelector';
+import { useSelectColor } from '../Hooks/GoodPageHooks/useSelectColor';
+import { useSelectSize } from '../Hooks/GoodPageHooks/useSelectSize';
 
 const GoodWrapper = styled(Container)`
     display: -webkit-box;
@@ -103,20 +105,25 @@ const BuyButton = styled.button`
     }
 `;
 
-
-
 export const GoodCard = () => {
     const {
-        selectedGood: { selectGood }
+        selectedGood: { selectGood },
+        // hashSet: { hash },
+        // dataBase: { responce },
     } = useContext(Context);
-
+    // const good = responce.filter(item => (item.id === hash) && item)[0];
     const { brand, color, cost, id, name, photo, sizes } = selectGood;
+
     const openColor = useOpenColorSelector(),
-        openSize = useOpenSizeSelector();
+        openSize = useOpenSizeSelector(),
+        selectedColor = useSelectColor(),
+        selectedSize = useSelectSize();
     return (
         <ContextGoodCard.Provider value={{
             openColor,
             openSize,
+            selectedColor,
+            selectedSize,
         }}>
             <section>
                 <GoodWrapper>

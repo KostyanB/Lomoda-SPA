@@ -24,9 +24,13 @@ const SizesWrapper = styled(SelectWrapper)`
 
 export const GoodSelector = props => {
     const { name, param } = props;
+
     const { openColor: { openColorSelector, setOpenColorSelector, toggleColorSelect },
-        openSize: { openSizeSelector, setOpenSizeSelector, toggleSizeSelect }
+        openSize: { openSizeSelector, setOpenSizeSelector, toggleSizeSelect },
+        selectedColor: { selectColor },
+        selectedSize: { selectSize },
         } = useContext(ContextGoodCard);
+
     const handleColor = () => {
         toggleColorSelect();
         setOpenSizeSelector(false);
@@ -40,13 +44,13 @@ export const GoodSelector = props => {
         <>
         {(name === 'colorList') &&
             <ColorWrapper>
-                <GoodSelectBtn onClick={() => handleColor()}>Выберите цвет</GoodSelectBtn>
+                <GoodSelectBtn onClick={() => handleColor()}>{selectColor}</GoodSelectBtn>
                 {openColorSelector && <SelectList items={param} name="colorsSelect"/>}
             </ColorWrapper>
         }
         {(name === 'sizeList') &&
             <SizesWrapper>
-                <GoodSelectBtn onClick={() => handleSize()}>Выберите размер</GoodSelectBtn>
+                <GoodSelectBtn onClick={() => handleSize()}>{selectSize}</GoodSelectBtn>
                 {openSizeSelector && <SelectList items={param} name="sizesSelect"/>}
             </SizesWrapper>
         }

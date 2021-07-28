@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { Context } from '../Functions/context';
+import { Context, ContextGoodCard } from '../Functions/context';
 import { Container } from '../Styled/Container';
 import { GoodSelector } from './GoodSelector';
+import { useOpenColorSelector } from '../Hooks/useOpenColorSelector';
+import { useOpenSizeSelector } from '../Hooks/useOpenSizeSelector';
 
 const GoodWrapper = styled(Container)`
     display: -webkit-box;
@@ -109,31 +111,40 @@ export const GoodCard = () => {
     } = useContext(Context);
 
     const { brand, color, cost, id, name, photo, sizes } = selectGood;
+    const openColor = useOpenColorSelector(),
+        openSize = useOpenSizeSelector();
     return (
-        <section>
-            <GoodWrapper>
-                <ImageWrapper>
-                    <img className="card-good__image" src={`db/goods-image/${photo}`} alt={name}/>
-                </ImageWrapper>
-                <GoodDescription>
-                    <GoodTitleWrapper>
-                        <GoodBrand>{brand}</GoodBrand>
-                        <GoodTitle>{name}</GoodTitle>
-                    </GoodTitleWrapper>
-                    <GoodPrice>{cost} ₽</GoodPrice>
-                    {color && <GoodSelector name="colorList" param={color}/>}
-                    {sizes && <GoodSelector name="sizeList" param={sizes}/>}
+        <ContextGoodCard.Provider value={{
+            openColor,
+            openSize,
+        }}>
+            <section>
+                <GoodWrapper>
+                    <ImageWrapper>
+                        <img className="card-good__image" src={`db/goods-image/${photo}`} alt={name}/>
+                    </ImageWrapper>
+                    <GoodDescription>
+                        <GoodTitleWrapper>
+                            <GoodBrand>{brand}</GoodBrand>
+                            <GoodTitle>{name}</GoodTitle>
+                        </GoodTitleWrapper>
+                        <GoodPrice>{cost} ₽</GoodPrice>
+                        {color && <GoodSelector name="colorList" param={color}/>}
+                        {sizes && <GoodSelector name="sizeList" param={sizes}/>}
+                        <BuyButton>Добавить в корзину</BuyButton>
+                    </GoodDescription>
 
+                </GoodWrapper>
+            </section>
+        </ContextGoodCard.Provider>
 
-                    <BuyButton>Добавить в корзину</BuyButton>
-                </GoodDescription>
-
-            </GoodWrapper>
-        </section>
 
 
     );
 }
+
+// {color && <GoodSelector name="colorList" param={color} key={`color${id}`}/>}
+                    // {sizes && <GoodSelector name="sizeList" param={sizes} key={`size${id}`}/>}
 
 //         <section class="card-good">
 //             <div class="container card-good__wrapper">

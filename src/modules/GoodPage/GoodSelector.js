@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { SelectWrapper, GoodSelectBtn, GoodSelectOpenBtn } from './SelectorElements';
 import { SelectList } from './SelectList';
+import { ContextGoodCard } from '../Functions/context';
 
 const ColorWrapper = styled(SelectWrapper)`
     margin-bottom: 15px;
@@ -23,19 +24,30 @@ const SizesWrapper = styled(SelectWrapper)`
 
 export const GoodSelector = props => {
     const { name, param } = props;
+    const { openColor: { openColorSelector, setOpenColorSelector, toggleColorSelect },
+        openSize: { openSizeSelector, setOpenSizeSelector, toggleSizeSelect }
+        } = useContext(ContextGoodCard);
+    const handleColor = () => {
+        toggleColorSelect();
+        setOpenSizeSelector(false);
+    };
+    const handleSize = () => {
+        toggleSizeSelect();
+        setOpenColorSelector(false);
+    };
 
     return (
         <>
         {(name === 'colorList') &&
             <ColorWrapper>
-                <GoodSelectBtn>Выберите цвет</GoodSelectBtn>
-                <SelectList items={param}/>
+                <GoodSelectBtn onClick={() => handleColor()}>Выберите цвет</GoodSelectBtn>
+                {openColorSelector && <SelectList items={param} name="colorsSelect"/>}
             </ColorWrapper>
         }
         {(name === 'sizeList') &&
             <SizesWrapper>
-                <GoodSelectBtn>Выберите размер</GoodSelectBtn>
-                <SelectList items={param}/>
+                <GoodSelectBtn onClick={() => handleSize()}>Выберите размер</GoodSelectBtn>
+                {openSizeSelector && <SelectList items={param} name="sizesSelect"/>}
             </SizesWrapper>
         }
         </>

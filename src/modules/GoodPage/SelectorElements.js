@@ -15,7 +15,7 @@ export const SelectWrapper = styled.div`
 `;
 
 export const GoodSelectBtn = styled.button`
-    display: block;
+    /* display: block; */
     position: relative;
     padding: 8px 24px;
     text-align: left;

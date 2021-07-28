@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { ContextGoodCard } from '../Functions/context';
 
 const List = styled.ul`
-    display: none;
+    display: block;
     position: absolute;
     max-height: 150px;
     overflow: auto;
@@ -21,9 +22,21 @@ const Li = styled.li`
 `;
 
 export const SelectList = props => {
+    const { items, name } = props;
+    const { openColor: { openColorSelector, setOpenColorSelector },
+        openSize: { openSizeSelector, setOpenSizeSelector }
+        } = useContext(ContextGoodCard);
+    // const { openSelect: { openSelector, setOpenSelector } } = useContext(ContextGoodCard);
+    console.log('items: ', items);
+
+    const handleSelector = () => {
+        (name === 'colorsSelect') && setOpenColorSelector(false);
+        (name === 'sizesSelect') && setOpenSizeSelector(false);
+    };
+
     return (
         <List>
-            {props.items.map(val => <Li>{val}</Li>)}
+            {items.map(val => <Li key={val} onClick={() => handleSelector()}>{val}</Li>)}
         </List>
     );
 }

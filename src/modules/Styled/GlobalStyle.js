@@ -102,7 +102,23 @@ export const GlobalStyle = createGlobalStyle `
         width: 1px !important;
         overflow: hidden;
     }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
 
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
     /* при работе с float */
     .clearfix::after {
         content: "";
@@ -115,18 +131,28 @@ export const GlobalStyle = createGlobalStyle `
     }
 
     .invalid {
-    color: #f93c00;
+        color: #f93c00;
     }
-    ${'' /* footer */}
 
-.footer__column-item {
-  margin-bottom: 5px;
-}
+    .footer__column-item {
+        margin-bottom: 5px;
+    }
 
-.container {
-  max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .open {
+        border-bottom-color: #ccc;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .open:after {
+        margin-top: 6px;
+        border-color: #000 #000 transparent transparent;
+    }
 
 `;

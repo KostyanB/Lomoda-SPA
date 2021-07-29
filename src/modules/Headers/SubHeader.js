@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { Context } from '../Functions/context';
 import { Container } from '../Styled/Container';
 import { HeadersWrapper } from './HeadersWrapper';
 import logoImg from '../../image/logo.svg';
@@ -56,17 +57,17 @@ const NavLogo = styled(NavItem)`
     -ms-grid-column-align: center;
         justify-self: center;
 `;
-// const SubheaderCart = styled.button`
-//     display: block;
-//     -ms-grid-column-align: end;
-//         justify-self: end;
-//     background-color: transparent;
-//     background-image: url(${cartImg});
-//     background-repeat: no-repeat;
-//     background-position: left;
-//     padding-left: 28px;
-//     border: none;
-// `;
+const SubheaderCart = styled.button`
+    display: block;
+    -ms-grid-column-align: end;
+        justify-self: end;
+    background-color: transparent;
+    background-image: url(${cartImg});
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 28px;
+    border: none;
+`;
 const Cart = styled(NavItem)`
     display: block;
     -ms-grid-column-align: end;
@@ -76,6 +77,9 @@ const Cart = styled(NavItem)`
 
 //--------------------------------------------------------------------
 export const SubHeader = () => {
+    const {
+        showCart: { setShowCart },
+    } = useContext(Context);
 
     return (
         <SubHeaderStyle>
@@ -119,8 +123,8 @@ export const SubHeader = () => {
                             }
                         }/>
                     </NavLogo>
-                    {/* <SubheaderCart>Корзина</SubheaderCart> */}
-                    <Cart>
+                    <SubheaderCart onClick={() => {setShowCart(true)}}>Корзина</SubheaderCart>
+                    {/* <Cart>
                         <NavLink  param={
                                 {
                                     hash: 'cart',
@@ -128,7 +132,7 @@ export const SubHeader = () => {
                                     text:  <><img src={cartImg} alt="Cart"/>Корзина</>
                                 }
                             }/>
-                    </Cart>
+                    </Cart> */}
                 </SubheaderWrapper>
             </Container>
         </SubHeaderStyle>

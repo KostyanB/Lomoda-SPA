@@ -90,7 +90,6 @@ export const GoodPrewiewCard = props => {
 
     const HandleGoodCard = idValue => {
         const good = responce.filter(item => (item.id === idValue) && item)[0];
-        // const title = `${good.name} "${good.brand}"`;
         setHash(idValue);
         checkShowPage('card');
         setPageTitle(`${good.name} "${good.brand}"`);

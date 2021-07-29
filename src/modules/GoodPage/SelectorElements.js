@@ -15,7 +15,6 @@ export const SelectWrapper = styled.div`
 `;
 
 export const GoodSelectBtn = styled.button`
-    /* display: block; */
     position: relative;
     padding: 8px 24px;
     text-align: left;
@@ -42,15 +41,5 @@ export const GoodSelectBtn = styled.button`
         -webkit-transition: border-color 0.2s ease-in-out, margin-top 0.2s ease-in-out;
         -o-transition: border-color 0.2s ease-in-out, margin-top 0.2s ease-in-out;
         transition: border-color 0.2s ease-in-out, margin-top 0.2s ease-in-out;
-    }
-`;
-
-export const GoodSelectOpenBtn = styled(GoodSelectBtn)`
-    border-bottom-color: #ccc;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    :after {
-        margin-top: 6px;
-        border-color: #000 #000 transparent transparent;
     }
 `;

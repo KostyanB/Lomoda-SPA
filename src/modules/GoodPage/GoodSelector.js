@@ -29,28 +29,32 @@ export const GoodSelector = props => {
         openSize: { openSizeSelector, setOpenSizeSelector, toggleSizeSelect },
         selectedColor: { selectColor },
         selectedSize: { selectSize },
-        } = useContext(ContextGoodCard);
+        btnColorStyle: { btnColorStyle, setBtnColorStyle },
+        btnSizeStyle: { btnSizeStyle, setBtnSizeStyle },
+    } = useContext(ContextGoodCard);
 
     const handleColor = () => {
         toggleColorSelect();
         setOpenSizeSelector(false);
+        setBtnColorStyle('open');
     };
     const handleSize = () => {
         toggleSizeSelect();
         setOpenColorSelector(false);
+        setBtnSizeStyle('open');
     };
 
     return (
         <>
         {(name === 'colorList') &&
             <ColorWrapper>
-                <GoodSelectBtn onClick={() => handleColor()}>{selectColor}</GoodSelectBtn>
+                <GoodSelectBtn className={btnColorStyle} key="colorBtn" onClick={() => handleColor()}>{selectColor}</GoodSelectBtn>
                 {openColorSelector && <SelectList items={param} name="colorsSelect"/>}
             </ColorWrapper>
         }
         {(name === 'sizeList') &&
             <SizesWrapper>
-                <GoodSelectBtn onClick={() => handleSize()}>{selectSize}</GoodSelectBtn>
+                <GoodSelectBtn className={btnSizeStyle} key="sizeBtn" onClick={() => handleSize()}>{selectSize}</GoodSelectBtn>
                 {openSizeSelector && <SelectList items={param} name="sizesSelect"/>}
             </SizesWrapper>
         }

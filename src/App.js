@@ -8,6 +8,7 @@ import { Footer } from './modules/Footer/Footer';
 import { PromoPage } from './modules/PromoPage/PromoPage';
 import { GoodsListPage } from './modules/GoodsListPage/GoodsListPage';
 import { GoodCard } from './modules/GoodPage/GoodCard';
+import { ModalCart } from './modules/CartModal/ModalCart';
 import { ErrorLoad, Preloader } from './modules/Styled/Preloader';
 import { useUserCity } from './modules/Hooks/useUserSity';
 import { useHash } from './modules/Hooks/useHash';
@@ -16,6 +17,7 @@ import { usePageName } from './modules/Hooks/usePageName';
 import { useShowPage } from './modules/Hooks/useShowPage';
 import { usePageTitle } from './modules/Hooks/usePageTitle';
 import { useSelectGood } from './modules/Hooks/useSelectGood';
+import { useShowCart } from './modules/Hooks/ModalCartHooks/useShowCart';
 
 
 function App() {
@@ -26,6 +28,7 @@ function App() {
   const pageShow = useShowPage();
   const pageTitle = usePageTitle();
   const selectedGood = useSelectGood()
+  const showCart = useShowCart();
 
   return (
     <Context.Provider value={{
@@ -36,6 +39,7 @@ function App() {
       pageShow,
       pageTitle,
       selectedGood,
+      showCart,
     }}>
     {dataBase.responce ?
       <>
@@ -43,19 +47,18 @@ function App() {
         <Header/>
         <main>
           <SubHeader/>
-          { (pageShow.showPage === 'promo') ?
-            <PromoPage/> : (pageShow.showPage === 'list') ?
-              <GoodsListPage/> : (pageShow.showPage === 'card') ?
-                <GoodCard/> : (pageShow.showPage === 'cart') ?
-                  <h2>Корзина</h2> :
-                    <ErrorLoad>Sorry, nework error. Please, reload page.</ErrorLoad>
-          }
+          {(pageShow.showPage === 'promo') && <PromoPage/>}
+          {(pageShow.showPage === 'list') && <GoodsListPage/>}
+          {(pageShow.showPage === 'card') && <GoodCard/>}
+          {(pageShow.showPage === 'error') && <ErrorLoad>Sorry, nework error. Please, reload page.</ErrorLoad>}
+
         </main>
+        <Footer/>
+        {showCart.showCart && <ModalCart/>}
       </> : dataBase.error ?
         <ErrorLoad>Sorry, nework error. We will fix it soon...</ErrorLoad> :
         <Preloader/>
     }
-    <Footer/>
     </Context.Provider>
   );
 }

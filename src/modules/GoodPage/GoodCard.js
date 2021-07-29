@@ -7,7 +7,8 @@ import { useOpenColorSelector } from '../Hooks/GoodPageHooks/useOpenColorSelecto
 import { useOpenSizeSelector } from '../Hooks/GoodPageHooks/useOpenSizeSelector';
 import { useSelectColor } from '../Hooks/GoodPageHooks/useSelectColor';
 import { useSelectSize } from '../Hooks/GoodPageHooks/useSelectSize';
-
+import { useBtnColorStyle } from '../Hooks/GoodPageHooks/useBtnColorStyle';
+import { useBtnSizeStyle } from '../Hooks/GoodPageHooks/useBtnSizeStyle';
 const GoodWrapper = styled(Container)`
     display: -webkit-box;
     display: -ms-flexbox;
@@ -117,13 +118,17 @@ export const GoodCard = () => {
     const openColor = useOpenColorSelector(),
         openSize = useOpenSizeSelector(),
         selectedColor = useSelectColor(),
-        selectedSize = useSelectSize();
+        selectedSize = useSelectSize(),
+        btnColorStyle = useBtnColorStyle(),
+        btnSizeStyle = useBtnSizeStyle();
     return (
         <ContextGoodCard.Provider value={{
             openColor,
             openSize,
             selectedColor,
             selectedSize,
+            btnColorStyle,
+            btnSizeStyle,
         }}>
             <section>
                 <GoodWrapper>
@@ -140,7 +145,6 @@ export const GoodCard = () => {
                         {sizes && <GoodSelector name="sizeList" param={sizes}/>}
                         <BuyButton>Добавить в корзину</BuyButton>
                     </GoodDescription>
-
                 </GoodWrapper>
             </section>
         </ContextGoodCard.Provider>
@@ -149,39 +153,3 @@ export const GoodCard = () => {
 
     );
 }
-
-// {color && <GoodSelector name="colorList" param={color} key={`color${id}`}/>}
-                    // {sizes && <GoodSelector name="sizeList" param={sizes} key={`size${id}`}/>}
-
-//         <section class="card-good">
-//             <div class="container card-good__wrapper">
-//                 <div class="card-good__image-wrapper">
-//                     <img class="card-good__image" src="" alt="">
-//                 </div>
-//                 <div class="card-good__description">
-//                     <h2 class="card-good__title-wrapper">
-//                         <p class="card-good__brand"></p>
-//                         <p class="card-good__title"></p>
-//                     </h2>
-//                     <p class="card-good__price"> ₽</p>
-
-//                     <div class="card-good__color-wrapper card-good__select__wrapper">
-//                         <button class="card-good__color card-good__select"></button>
-//                         <ul class="card-good__color-list card-good__select-list">
-//                         </ul>
-//                     </div>
-
-//                     <div class="card-good__sizes-wrapper card-good__select__wrapper">
-//                         <button class="card-good__sizes card-good__select">Выберите размер</button>
-//                         <ul class="card-good__sizes-list card-good__select-list">
-//                         </ul>
-//                     </div>
-
-//                     <button class="card-good__buy"></button>
-//                 </div>
-//             </div>
-//         </section>
-
-// .card-good__select__open + .card-good__select-list {
-//   display: block;
-// }

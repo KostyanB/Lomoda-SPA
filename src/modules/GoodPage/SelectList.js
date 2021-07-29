@@ -23,20 +23,24 @@ const Li = styled.li`
 
 export const SelectList = props => {
     const { items, name } = props;
-    const { openColor: { openColorSelector, setOpenColorSelector },
-        openSize: { openSizeSelector, setOpenSizeSelector },
+    const { openColor: { setOpenColorSelector },
+        openSize: { setOpenSizeSelector },
         selectedColor: { setSelectColor },
         selectedSize: { setSelectSize },
-        } = useContext(ContextGoodCard);
+        btnColorStyle: { setBtnColorStyle },
+        btnSizeStyle: { setBtnSizeStyle },
+    } = useContext(ContextGoodCard);
 
     const handleSelector = e => {
         if (name === 'colorsSelect') {
             setOpenColorSelector(false);
             setSelectColor(e.target.id);
+            setBtnColorStyle('');
         }
         if (name === 'sizesSelect') {
             setOpenSizeSelector(false);
             setSelectSize(e.target.id);
+            setBtnSizeStyle('');
         }
     };
 

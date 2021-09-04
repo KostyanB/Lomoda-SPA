@@ -91,34 +91,6 @@ export const GlobalStyle = createGlobalStyle `
         margin: 0;
     }
 
-    .visually-hidden {
-        position: absolute !important;
-        clip: rect(1px 1px 1px 1px);
-    /* IE6, IE7 */
-        clip: rect(1px, 1px, 1px, 1px);
-        padding: 0 !important;
-        border: 0 !important;
-        height: 1px !important;
-        width: 1px !important;
-        overflow: hidden;
-    }
-    @-webkit-keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
     /* при работе с float */
     .clearfix::after {
         content: "";

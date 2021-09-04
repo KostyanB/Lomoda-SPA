@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import { Context } from '../Functions/context';
 import { GoodPrewiewCard } from './GoodPreviewCard';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { selectGoods, selectGoodsLists } from '../store/goodsSlice';
+
+
 const GoodsListWrap = styled.ul`
     display: -ms-grid;
     display: grid;
@@ -25,9 +29,16 @@ const GoodsListWrap = styled.ul`
 
 export const GoodsList = () => {
     const {
-        dataBase: { menList, womenList, kidsList },
+        // dataBase: { menList, womenList, kidsList },
         hashSet: { hash }
     } = useContext(Context);
+
+    // const goods = useSelector(selectGoods);
+    const dispath = useDispatch();
+
+    const goods = useSelector(selectGoodsLists);
+    const { goodsList, menList, womenList, kidsList, categoryList } = goods;
+    console.log('categoryList: ', categoryList);
 
     const currentList = (hash === 'men') ? menList : (hash === 'women') ? womenList : kidsList;
 

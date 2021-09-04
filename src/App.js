@@ -18,6 +18,7 @@ import { useShowPage } from './modules/Hooks/useShowPage';
 import { usePageTitle } from './modules/Hooks/usePageTitle';
 import { useSelectGood } from './modules/Hooks/useSelectGood';
 import { useShowCart } from './modules/Hooks/ModalCartHooks/useShowCart';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 
 function App() {
@@ -45,14 +46,19 @@ function App() {
       <>
         <GlobalStyle/>
         <Header/>
-        <main>
+        {/* <main> */}
           <SubHeader/>
-          {(pageShow.showPage === 'promo') && <PromoPage/>}
+          {(pageShow.showPage === 'main') && <PromoPage/>}
           {(pageShow.showPage === 'list') && <GoodsListPage/>}
           {(pageShow.showPage === 'card') && <GoodCard/>}
           {(pageShow.showPage === 'error') && <ErrorLoad>Sorry, nework error. Please, reload page.</ErrorLoad>}
-
-        </main>
+          {/* <Router>
+            <Switch>
+              <Route path="/main" component={PromoPage}/>
+              <Route path="/goods" component={GoodsListPage}/>
+            </Switch>
+          </Router> */}
+        {/* </main> */}
         <Footer/>
         {showCart.showCart && <ModalCart/>}
       </> : dataBase.error ?

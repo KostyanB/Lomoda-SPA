@@ -2,7 +2,7 @@ import { useState } from 'react';
 // import { useHash } from './useHash';
 
 export const useShowPage = () => {
-    const [ showPage, setShowPage ] = useState('promo');
+    const [ showPage, setShowPage ] = useState('main');
     // const { hash, setHash} = useHash();
 
     // const checkShowPage = (hash) => {
@@ -20,7 +20,7 @@ export const useShowPage = () => {
     //     'promo', [])
 
     const checkShowPage = pageType => {
-        const newPageType = (pageType === 'main') ? 'promo' :
+        const newPageType = (pageType === 'main') ? 'main' :
             (['men', 'women', 'kids'].some(item => item === pageType)) ? 'list' :
                 (pageType === 'card') ? 'card' :
                     (pageType === 'cart') ? 'cart' :

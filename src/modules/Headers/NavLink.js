@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Context } from '../Functions/context';
 import styled from 'styled-components';
+// import { Link } from 'react-router-dom';
 
 const Link = styled.a`
     display: flex;
@@ -18,8 +19,8 @@ export const NavLink = props => {
     } = useContext(Context);
 
     const handleGoodsList = (valHash, namePage) => {
-        setHash(valHash);
-        // handleHash(valHash);
+        // setHash(valHash);
+        handleHash(valHash);
         setPageName(namePage)
         checkShowPage(valHash);
         setPageTitle(namePage);
@@ -27,5 +28,6 @@ export const NavLink = props => {
 
     return (
         <Link href={`#${hash}`} onClick={() => handleGoodsList(hash, name)}>{text}</Link>
+        // <Links to={`/${hash}`} onClick={() => handleGoodsList(hash, name)}>{text}</Links>
     );
 };

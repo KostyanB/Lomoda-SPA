@@ -6,6 +6,7 @@ import { HeadersWrapper } from './HeadersWrapper';
 import logoImg from '../../image/logo.svg';
 import cartImg from '../../image/cart.svg';
 import { NavLink } from './NavLink';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 const SubHeaderStyle = styled.section`
     min-height: 90px;
@@ -26,7 +27,7 @@ const SubheaderWrapper = styled(HeadersWrapper)`
         grid-template-columns: repeat(2, 1fr);
     }
 `;
-const SubheaderNavigation = styled.nav`
+const SubheaderNav = styled.nav`
     /* display: block; */
     @media (max-width: 768px) {
         -webkit-box-ordinal-group: 0;
@@ -37,7 +38,7 @@ const SubheaderNavigation = styled.nav`
         grid-column: 1 / 3;
     }
 `;
-const NavigationList = styled.ul`
+const NavList = styled.ul`
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -74,7 +75,51 @@ const Cart = styled(NavItem)`
         justify-self: end;
         /* align-items: center; */
 `;
-
+// nav elems
+const WomenNav = () => (
+    <NavItem>
+        <NavLink  param={
+            {
+                hash: 'women',
+                name: 'Женщинам',
+                text: 'Женщинам',
+            }
+        }/>
+    </NavItem>
+)
+const MenNav = () => (
+    <NavItem>
+        <NavLink  param={
+            {
+                hash: 'men',
+                name: 'Мужчинам',
+                text:  'Мужчинам',
+            }
+        }/>
+    </NavItem>
+)
+const KidsNav = () => (
+    <NavItem>
+        <NavLink  param={
+            {
+                hash: 'kids',
+                name: 'Детям',
+                text:  'Детям',
+            }
+        }/>
+    </NavItem>
+)
+const MainNav = () => (
+    <NavLogo>
+        <NavLink param={
+            {
+                hash: 'main',
+                name: 'Lomoda',
+                text: <img src={logoImg} alt="Компания Lomoda"/>,
+            }
+        }/>
+    </NavLogo>
+)
 //--------------------------------------------------------------------
 export const SubHeader = () => {
     const {
@@ -85,10 +130,10 @@ export const SubHeader = () => {
         <SubHeaderStyle>
             <Container>
                 <SubheaderWrapper>
-                    <SubheaderNavigation>
-                        <NavigationList>
-
-                            <NavItem><NavLink  param={
+                    {/* <Router> */}
+                    <SubheaderNav>
+                        <NavList>
+                            {/* <NavItem><NavLink  param={
                                 {
                                     hash: 'women',
                                     name: 'Женщинам',
@@ -110,11 +155,13 @@ export const SubHeader = () => {
                                     name: 'Детям',
                                     text:  'Детям'
                                 }
-                            }/></NavItem>
-
-                        </NavigationList>
-                    </SubheaderNavigation>
-                    <NavLogo>
+                            }/></NavItem> */}
+                            <WomenNav/>
+                            <MenNav/>
+                            <KidsNav/>
+                        </NavList>
+                    </SubheaderNav>
+                    {/* <NavLogo>
                         <NavLink param={
                             {
                                 hash: 'main',
@@ -122,7 +169,15 @@ export const SubHeader = () => {
                                 text: <img src={logoImg} alt="Компания Lomoda"/>
                             }
                         }/>
-                    </NavLogo>
+                    </NavLogo> */}
+                    <MainNav/>
+                    {/* <Switch>
+                        <Route path="/main"/>
+                        <Route exact path="/men"/>
+                        <Route path="/women"/>
+                        <Route path="/kids"/>
+                    </Switch>
+                    </Router> */}
                     <SubheaderCart onClick={() => {setShowCart(true)}}>Корзина</SubheaderCart>
                     {/* <Cart>
                         <NavLink  param={
@@ -133,6 +188,8 @@ export const SubHeader = () => {
                                 }
                             }/>
                     </Cart> */}
+
+
                 </SubheaderWrapper>
             </Container>
         </SubHeaderStyle>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Context, ContextGoodCard } from '../Functions/context';
 import { Container } from '../Styled/Container';
@@ -9,6 +9,10 @@ import { useSelectColor } from '../Hooks/GoodPageHooks/useSelectColor';
 import { useSelectSize } from '../Hooks/GoodPageHooks/useSelectSize';
 import { useBtnColorStyle } from '../Hooks/GoodPageHooks/useBtnColorStyle';
 import { useBtnSizeStyle } from '../Hooks/GoodPageHooks/useBtnSizeStyle';
+
+import { useSelector } from 'react-redux';
+import { selectedGood } from '../store/goodPageSlice';
+
 const GoodWrapper = styled(Container)`
     display: -webkit-box;
     display: -ms-flexbox;
@@ -107,13 +111,14 @@ const BuyButton = styled.button`
 `;
 
 export const GoodCard = () => {
-    const {
-        selectedGood: { selectGood },
+    // const {
+        // selectedGood: { selectGood },
         // hashSet: { hash },
         // dataBase: { responce },
-    } = useContext(Context);
+    // } = useContext(Context);
     // const good = responce.filter(item => (item.id === hash) && item)[0];
-    const { brand, color, cost, id, name, photo, sizes } = selectGood;
+    const selectGood = useSelector(selectedGood);
+    const { brand, color, cost, name, photo, sizes } = selectGood;
 
     const openColor = useOpenColorSelector(),
         openSize = useOpenSizeSelector(),

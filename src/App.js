@@ -1,5 +1,4 @@
 import React from 'react';
-// import styled from 'styled-components';
 import { Context } from './modules/Functions/context';
 import { GlobalStyle } from './modules/Styled/GlobalStyle';
 import { Header } from './modules/Headers/Header';
@@ -14,11 +13,10 @@ import { useUserCity } from './modules/Hooks/useUserSity';
 import { useHash } from './modules/Hooks/useHash';
 import { useFetch } from './modules/Hooks/useFetch';
 import { usePageName } from './modules/Hooks/usePageName';
-import { useShowPage } from './modules/Hooks/useShowPage';
 import { usePageTitle } from './modules/Hooks/usePageTitle';
 import { useSelectGood } from './modules/Hooks/useSelectGood';
 import { useShowCart } from './modules/Hooks/ModalCartHooks/useShowCart';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+// import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 
 function App() {
@@ -26,7 +24,6 @@ function App() {
   const hashSet = useHash();
   const pageNameSet = usePageName();
   const dataBase = useFetch();
-  const pageShow = useShowPage();
   const pageTitle = usePageTitle();
   const selectedGood = useSelectGood()
   const showCart = useShowCart();
@@ -37,7 +34,6 @@ function App() {
       hashSet,
       pageNameSet,
       dataBase,
-      pageShow,
       pageTitle,
       selectedGood,
       showCart,
@@ -48,10 +44,10 @@ function App() {
         <Header/>
         {/* <main> */}
           <SubHeader/>
-          {(pageShow.showPage === 'main') && <PromoPage/>}
-          {(pageShow.showPage === 'list') && <GoodsListPage/>}
-          {(pageShow.showPage === 'card') && <GoodCard/>}
-          {(pageShow.showPage === 'error') && <ErrorLoad>Sorry, nework error. Please, reload page.</ErrorLoad>}
+          {(hashSet.showPage === 'main') && <PromoPage/>}
+          {(hashSet.showPage === 'list') && <GoodsListPage/>}
+          {(hashSet.showPage === 'card') && <GoodCard/>}
+          {/* {(dataBase.error) && <ErrorLoad>Sorry, nework error. Please, reload page.</ErrorLoad>} */}
           {/* <Router>
             <Switch>
               <Route path="/main" component={PromoPage}/>

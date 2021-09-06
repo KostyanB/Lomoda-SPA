@@ -1,32 +1,31 @@
 import { useState, useEffect } from 'react';
 
 export const useHash = () => {
-    const [ hash, setHash ] = useState('main');
-    console.log('hash: ', hash);
+    const [ hash, setHash ] = useState();
     const [ showPage, setShowPage ] = useState('main');
 
-    // useEffect(() => setHash('main'), []);
+    const handleShowPage = value => {
+        const pageType = (value === 'main') ? 'main' :
+            (['men', 'women', 'kids'].some(item => item === value)) ? 'list' :
+                'card';
+        return pageType;
+    };
 
     const handleHash = value => {
         setHash(value);
         localStorage.setItem('lomoda-hash', value);
+        setShowPage(handleShowPage(value));
     };
 
-    useEffect(() => (localStorage.getItem('lomoda-hash')) ?
-        setHash(localStorage.getItem('lomoda-hash')) :
-            handleHash('main'), []);
+    useEffect(() => {
+        const localHash = localStorage.getItem('lomoda-hash');
+        if (localHash) {
+            setHash(localHash);
+            setShowPage(handleShowPage(localHash));
+        } else {
+            handleHash('main');
+        }
+    }, []);
 
-            const handleShowPage = pageType => {
-                const newPageType = (pageType === 'main') ? 'main' :
-                    (['men', 'women', 'kids'].some(item => item === pageType)) ? 'list' :
-                        (pageType === 'card') ? 'card' :
-                            (pageType === 'cart') ? 'cart' :
-                                'error';
-                // localStorage.setItem('lomoda-userpage', newPageType);
-                setShowPage(newPageType);
-            };
-
-
-
-    return { hash, setHash, handleHash, handleShowPage };
+    return { hash, setHash, handleHash, handleShowPage, showPage, setShowPage };
 }

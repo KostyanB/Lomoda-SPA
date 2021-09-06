@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import goodsReducer from './goodsSlice';
+import goodsListReducer from './goodsListSlice';
+import goodPageReducer from './goodPageSlice';
 
 export default configureStore({
     reducer: {
-        goods: goodsReducer,
+        goods: goodsListReducer,
+        good: goodPageReducer,
     },
 });

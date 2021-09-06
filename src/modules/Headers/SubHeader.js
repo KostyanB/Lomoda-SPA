@@ -6,7 +6,11 @@ import { HeadersWrapper } from './HeadersWrapper';
 import logoImg from '../../image/logo.svg';
 import cartImg from '../../image/cart.svg';
 import { NavLink } from './NavLink';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+// import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+
+import { useSelector } from 'react-redux';
+import { selectCategoryList } from '../store/goodsListSlice';
+
 
 const SubHeaderStyle = styled.section`
     min-height: 90px;
@@ -69,62 +73,23 @@ const SubheaderCart = styled.button`
     padding-left: 28px;
     border: none;
 `;
-const Cart = styled(NavItem)`
-    display: block;
-    -ms-grid-column-align: end;
-        justify-self: end;
-        /* align-items: center; */
-`;
-// nav elems
-const WomenNav = () => (
-    <NavItem>
-        <NavLink  param={
-            {
-                hash: 'women',
-                name: 'Женщинам',
-                text: 'Женщинам',
-            }
-        }/>
-    </NavItem>
-)
-const MenNav = () => (
-    <NavItem>
-        <NavLink  param={
-            {
-                hash: 'men',
-                name: 'Мужчинам',
-                text:  'Мужчинам',
-            }
-        }/>
-    </NavItem>
-)
-const KidsNav = () => (
-    <NavItem>
-        <NavLink  param={
-            {
-                hash: 'kids',
-                name: 'Детям',
-                text:  'Детям',
-            }
-        }/>
-    </NavItem>
-)
-const MainNav = () => (
-    <NavLogo>
-        <NavLink param={
-            {
-                hash: 'main',
-                name: 'Lomoda',
-                text: <img src={logoImg} alt="Компания Lomoda"/>,
-            }
-        }/>
-    </NavLogo>
-)
+
 //--------------------------------------------------------------------
 export const SubHeader = () => {
     const {
+        hashSet: { handleHash },
+        pageNameSet: { setPageName },
+        pageTitle: { setPageTitle },
         showCart: { setShowCart },
     } = useContext(Context);
+
+    const { nameList } = useSelector(selectCategoryList);
+
+    const handleGoodsList = (valHash, namePage) => {
+        handleHash(valHash);
+        setPageName(namePage)
+        setPageTitle(namePage);
+    };
 
     return (
         <SubHeaderStyle>
@@ -133,44 +98,26 @@ export const SubHeader = () => {
                     {/* <Router> */}
                     <SubheaderNav>
                         <NavList>
-                            {/* <NavItem><NavLink  param={
-                                {
-                                    hash: 'women',
-                                    name: 'Женщинам',
-                                    text: 'Женщинам'
-                                }
-                            }/></NavItem>
-
-                            <NavItem><NavLink  param={
-                                {
-                                    hash: 'men',
-                                    name: 'Мужчинам',
-                                    text:  'Мужчинам'
-                                }
-                            }/></NavItem>
-
-                            <NavItem><NavLink  param={
-                                {
-                                    hash: 'kids',
-                                    name: 'Детям',
-                                    text:  'Детям'
-                                }
-                            }/></NavItem> */}
-                            <WomenNav/>
-                            <MenNav/>
-                            <KidsNav/>
+                            {nameList.map(item => {
+                                return (
+                                    <NavItem key={item.category + item.catName}>
+                                        <NavLink handler={handleGoodsList}
+                                            hash={item.category}
+                                            name={item.catName}
+                                            text={item.catName}
+                                        />
+                                    </NavItem>
+                                );
+                            })}
                         </NavList>
                     </SubheaderNav>
-                    {/* <NavLogo>
-                        <NavLink param={
-                            {
-                                hash: 'main',
-                                name: 'Lomoda',
-                                text: <img src={logoImg} alt="Компания Lomoda"/>
-                            }
-                        }/>
-                    </NavLogo> */}
-                    <MainNav/>
+                    <NavLogo>
+                        <NavLink handler={handleGoodsList}
+                            hash="main"
+                            name="Lomoda"
+                            text={<img src={logoImg} alt="Компания Lomoda"/>}
+                        />
+                    </NavLogo>
                     {/* <Switch>
                         <Route path="/main"/>
                         <Route exact path="/men"/>
@@ -179,17 +126,6 @@ export const SubHeader = () => {
                     </Switch>
                     </Router> */}
                     <SubheaderCart onClick={() => {setShowCart(true)}}>Корзина</SubheaderCart>
-                    {/* <Cart>
-                        <NavLink  param={
-                                {
-                                    hash: 'cart',
-                                    name: 'Корзина',
-                                    text:  <><img src={cartImg} alt="Cart"/>Корзина</>
-                                }
-                            }/>
-                    </Cart> */}
-
-
                 </SubheaderWrapper>
             </Container>
         </SubHeaderStyle>

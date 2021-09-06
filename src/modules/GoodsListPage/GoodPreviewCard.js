@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { Context } from '../Functions/context';
+// import { Context } from '../Functions/context';
 import more from '../../image/more.svg';
 
+// import { useSelector, useDispatch } from 'react-redux';
+// import { selectGoodsLists } from '../store/goodsListSlice';
 
 const ItemWrap = styled.li`
     -ms-grid-column-align: center;
@@ -77,34 +79,34 @@ const Preview = props => <img className="good__img" src={`db/goods-image/${props
 // const ImgLink = props => <a className="good__link-img" href={`#${props.id}`}><Preview src={props.src} alt={props.alt}/></a>;
 
 // ----------------------------------------------------------------
-export const GoodPrewiewCard = props => {
-    const { brand, cost, id, name, preview, sizes } = props.param;
+export const GoodPrewiewCard = ({ handle, param }) => {
+    const { brand, cost, id, name, preview, sizes } = param;
 
-    const {
-        hashSet: { setHash },
-        pageShow: { checkShowPage },
-        pageTitle: { setPageTitle },
-        dataBase: { responce },
-        selectedGood: { setSelectGood }
-    } = useContext(Context);
+    // const {
+    //     hashSet: { handleHash },
+    //     pageTitle: { setPageTitle },
+    //     // dataBase: { responce },
+    //     selectedGood: { setSelectGood }
+    // } = useContext(Context);
 
-    const HandleGoodCard = idValue => {
-        const good = responce.filter(item => (item.id === idValue) && item)[0];
-        setHash(idValue);
-        checkShowPage('card');
-        setPageTitle(`${good.name} "${good.brand}"`);
-        setSelectGood(good);
-    };
+    // const dispath = useDispatch();
+    // const { goodsList } = useSelector(selectGoodsLists);
+
+    // const handleGoodCard = idValue => {
+    //     // const good = responce.filter(item => (item.id === idValue) && item)[0];
+    //     const good = goodsList.filter(item => (item.id === idValue) && item)[0];
+
+    //     handleHash(idValue);
+    //     setPageTitle(`${good.name} "${good.brand}"`);
+    //     setSelectGood(good);
+    // };
 
     return (
         <ItemWrap>
             <Good>
-                <a className="good__link-img" href={`#${id}`} onClick={() => HandleGoodCard(id)}>
+                <a href={`#${id}`} onClick={() => handle(id)}>
                     <Preview src={preview} alt={name}/>
                 </a>
-                {/* <a className="good__link-img" href={`#${props.id}`}>
-                    <img className="good__img" src={`db/goods-image/${props.preview}`} alt={props.name}/>
-                </a> */}
                 <GoodDescription>
                     <GoodPrice>{cost} &#8381;</GoodPrice>
                     <GoodTitle>{brand}<TitleSpan>/ {name}</TitleSpan>
@@ -112,7 +114,7 @@ export const GoodPrewiewCard = props => {
                     {(sizes) &&
                         <GoodSizes>Размеры (RUS): <span>{sizes.join(' ')}</span></GoodSizes>
                     }
-                    <GoodLink href={`#${id}`} onClick={() => HandleGoodCard(id)}>Подробнее</GoodLink>
+                    <GoodLink href={`#${id}`} onClick={() => handle(id)}>Подробнее</GoodLink>
                 </GoodDescription>
             </Good>
         </ItemWrap>

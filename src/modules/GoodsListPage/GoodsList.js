@@ -4,7 +4,8 @@ import { Context } from '../Functions/context';
 import { GoodPrewiewCard } from './GoodPreviewCard';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { selectGoods, selectGoodsLists } from '../store/goodsSlice';
+import { selectGoods, selectGoodsLists, selectGoodsObj, selectCategoryList } from '../store/goodsListSlice';
+import { goodPageSelect, selectedGood } from '../store/goodPageSlice';
 
 
 const GoodsListWrap = styled.ul`
@@ -30,32 +31,37 @@ const GoodsListWrap = styled.ul`
 export const GoodsList = () => {
     const {
         // dataBase: { menList, womenList, kidsList },
-        hashSet: { hash }
+        hashSet: { hash, handleHash },
+        pageTitle: { setPageTitle },
+        // dataBase: { responce },
+        selectedGood: { setSelectGood }
     } = useContext(Context);
 
-    // const goods = useSelector(selectGoods);
     const dispath = useDispatch();
+    // const { goodsList, menList, womenList, kidsList, categoryList } = useSelector(selectGoodsLists);
+    const goods = useSelector(selectGoods);
+    const goodsObj = useSelector(selectGoodsObj);
 
-    const goods = useSelector(selectGoodsLists);
-    const { goodsList, menList, womenList, kidsList, categoryList } = goods;
-    console.log('categoryList: ', categoryList);
+    // const currentList = (hash === 'men') ? menList : (hash === 'women') ? womenList : kidsList;
 
-    const currentList = (hash === 'men') ? menList : (hash === 'women') ? womenList : kidsList;
+    const currentList = useSelector(selectGoods).filter(item => item.category === hash);
+
+    const handleGoodCard = id => {
+        // const good = responce.filter(item => (item.id === idValue) && item)[0];
+        // const good = goodsList.filter(item => (item.id === idValue) && item)[0];
+        const good = goodsObj[id];
+        handleHash(id);
+        setPageTitle(`${good.name} "${good.brand}"`);
+        setSelectGood(good);
+        dispath(goodPageSelect(good));
+    };
 
     return (
         <GoodsListWrap>
             {currentList.map(item => (
-                <GoodPrewiewCard key={item.id} param={
-                    {
-                        id: item.id,
-                        category: item.category,
-                        brand: item.brand,
-                        name: item.name,
-                        cost: item.cost,
-                        preview: item.preview,
-                        sizes: item.sizes,
-                    }
-                }/>
+                <GoodPrewiewCard key={item.id}
+                    handle={handleGoodCard}
+                    param={item}/>
             ))}
         </GoodsListWrap>
     );

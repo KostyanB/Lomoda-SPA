@@ -8,9 +8,12 @@ import cartImg from '../../image/cart.svg';
 import { NavLink } from './NavLink';
 // import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
-import { selectCategoryList } from '../store/goodsListSlice';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { selectNameList } from '../store/goodsListSlice';
+import { setPageTitle } from '../store/pageTitleSlice';
+import { setSelectedGood } from '../store/goodPageSlice';
+import { setPageName } from '../store/pageNameSlice';
+import { setShowCart } from '../store/showCartSlice';
 
 const SubHeaderStyle = styled.section`
     min-height: 90px;
@@ -55,6 +58,9 @@ const NavList = styled.ul`
 `;
 const NavItem = styled.li`
     cursor: pointer;
+    :hover {
+        color: #2796FF;
+    }
 `;
 const NavLogo = styled(NavItem)`
     display: block;
@@ -72,24 +78,28 @@ const SubheaderCart = styled.button`
     background-position: left;
     padding-left: 28px;
     border: none;
+    :hover {
+        color: #2796FF;
+    }
 `;
 
 //--------------------------------------------------------------------
 export const SubHeader = () => {
     const {
         hashSet: { handleHash },
-        pageNameSet: { setPageName },
-        pageTitle: { setPageTitle },
-        showCart: { setShowCart },
     } = useContext(Context);
 
-    const { nameList } = useSelector(selectCategoryList);
+    const dispatch = useDispatch();
+    const nameList = useSelector(selectNameList);
 
     const handleGoodsList = (valHash, namePage) => {
         handleHash(valHash);
-        setPageName(namePage)
-        setPageTitle(namePage);
+        dispatch(setPageName(namePage));
+        dispatch(setPageTitle(`Lomoda ${namePage}`));
+        dispatch(setSelectedGood({}));
     };
+
+    const openCart = () => dispatch(setShowCart(true));
 
     return (
         <SubHeaderStyle>
@@ -98,13 +108,13 @@ export const SubHeader = () => {
                     {/* <Router> */}
                     <SubheaderNav>
                         <NavList>
-                            {nameList.map(item => {
+                            {Object.entries(nameList).map(item => {
                                 return (
-                                    <NavItem key={item.category + item.catName}>
+                                    <NavItem key={item[0] + item[1]}>
                                         <NavLink handler={handleGoodsList}
-                                            hash={item.category}
-                                            name={item.catName}
-                                            text={item.catName}
+                                            hash={item[0]}
+                                            name={item[1]}
+                                            text={item[1]}
                                         />
                                     </NavItem>
                                 );
@@ -114,7 +124,6 @@ export const SubHeader = () => {
                     <NavLogo>
                         <NavLink handler={handleGoodsList}
                             hash="main"
-                            name="Lomoda"
                             text={<img src={logoImg} alt="Компания Lomoda"/>}
                         />
                     </NavLogo>
@@ -125,7 +134,7 @@ export const SubHeader = () => {
                         <Route path="/kids"/>
                     </Switch>
                     </Router> */}
-                    <SubheaderCart onClick={() => {setShowCart(true)}}>Корзина</SubheaderCart>
+                    <SubheaderCart onClick={openCart}>Корзина</SubheaderCart>
                 </SubheaderWrapper>
             </Container>
         </SubHeaderStyle>

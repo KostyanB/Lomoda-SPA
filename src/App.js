@@ -1,44 +1,70 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Context } from './modules/Functions/context';
 import { GlobalStyle } from './modules/Styled/GlobalStyle';
+// components
 import { Header } from './modules/Headers/Header';
 import { SubHeader } from './modules/Headers/SubHeader';
 import { Footer } from './modules/Footer/Footer';
 import { PromoPage } from './modules/PromoPage/PromoPage';
 import { GoodsListPage } from './modules/GoodsListPage/GoodsListPage';
-import { GoodCard } from './modules/GoodPage/GoodCard';
+import { GoodPage } from './modules/GoodPage/GoodPage';
 import { ModalCart } from './modules/CartModal/ModalCart';
 import { ErrorLoad, Preloader } from './modules/Styled/Preloader';
-import { useUserCity } from './modules/Hooks/useUserSity';
+// hooks
 import { useHash } from './modules/Hooks/useHash';
-import { useFetch } from './modules/Hooks/useFetch';
-import { usePageName } from './modules/Hooks/usePageName';
-import { usePageTitle } from './modules/Hooks/usePageTitle';
-import { useSelectGood } from './modules/Hooks/useSelectGood';
-import { useShowCart } from './modules/Hooks/ModalCartHooks/useShowCart';
 // import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+// store
+import { fetchGoods, selectNameList, selectGoodsObj } from './modules/store/goodsListSlice';
+import { selectPageTitle, setPageTitle } from './modules/store/pageTitleSlice';
+import { setSelectedGood } from './modules/store/goodPageSlice';
+import { selectShowCart } from './modules/store/showCartSlice';
+import { setUserCity } from './modules/store/userCitySlice';
 
 
 function App() {
-  const cityOfUserSet = useUserCity();
   const hashSet = useHash();
-  const pageNameSet = usePageName();
-  const dataBase = useFetch();
-  const pageTitle = usePageTitle();
-  const selectedGood = useSelectGood()
-  const showCart = useShowCart();
+
+  const dispatch = useDispatch(),
+    { status, error } = useSelector(state => state.goods),
+    nameList = useSelector(selectNameList),
+    goodsObj = useSelector(selectGoodsObj),
+    pageTitle = useSelector(selectPageTitle),
+    showCart = useSelector(selectShowCart);
+
+
+  useEffect(() => {
+    dispatch(fetchGoods());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const city = (localStorage.getItem('lomoda-location'));
+    (city) && dispatch(setUserCity(city));
+  }, [dispatch]);
+
+  useEffect(() => {
+    const localHash = localStorage.getItem('lomoda-hash');
+    const categoryList = Object.keys(nameList);
+
+    if (localHash && categoryList.length > 0) {
+      if (!categoryList.includes(localHash) && localHash !== 'main') {
+        const good = goodsObj[localHash];
+        dispatch(setSelectedGood(good));
+        dispatch(setPageTitle(`${good.name} "${good.brand}"`));
+      } else if (localHash === 'main') {
+        dispatch(setPageTitle('Lomoda'));
+      } else if (categoryList.includes(localHash)) {
+        dispatch(setPageTitle(`Lomoda ${nameList[localHash]}`));
+      }
+    }
+    document.title = pageTitle;
+  }, [ dispatch, goodsObj, nameList, pageTitle]);
 
   return (
     <Context.Provider value={{
-      cityOfUserSet,
       hashSet,
-      pageNameSet,
-      dataBase,
-      pageTitle,
-      selectedGood,
-      showCart,
     }}>
-    {dataBase.responce ?
+    {(status === 'success') &&
       <>
         <GlobalStyle/>
         <Header/>
@@ -46,8 +72,7 @@ function App() {
           <SubHeader/>
           {(hashSet.showPage === 'main') && <PromoPage/>}
           {(hashSet.showPage === 'list') && <GoodsListPage/>}
-          {(hashSet.showPage === 'card') && <GoodCard/>}
-          {/* {(dataBase.error) && <ErrorLoad>Sorry, nework error. Please, reload page.</ErrorLoad>} */}
+          {(hashSet.showPage === 'card') && <GoodPage/>}
           {/* <Router>
             <Switch>
               <Route path="/main" component={PromoPage}/>
@@ -56,11 +81,11 @@ function App() {
           </Router> */}
         {/* </main> */}
         <Footer/>
-        {showCart.showCart && <ModalCart/>}
-      </> : dataBase.error ?
-        <ErrorLoad>Sorry, nework error. We will fix it soon...</ErrorLoad> :
-        <Preloader/>
+        {showCart && <ModalCart/>}
+      </>
     }
+    {(status === 'loading') && <Preloader/>}
+    {error && <ErrorLoad>Sorry, nework error. We will fix it soon...</ErrorLoad>}
     </Context.Provider>
   );
 }

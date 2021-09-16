@@ -1,61 +1,65 @@
-import { createSlice } from "@reduxjs/toolkit";
-import goodArr from '../../db/db.json';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+export const fetchGoods = createAsyncThunk (
+    'goods/fetchGoods',
+    async function(_, {rejectWithValue}) {
+        try {
+            const response = await fetch('../../db/db.json');
+            if(!response) throw new Error('Server error');
+            const result = await response.json();
+            return result;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
 
 export const goodsListSlice = createSlice({
     name: 'goods',
     initialState: {
-        goods: goodArr
+        goods: [],
+        status: null,
+        error: null,
+        goodsObj: {},
+        nameList: {},
     },
     reducers: {
-
+    },
+    extraReducers: {
+        [ fetchGoods.pending ]: state => {
+            state.status = 'loading';
+            state.error = null;
+        },
+        [ fetchGoods.fulfilled ]: (state, action) => {
+            const data = action.payload;
+            state.status = 'success';
+            state.goods = data;
+            // data-> ассоциативный массив товаров
+            state.goodsObj = data.reduce((acc, item) => {
+                acc[item['id']] = item;
+                return acc;
+            }, {});
+            // коллекция - список категорий
+            const list = new Set();
+            data.forEach(item => list.add(item.category));
+            list.forEach(item => {
+                const good = data.find(elem => elem.category === item);
+                state.nameList[good.category] = good.catName;
+            });
+        },
+        [ fetchGoods.rejected ]: (state, action) => {
+            state.status = 'rejected';
+            state.error = action.payload;
+        }
     }
 });
 
 export const {} = goodsListSlice.actions;
 // массив товаров
 export const selectGoods = state => state.goods.goods;
-//массив товаров преобразован в объект с ключами id
-//для быстрого поиска
-export const selectGoodsObj = state => state.goods.goods.reduce((acc, item) => {
-    acc[item['id']] = item;
-    return acc;
-}, {});
-//лист категорий - массив объектов с уникальными категориями - именами
-export const selectCategoryList = state => {
-    const goodsList = state.goods.goods;
-    // коллекция категорий
-    const categoryList = new Set();
-    goodsList.forEach(item => categoryList.add(item.category));
-
-    const nameList = [];
-    //перебор коллекции - поиск товара по категории - запись
-    // в лист категория и ее название
-    categoryList.forEach(item => {
-        const good = goodsList.find(elem => elem.category === item)
-        nameList.push({
-            category: good.category,
-            catName: good.catName
-        })
-    })
-    return { categoryList, nameList };
-};
+// ассоциативный массив товаров
+export const selectGoodsObj = state => state.goods.goodsObj;
+// массив категорий и их имен
+export const selectNameList = state => state.goods.nameList;
 
 export default goodsListSlice.reducer;
-
-
-
-export const selectGoodsLists =  state => {
-    const goodsList = state.goods.goods,
-        menList = goodsList.filter(el => el.category === 'men'),
-        womenList = goodsList.filter(el => el.category === 'women'),
-        kidsList = goodsList.filter(el => el.category === 'kids'),
-        goodsObj = goodsList.reduce((acc, item) => {
-            acc[item['id']] = item;
-            return acc;
-        }, {});
-        // console.log('goodsObj: ', goodsObj);
-    const categoryList = new Set();
-    goodsList.forEach(item => categoryList.add(item.category))
-
-    return { goodsList, menList, womenList, kidsList, goodsObj, categoryList };
-};

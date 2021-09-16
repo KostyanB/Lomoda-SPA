@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 // import { Context } from '../Functions/context';
 import more from '../../image/more.svg';
@@ -76,30 +76,9 @@ const GoodLink = styled.a`
 
 const Preview = props => <img className="good__img" src={`db/goods-image/${props.src}`} alt={props.alt}/>;
 
-// const ImgLink = props => <a className="good__link-img" href={`#${props.id}`}><Preview src={props.src} alt={props.alt}/></a>;
-
 // ----------------------------------------------------------------
 export const GoodPrewiewCard = ({ handle, param }) => {
     const { brand, cost, id, name, preview, sizes } = param;
-
-    // const {
-    //     hashSet: { handleHash },
-    //     pageTitle: { setPageTitle },
-    //     // dataBase: { responce },
-    //     selectedGood: { setSelectGood }
-    // } = useContext(Context);
-
-    // const dispath = useDispatch();
-    // const { goodsList } = useSelector(selectGoodsLists);
-
-    // const handleGoodCard = idValue => {
-    //     // const good = responce.filter(item => (item.id === idValue) && item)[0];
-    //     const good = goodsList.filter(item => (item.id === idValue) && item)[0];
-
-    //     handleHash(idValue);
-    //     setPageTitle(`${good.name} "${good.brand}"`);
-    //     setSelectGood(good);
-    // };
 
     return (
         <ItemWrap>

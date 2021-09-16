@@ -36,7 +36,7 @@ const HeaderTitle = styled.p`
     -o-transition: background-color 0.3s;
     transition: background-color 0.3s;
     :hover {
-    background-color: #0060d2;
+        color: #2796FF;
     }
     @media (max-width: 768px) {
         display: none;

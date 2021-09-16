@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { Context, ContextGoodCard } from '../Functions/context';
+import { ContextGoodCard } from '../Functions/context';
 import { ColGroup, CartTh } from './CartElements';
 import { CartListGoods } from './CartListGoods';
+
+import { useDispatch } from 'react-redux';
+import { setShowCart } from '../store/showCartSlice';
 
 const CartOverlay = styled.div`
     display: -webkit-box;
@@ -117,11 +120,10 @@ const CartCellWrapper = styled.div`
 `;
 
 export const ModalCart = () => {
-    const {
-        showCart: { setShowCart },
-    } = useContext(Context);
 
-    const closeCart = e => (e.target.id === 'overlay' || e.target.id === 'close-btn') && setShowCart(false);
+    const dispatch = useDispatch();
+
+    const closeCart = e => (e.target.id === 'overlay' || e.target.id === 'close-btn') && dispatch(setShowCart(false));
 
     return (
         <CartOverlay onClick={closeCart} id="overlay">

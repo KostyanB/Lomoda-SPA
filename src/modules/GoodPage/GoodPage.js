@@ -1,14 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Context, ContextGoodCard } from '../Functions/context';
+import { ContextGoodCard } from '../Functions/context';
 import { Container } from '../Styled/Container';
 import { GoodSelector } from './GoodSelector';
-import { useOpenColorSelector } from '../Hooks/GoodPageHooks/useOpenColorSelector';
-import { useOpenSizeSelector } from '../Hooks/GoodPageHooks/useOpenSizeSelector';
-import { useSelectColor } from '../Hooks/GoodPageHooks/useSelectColor';
-import { useSelectSize } from '../Hooks/GoodPageHooks/useSelectSize';
-import { useBtnColorStyle } from '../Hooks/GoodPageHooks/useBtnColorStyle';
-import { useBtnSizeStyle } from '../Hooks/GoodPageHooks/useBtnSizeStyle';
+import { useOpenSelector } from '../Hooks/GoodPageHooks/useOpenSelector';
+import { useBtnStyle } from '../Hooks/GoodPageHooks/useBtnStyle';
 
 import { useSelector } from 'react-redux';
 import { selectedGood } from '../store/goodPageSlice';
@@ -86,6 +82,7 @@ const GoodPrice = styled.p`
 const BuyButton = styled.button`
     width: 100%;
     height: 48px;
+    box-sizing: border-box;
     border: none;
     padding: 10px 15px;
     border-radius: 3px;
@@ -96,6 +93,14 @@ const BuyButton = styled.button`
     font-weight: 700;
     font-size: 16px;
     margin-bottom: 32px;
+    :hover {
+        color: #2796FF;
+        background-color: #fff;
+    }
+    :active {
+        -webkit-box-shadow: 0 2px 14px 0 rgba(39, 150, 255, 0.8);
+            box-shadow: 0 2px 14px 0 rgba(39, 150, 255, 0.8);
+    }
     @media (max-width: 968px) {
         -ms-grid-column: 1;
         -ms-grid-column-span: 2;
@@ -110,32 +115,19 @@ const BuyButton = styled.button`
     }
 `;
 
-export const GoodCard = () => {
-    // const {
-        // selectedGood: { selectGood },
-        // hashSet: { hash },
-        // dataBase: { responce },
-    // } = useContext(Context);
-    // const good = responce.filter(item => (item.id === hash) && item)[0];
+export const GoodPage = () => {
+
     const selectGood = useSelector(selectedGood);
     const { brand, color, cost, name, photo, sizes } = selectGood;
 
-    const openColor = useOpenColorSelector(),
-        openSize = useOpenSizeSelector(),
-        selectedColor = useSelectColor(),
-        selectedSize = useSelectSize(),
-        btnColorStyle = useBtnColorStyle(),
-        btnSizeStyle = useBtnSizeStyle();
+    const openSelector = useOpenSelector(),
+        btnStyle = useBtnStyle();
+
     return (
         <ContextGoodCard.Provider value={{
-            openColor,
-            openSize,
-            selectedColor,
-            selectedSize,
-            btnColorStyle,
-            btnSizeStyle,
+            openSelector,
+            btnStyle,
         }}>
-            <section>
                 <GoodWrapper>
                     <ImageWrapper>
                         <img className="card-good__image" src={`db/goods-image/${photo}`} alt={name}/>
@@ -151,10 +143,6 @@ export const GoodCard = () => {
                         <BuyButton>Добавить в корзину</BuyButton>
                     </GoodDescription>
                 </GoodWrapper>
-            </section>
         </ContextGoodCard.Provider>
-
-
-
     );
 }

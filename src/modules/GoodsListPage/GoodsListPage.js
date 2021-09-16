@@ -1,8 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Context } from '../Functions/context';
 import { Container } from '../Styled/Container';
 import { GoodsList } from './GoodsList';
+
+import { useSelector } from 'react-redux';
+import { selectPageName } from '../store/pageNameSlice';
+
 
 const Goods = styled.section`
     padding-bottom: 30px;
@@ -15,9 +18,8 @@ const GoodsTitle = styled.h2`
 `;
 
 export const GoodsListPage = () => {
-    const {
-        pageNameSet: { pageName },
-    } = useContext(Context);
+
+    const pageName = useSelector(selectPageName)
 
     return (
         <Goods>

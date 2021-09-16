@@ -42,4 +42,8 @@ export const GoodSelectBtn = styled.button`
         -o-transition: border-color 0.2s ease-in-out, margin-top 0.2s ease-in-out;
         transition: border-color 0.2s ease-in-out, margin-top 0.2s ease-in-out;
     }
+    :hover {
+        color: #0060d2;
+        cursor: pointer;
+    }
 `;

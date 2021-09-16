@@ -61,6 +61,9 @@ const ColumnIcons = styled.ul`
 `;
 const ColumnItem = styled.li`
     margin-bottom: 5px;
+    :hover {
+        color: #2796FF;
+    }
 `;
 const Item = props => (
     <ColumnItem><a  href="#top">{props.name}</a></ColumnItem>

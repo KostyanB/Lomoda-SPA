@@ -2,6 +2,9 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { ContextGoodCard } from '../Functions/context';
 
+import { useDispatch} from 'react-redux';
+import { setSelectedColor, setSelectedSize } from '../store/selectedGoodSlice';
+
 const List = styled.ul`
     display: block;
     position: absolute;
@@ -21,25 +24,23 @@ const Li = styled.li`
     }
 `;
 
-export const SelectList = props => {
-    const { items, name } = props;
-    const { openColor: { setOpenColorSelector },
-        openSize: { setOpenSizeSelector },
-        selectedColor: { setSelectColor },
-        selectedSize: { setSelectSize },
-        btnColorStyle: { setBtnColorStyle },
-        btnSizeStyle: { setBtnSizeStyle },
+export const SelectList = ({ items, name }) => {
+
+    const { openSelector: { setOpenColorSelector, setOpenSizeSelector },
+        btnStyle: { setBtnColorStyle, setBtnSizeStyle },
     } = useContext(ContextGoodCard);
+
+    const dispatch = useDispatch();
 
     const handleSelector = e => {
         if (name === 'colorsSelect') {
             setOpenColorSelector(false);
-            setSelectColor(e.target.id);
+            dispatch(setSelectedColor(e.target.id));
             setBtnColorStyle('');
         }
         if (name === 'sizesSelect') {
             setOpenSizeSelector(false);
-            setSelectSize(e.target.id);
+            dispatch(setSelectedSize(e.target.id));
             setBtnSizeStyle('');
         }
     };

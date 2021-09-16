@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { SelectWrapper, GoodSelectBtn, GoodSelectOpenBtn } from './SelectorElements';
+import { SelectWrapper, GoodSelectBtn } from './SelectorElements';
 import { SelectList } from './SelectList';
 import { ContextGoodCard } from '../Functions/context';
+
+import { useSelector, useDispatch} from 'react-redux';
+import { setSelectedColor, setSelectedSize, selectSelectedColor, selectSelectedSize } from '../store/selectedGoodSlice';
 
 const ColorWrapper = styled(SelectWrapper)`
     margin-bottom: 15px;
@@ -21,41 +24,61 @@ const SizesWrapper = styled(SelectWrapper)`
     }
 `;
 
+export const GoodSelector = ({ name, param }) => {
 
-export const GoodSelector = props => {
-    const { name, param } = props;
-
-    const { openColor: { openColorSelector, setOpenColorSelector, toggleColorSelect },
-        openSize: { openSizeSelector, setOpenSizeSelector, toggleSizeSelect },
-        selectedColor: { selectColor },
-        selectedSize: { selectSize },
-        btnColorStyle: { btnColorStyle, setBtnColorStyle },
-        btnSizeStyle: { btnSizeStyle, setBtnSizeStyle },
+    const { openSelector: {
+            openColorSelector, setOpenColorSelector, toggleColorSelect,
+            openSizeSelector, setOpenSizeSelector, toggleSizeSelect
+        },
+        btnStyle: {
+            toggleBtnColor, toggleBtnSize, btnColorStyle,
+            setBtnColorStyle, btnSizeStyle, setBtnSizeStyle
+        }
     } = useContext(ContextGoodCard);
+
+    const selectedColor = useSelector(selectSelectedColor),
+        selectedSize = useSelector(selectSelectedSize);
 
     const handleColor = () => {
         toggleColorSelect();
         setOpenSizeSelector(false);
-        setBtnColorStyle('open');
+        toggleBtnColor();
+        setBtnSizeStyle('');
+
     };
     const handleSize = () => {
         toggleSizeSelect();
         setOpenColorSelector(false);
-        setBtnSizeStyle('open');
+        toggleBtnSize();
+        setBtnColorStyle('');
     };
 
     return (
         <>
         {(name === 'colorList') &&
             <ColorWrapper>
-                <GoodSelectBtn className={btnColorStyle} key="colorBtn" onClick={() => handleColor()}>{selectColor}</GoodSelectBtn>
-                {openColorSelector && <SelectList items={param} name="colorsSelect"/>}
+                <GoodSelectBtn className={btnColorStyle}
+                    key="colorBtn"
+                    onClick={() => handleColor()}
+                >
+                    {selectedColor}
+                </GoodSelectBtn>
+                {openColorSelector &&
+                    <SelectList items={param} name="colorsSelect" />
+                }
             </ColorWrapper>
         }
         {(name === 'sizeList') &&
             <SizesWrapper>
-                <GoodSelectBtn className={btnSizeStyle} key="sizeBtn" onClick={() => handleSize()}>{selectSize}</GoodSelectBtn>
-                {openSizeSelector && <SelectList items={param} name="sizesSelect"/>}
+                <GoodSelectBtn className={btnSizeStyle}
+                    key="sizeBtn"
+                    onClick={() => handleSize()}
+                >
+                    {selectedSize}
+                </GoodSelectBtn>
+                {openSizeSelector &&
+                    <SelectList items={param} name="sizesSelect" />
+                }
             </SizesWrapper>
         }
         </>

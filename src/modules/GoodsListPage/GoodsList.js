@@ -4,9 +4,9 @@ import { Context } from '../Functions/context';
 import { GoodPrewiewCard } from './GoodPreviewCard';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { selectGoods, selectGoodsLists, selectGoodsObj, selectCategoryList } from '../store/goodsListSlice';
-import { goodPageSelect, selectedGood } from '../store/goodPageSlice';
-
+import { selectGoods, selectGoodsObj } from '../store/goodsListSlice';
+import { setSelectedGood } from '../store/goodPageSlice';
+import { setPageTitle } from '../store/pageTitleSlice';
 
 const GoodsListWrap = styled.ul`
     display: -ms-grid;
@@ -30,30 +30,19 @@ const GoodsListWrap = styled.ul`
 
 export const GoodsList = () => {
     const {
-        // dataBase: { menList, womenList, kidsList },
         hashSet: { hash, handleHash },
-        pageTitle: { setPageTitle },
-        // dataBase: { responce },
-        selectedGood: { setSelectGood }
     } = useContext(Context);
 
-    const dispath = useDispatch();
-    // const { goodsList, menList, womenList, kidsList, categoryList } = useSelector(selectGoodsLists);
-    const goods = useSelector(selectGoods);
+    const dispatch = useDispatch();
     const goodsObj = useSelector(selectGoodsObj);
-
-    // const currentList = (hash === 'men') ? menList : (hash === 'women') ? womenList : kidsList;
 
     const currentList = useSelector(selectGoods).filter(item => item.category === hash);
 
-    const handleGoodCard = id => {
-        // const good = responce.filter(item => (item.id === idValue) && item)[0];
-        // const good = goodsList.filter(item => (item.id === idValue) && item)[0];
-        const good = goodsObj[id];
-        handleHash(id);
-        setPageTitle(`${good.name} "${good.brand}"`);
-        setSelectGood(good);
-        dispath(goodPageSelect(good));
+    const handleGoodCard = val => {
+        const good = goodsObj[val];
+        handleHash(val);
+        dispatch(setPageTitle(`${good.name} "${good.brand}"`))
+        dispatch(setSelectedGood(good));
     };
 
     return (

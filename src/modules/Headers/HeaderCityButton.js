@@ -1,6 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Context } from '../Functions/context';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { promptCity, selectUserCity } from '../store/userCitySlice';
 
 const CityButton = styled.button`
 background-color: transparent;
@@ -12,7 +14,7 @@ height: 100%;
 -o-transition: background-color 0.3s;
 transition: background-color 0.3s;
 :hover {
-    background-color: #0060d2;
+    color: #2796FF;
 }
 @media (max-width: 480px) {
     margin: 0 auto;
@@ -20,9 +22,13 @@ transition: background-color 0.3s;
 `;
 
 export const HeaderCityButton = () => {
-    const { cityOfUserSet: { userCity, promptCity} } = useContext(Context);
+
+    const dispatch = useDispatch(),
+        userCity = useSelector(selectUserCity);
+
+    const getCity = () => dispatch(promptCity());
 
     return (
-        <CityButton onClick={() => promptCity()}>{userCity}</CityButton>
+        <CityButton onClick={getCity}>{userCity}</CityButton>
     );
 }

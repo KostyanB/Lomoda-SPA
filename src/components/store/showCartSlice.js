@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { initialStates } from "./initialStates";
 
 export const showCartSlice = createSlice({
     name: 'showCart',
     initialState: {
-        showCart: false
+        showCart: initialStates.initShowCart
     },
     reducers: {
         setShowCart: (state, data) => {

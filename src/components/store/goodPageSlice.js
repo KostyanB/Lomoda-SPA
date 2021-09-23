@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { initialStates } from "./initialStates";
 
 export const goodPageSlice = createSlice({
     name: 'good',
     initialState: {
-        good: {}
+        good: initialStates.initGood
     },
     reducers: {
         setSelectedGood: (state, data) => {

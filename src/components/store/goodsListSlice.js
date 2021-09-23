@@ -1,4 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { initialStates } from './initialStates';
+
+const { initGoods, initStatus, initError, initGoodsObj, initNameList } = initialStates;
 
 export const fetchGoods = createAsyncThunk (
     'goods/fetchGoods',
@@ -17,11 +20,11 @@ export const fetchGoods = createAsyncThunk (
 export const goodsListSlice = createSlice({
     name: 'goods',
     initialState: {
-        goods: [],
-        status: null,
-        error: null,
-        goodsObj: {},
-        nameList: {},
+        goods: initGoods,
+        status: initStatus,
+        error: initError,
+        goodsObj: initGoodsObj,
+        nameList: initNameList,
     },
     reducers: {
     },

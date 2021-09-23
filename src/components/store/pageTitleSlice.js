@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-const initialPageTitle = 'Lomoda';
+import { initialStates } from "./initialStates";
 
 export const pageTitleSlice = createSlice({
     name: 'pageTitle',
     initialState: {
-        pageTitle: initialPageTitle
+        pageTitle: initialStates.initPageTitle
     },
     reducers: {
         setPageTitle: (state, data) => {

@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { initialStates } from './initialStates';
+import { setLocationStorage } from '../Functions/handleStorage';
 
 export const userCitySlice = createSlice({
     name: 'userCity',
     initialState: {
-        userCity: 'Ваш город?'
+        userCity: initialStates.initUserCity
     },
     reducers: {
         setUserCity: (state, data) => {
@@ -12,7 +14,7 @@ export const userCitySlice = createSlice({
         promptCity: (state) => {
             const newCity = prompt('Укажите Ваш город');
             if (newCity) {
-                localStorage.setItem('lomoda-location', newCity);
+                setLocationStorage(newCity);
                 state.userCity = newCity;
             }
         }

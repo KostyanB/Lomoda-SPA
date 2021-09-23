@@ -5,7 +5,7 @@ import { SelectList } from './SelectList';
 import { ContextGoodCard } from '../Functions/context';
 
 import { useSelector, useDispatch} from 'react-redux';
-import { setSelectedColor, setSelectedSize, selectSelectedColor, selectSelectedSize } from '../store/selectedGoodSlice';
+import { setSelectedColor, setSelectedSize, selectSelectedColor, selectSelectedSize } from '../store/selectedParamSlice';
 
 const ColorWrapper = styled(SelectWrapper)`
     margin-bottom: 15px;

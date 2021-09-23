@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-// import { Context } from '../Functions/context';
 import more from '../../image/more.svg';
-
-// import { useSelector, useDispatch } from 'react-redux';
-// import { selectGoodsLists } from '../store/goodsListSlice';
+import { Preview } from './Preview';
+import { Link } from 'react-router-dom';
 
 const ItemWrap = styled.li`
     -ms-grid-column-align: center;
@@ -62,19 +60,17 @@ const GoodSizes = styled.p`
     color: #888;
     text-align: left;
 `;
-const GoodLink = styled.a`
-    -ms-flex-item-align: end;
-        -ms-grid-row-align: end;
-        align-self: end;
-    background-image: url(${more});
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: left;
-    margin: 0 auto;
-    padding-left: 20px;
-`;
-
-const Preview = props => <img className="good__img" src={`db/goods-image/${props.src}`} alt={props.alt}/>;
+// const GoodLink = styled.a`
+//     -ms-flex-item-align: end;
+//         -ms-grid-row-align: end;
+//         align-self: end;
+//     background-image: url(${more});
+//     background-size: contain;
+//     background-repeat: no-repeat;
+//     background-position: left;
+//     margin: 0 auto;
+//     padding-left: 20px;
+// `;
 
 // ----------------------------------------------------------------
 export const GoodPrewiewCard = ({ handle, param }) => {
@@ -83,9 +79,14 @@ export const GoodPrewiewCard = ({ handle, param }) => {
     return (
         <ItemWrap>
             <Good>
-                <a href={`#${id}`} onClick={() => handle(id)}>
+                <Link to={`/card/${id}`}
+                    onClick={() => handle(id)}
+                >
                     <Preview src={preview} alt={name}/>
-                </a>
+                </Link>
+                {/* <a href={`#${id}`} onClick={() => handle(id)}>
+                    <Preview src={preview} alt={name}/>
+                </a> */}
                 <GoodDescription>
                     <GoodPrice>{cost} &#8381;</GoodPrice>
                     <GoodTitle>{brand}<TitleSpan>/ {name}</TitleSpan>
@@ -93,7 +94,13 @@ export const GoodPrewiewCard = ({ handle, param }) => {
                     {(sizes) &&
                         <GoodSizes>Размеры (RUS): <span>{sizes.join(' ')}</span></GoodSizes>
                     }
-                    <GoodLink href={`#${id}`} onClick={() => handle(id)}>Подробнее</GoodLink>
+                    {/* <GoodLink href={`#${id}`} onClick={() => handle(id)}>Подробнее</GoodLink> */}
+                    <Link to={`/card/${id}`}
+                        className="good-link"
+                        onClick={() => handle(id)}
+                    >
+                        Подробнее
+                    </Link>
                 </GoodDescription>
             </Good>
         </ItemWrap>

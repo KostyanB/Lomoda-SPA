@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ContextGoodCard } from '../Functions/context';
 
 import { useDispatch} from 'react-redux';
-import { setSelectedColor, setSelectedSize } from '../store/selectedGoodSlice';
+import { setSelectedColor, setSelectedSize } from '../store/selectedParamSlice';
 
 const List = styled.ul`
     display: block;

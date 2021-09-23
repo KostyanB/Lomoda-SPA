@@ -1,13 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import './good-page.scss';
 import { ContextGoodCard } from '../Functions/context';
 import { Container } from '../Styled/Container';
 import { GoodSelector } from './GoodSelector';
 import { useOpenSelector } from '../Hooks/GoodPageHooks/useOpenSelector';
 import { useBtnStyle } from '../Hooks/GoodPageHooks/useBtnStyle';
 
+import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectedGood } from '../store/goodPageSlice';
+// import { selectedGood } from '../store/goodPageSlice';
+import { selectGoodsObj } from '../store/goodsListSlice';
 
 const GoodWrapper = styled(Container)`
     display: -webkit-box;
@@ -117,8 +120,13 @@ const BuyButton = styled.button`
 
 export const GoodPage = () => {
 
-    const selectGood = useSelector(selectedGood);
+    // const selectGood = useSelector(selectedGood);
+    // const { brand, color, cost, name, photo, sizes } = selectGood;
+
+    const { good } = useParams();
+    const selectGood = useSelector(selectGoodsObj)[good];
     const { brand, color, cost, name, photo, sizes } = selectGood;
+    console.log('photo: ', photo);
 
     const openSelector = useOpenSelector(),
         btnStyle = useBtnStyle();
@@ -130,7 +138,7 @@ export const GoodPage = () => {
         }}>
                 <GoodWrapper>
                     <ImageWrapper>
-                        <img className="card-good__image" src={`db/goods-image/${photo}`} alt={name}/>
+                        <img className="card-good__image" src={`../../db/goods-image/${photo}`} alt={name}/>
                     </ImageWrapper>
                     <GoodDescription>
                         <GoodTitleWrapper>

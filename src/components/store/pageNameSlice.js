@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { initialStates } from "./initialStates";
 
 export const pageNameSlice = createSlice({
     name: 'pageName',
     initialState: {
-        pageName: ''
+        pageName: initialStates.initPageName
     },
     reducers: {
         setPageName: (state, data) => {

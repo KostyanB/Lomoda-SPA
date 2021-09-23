@@ -1,12 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Context } from '../Functions/context';
+import './subHeader.scss';
+// import { Context } from '../Functions/context';
 import { Container } from '../Styled/Container';
-import { HeadersWrapper } from './HeadersWrapper';
+import { HeadersWrapper } from '../Headers/HeadersWrapper';
 import logoImg from '../../image/logo.svg';
 import cartImg from '../../image/cart.svg';
-import { NavLink } from './NavLink';
-// import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+// import { NavLink } from './NavLink';
+import { Link } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { selectNameList } from '../store/goodsListSlice';
@@ -14,6 +15,7 @@ import { setPageTitle } from '../store/pageTitleSlice';
 import { setSelectedGood } from '../store/goodPageSlice';
 import { setPageName } from '../store/pageNameSlice';
 import { setShowCart } from '../store/showCartSlice';
+import { setHash, setShowPage } from '../store/hashSlice';
 
 const SubHeaderStyle = styled.section`
     min-height: 90px;
@@ -85,17 +87,15 @@ const SubheaderCart = styled.button`
 
 //--------------------------------------------------------------------
 export const SubHeader = () => {
-    const {
-        hashSet: { handleHash },
-    } = useContext(Context);
 
     const dispatch = useDispatch();
     const nameList = useSelector(selectNameList);
 
-    const handleGoodsList = (valHash, namePage) => {
-        handleHash(valHash);
-        dispatch(setPageName(namePage));
-        dispatch(setPageTitle(`Lomoda ${namePage}`));
+    const handleGoodsList = (valHash, pageName, pageType) => {
+        dispatch(setHash(valHash));
+        dispatch(setShowPage(pageType));
+        dispatch(setPageName(pageName));
+        dispatch(setPageTitle(`Lomoda ${pageName}`));
         dispatch(setSelectedGood({}));
     };
 
@@ -111,21 +111,35 @@ export const SubHeader = () => {
                             {Object.entries(nameList).map(item => {
                                 return (
                                     <NavItem key={item[0] + item[1]}>
-                                        <NavLink handler={handleGoodsList}
+                                        <Link to={`/goods/${item[0]}`}
+                                            className="nav-link"
+                                            onClick={() => handleGoodsList(item[0], item[1], 'goods')}
+                                        >
+                                            {item[1]}
+                                        </Link>
+                                        {/* <NavLink handler={handleGoodsList}
                                             hash={item[0]}
                                             name={item[1]}
                                             text={item[1]}
-                                        />
+                                            page="goods"
+                                        /> */}
                                     </NavItem>
                                 );
                             })}
                         </NavList>
                     </SubheaderNav>
                     <NavLogo>
-                        <NavLink handler={handleGoodsList}
-                            hash="main"
+                        <Link to="/"
+                            className="nav-link"
+                            onClick={() => handleGoodsList('main', '', 'main')}
+                        >
+                            <img src={logoImg} alt="Компания Lomoda"/>
+                        </Link>
+                        {/* <NavLink handler={handleGoodsList}
+                            hash=""
                             text={<img src={logoImg} alt="Компания Lomoda"/>}
-                        />
+                            page="main"
+                        /> */}
                     </NavLogo>
                     {/* <Switch>
                         <Route path="/main"/>
@@ -134,7 +148,9 @@ export const SubHeader = () => {
                         <Route path="/kids"/>
                     </Switch>
                     </Router> */}
-                    <SubheaderCart onClick={openCart}>Корзина</SubheaderCart>
+                    <SubheaderCart onClick={openCart}>
+                        Корзина
+                    </SubheaderCart>
                 </SubheaderWrapper>
             </Container>
         </SubHeaderStyle>

@@ -1,0 +1,16 @@
+export const initialStates = {
+    initGoods: [],
+    initGoodsObj: {},
+    initNameList: {},
+    initGood: {},
+    initStatus: null,
+    initError: null,
+    initHash: 'main',
+    initShowPage: 'main',
+    initUserCity: 'Ваш город?',
+    initPageName: '',
+    initPageTitle: 'Lomoda',
+    initSelectedColor: 'Выберите цвет',
+    initSelectedSize: 'Выберите размер',
+    initShowCart: false,
+};

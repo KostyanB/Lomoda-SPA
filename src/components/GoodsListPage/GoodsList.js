@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Context } from '../Functions/context';
 import { GoodPrewiewCard } from './GoodPreviewCard';
 
+import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectGoods, selectGoodsObj } from '../store/goodsListSlice';
+import { selectHash, setHash, setShowPage } from '../store/hashSlice';
 import { setSelectedGood } from '../store/goodPageSlice';
 import { setPageTitle } from '../store/pageTitleSlice';
 
@@ -29,18 +30,20 @@ const GoodsListWrap = styled.ul`
 `;
 
 export const GoodsList = () => {
-    const {
-        hashSet: { hash, handleHash },
-    } = useContext(Context);
 
     const dispatch = useDispatch();
     const goodsObj = useSelector(selectGoodsObj);
+    const hash = useSelector(selectHash);
+    const {list} = useParams();
+    console.log('hash1: ', list);
 
-    const currentList = useSelector(selectGoods).filter(item => item.category === hash);
+    const currentList = useSelector(selectGoods).filter(item => item.category === list);
+    console.log('currentList: ', currentList);
 
     const handleGoodCard = val => {
         const good = goodsObj[val];
-        handleHash(val);
+        dispatch(setHash(val));
+        dispatch(setShowPage('card'));
         dispatch(setPageTitle(`${good.name} "${good.brand}"`))
         dispatch(setSelectedGood(good));
     };

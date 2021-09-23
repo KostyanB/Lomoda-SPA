@@ -1,0 +1,3 @@
+If use "create-react-app", add packgages:
+
+npm i react-dom react-router-dom react-redux redux @reduxjs/toolkit styled-components node-sass@4.14

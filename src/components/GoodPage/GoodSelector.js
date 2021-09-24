@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+// component
 import { SelectWrapper, GoodSelectBtn } from './SelectorElements';
 import { SelectList } from './SelectList';
 import { ContextGoodCard } from '../Functions/context';
-
-import { useSelector, useDispatch} from 'react-redux';
-import { setSelectedColor, setSelectedSize, selectSelectedColor, selectSelectedSize } from '../store/selectedParamSlice';
+//store
+import { selectSelectedColor, selectSelectedSize } from '../store/selectedParamSlice';
 
 const ColorWrapper = styled(SelectWrapper)`
     margin-bottom: 15px;
@@ -33,7 +34,7 @@ export const GoodSelector = ({ name, param }) => {
         btnStyle: {
             toggleBtnColor, toggleBtnSize, btnColorStyle,
             setBtnColorStyle, btnSizeStyle, setBtnSizeStyle
-        }
+        },
     } = useContext(ContextGoodCard);
 
     const selectedColor = useSelector(selectSelectedColor),
@@ -44,7 +45,6 @@ export const GoodSelector = ({ name, param }) => {
         setOpenSizeSelector(false);
         toggleBtnColor();
         setBtnSizeStyle('');
-
     };
     const handleSize = () => {
         toggleSizeSelect();
@@ -57,28 +57,18 @@ export const GoodSelector = ({ name, param }) => {
         <>
         {(name === 'colorList') &&
             <ColorWrapper>
-                <GoodSelectBtn className={btnColorStyle}
-                    key="colorBtn"
-                    onClick={() => handleColor()}
-                >
+                <GoodSelectBtn className={btnColorStyle} key="colorBtn" onClick={() => handleColor()}>
                     {selectedColor}
                 </GoodSelectBtn>
-                {openColorSelector &&
-                    <SelectList items={param} name="colorsSelect" />
-                }
+                {openColorSelector && <SelectList items={param} name="colorsSelect"/>}
             </ColorWrapper>
         }
         {(name === 'sizeList') &&
             <SizesWrapper>
-                <GoodSelectBtn className={btnSizeStyle}
-                    key="sizeBtn"
-                    onClick={() => handleSize()}
-                >
+                <GoodSelectBtn className={btnSizeStyle} key="sizeBtn" onClick={() => handleSize()}>
                     {selectedSize}
                 </GoodSelectBtn>
-                {openSizeSelector &&
-                    <SelectList items={param} name="sizesSelect" />
-                }
+                {openSizeSelector && <SelectList items={param} name="sizesSelect"/>}
             </SizesWrapper>
         }
         </>

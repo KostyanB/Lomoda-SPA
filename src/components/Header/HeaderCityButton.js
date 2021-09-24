@@ -7,7 +7,7 @@ import { promptCity, selectUserCity } from '../store/userCitySlice';
 const CityButton = styled.button`
 background-color: transparent;
 color: inherit;
-padding: 0 12px;
+/* padding: 0 12px; */
 border: none;
 height: 100%;
 -webkit-transition: background-color 0.3s;

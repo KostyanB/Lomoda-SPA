@@ -2,13 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { GoodPrewiewCard } from './GoodPreviewCard';
 
-import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectGoods, selectGoodsObj } from '../store/goodsListSlice';
-import { selectHash, setHash, setShowPage } from '../store/hashSlice';
-import { setSelectedGood } from '../store/goodPageSlice';
-import { setPageTitle } from '../store/pageTitleSlice';
-
 const GoodsListWrap = styled.ul`
     display: -ms-grid;
     display: grid;
@@ -29,30 +22,12 @@ const GoodsListWrap = styled.ul`
     }
 `;
 
-export const GoodsList = () => {
-
-    const dispatch = useDispatch();
-    const goodsObj = useSelector(selectGoodsObj);
-    const hash = useSelector(selectHash);
-    const {list} = useParams();
-    console.log('hash1: ', list);
-
-    const currentList = useSelector(selectGoods).filter(item => item.category === list);
-    console.log('currentList: ', currentList);
-
-    const handleGoodCard = val => {
-        const good = goodsObj[val];
-        dispatch(setHash(val));
-        dispatch(setShowPage('card'));
-        dispatch(setPageTitle(`${good.name} "${good.brand}"`))
-        dispatch(setSelectedGood(good));
-    };
+export const GoodsList = ({ currentList }) => {
 
     return (
         <GoodsListWrap>
             {currentList.map(item => (
                 <GoodPrewiewCard key={item.id}
-                    handle={handleGoodCard}
                     param={item}/>
             ))}
         </GoodsListWrap>

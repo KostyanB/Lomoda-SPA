@@ -1,18 +1,27 @@
-import React from 'react';
-import styled from 'styled-components';
 import './good-page.scss';
-import { ContextGoodCard } from '../Functions/context';
-import { Container } from '../Styled/Container';
-import { GoodSelector } from './GoodSelector';
-import { useOpenSelector } from '../Hooks/GoodPageHooks/useOpenSelector';
-import { useBtnStyle } from '../Hooks/GoodPageHooks/useBtnStyle';
-
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-// import { selectedGood } from '../store/goodPageSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { ContextGoodCard } from '../Functions/context';
+// components
+import { Container } from '../Styled/Container';
+import Page404 from '../Page404/Page404';
+import { GoodImage } from './GoodImage';
+import { GoodTitle } from './GoodTitle';
+import { GoodPrice } from './GoodPrice';
+import { GoodSelector } from './GoodSelector';
+import { BuyButton } from './BuyButton';
+// hooks
+import { useOpenSelector } from '../Hooks/useOpenSelector';
+import { useBtnStyle } from '../Hooks/useBtnStyle';
+// store
 import { selectGoodsObj } from '../store/goodsListSlice';
+import { setPageTitle } from '../store/pageTitleSlice';
+import { resetSelectors } from '../store/selectedParamSlice';
+import { checkDisableBuy, setColorInit, setSizeInit } from '../store/buyButtonSlice';
 
-const GoodWrapper = styled(Container)`
+const Wrapper = styled(Container)`
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -25,10 +34,7 @@ const GoodWrapper = styled(Container)`
             flex-wrap: wrap;
     }
 `;
-const ImageWrapper = styled.div`
-    max-width: 750px;
-`;
-const GoodDescription = styled.div`
+const Description = styled.div`
     -webkit-box-flex: 1;
         -ms-flex-positive: 1;
             flex-grow: 1;
@@ -40,117 +46,61 @@ const GoodDescription = styled.div`
         display: grid;
         gap: 20px;
     }
-`;
-const GoodTitleWrapper  = styled.h2`
-    margin-bottom: 15px;
-    @media (max-width: 968px) {
-    -ms-grid-column: 1;
-    -ms-grid-column-span: 1;
-    grid-column: 1/2;
-    -ms-grid-row: 1;
-    -ms-grid-row-span: 1;
-    grid-row: 1/2;
-    }
     @media (max-width: 520px) {
-        grid-column: auto;
-        grid-row: auto;
+        display: -ms-grid;
+        display: grid;
+        gap: 10px;
+        grid-template-columns: repeat(2, 1fr);
     }
-`;
-const GoodTitle = styled.p`
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 16px;
-`;
-const GoodBrand = styled.p`
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 32px;
-    margin-bottom: 15px;
-`;
-const GoodPrice = styled.p`
-    margin-bottom: 30px;
-    @media (max-width: 968px) {
-        -ms-grid-column: 2;
-        -ms-grid-column-span: 1;
-        grid-column: 2/3;
-        -ms-grid-row: 1;
-        -ms-grid-row-span: 1;
-        grid-row: 1/2;
-    }
-    @media (max-width: 520px) {
-        grid-column: auto;
-        grid-row: auto;
-    }
-`;
-const BuyButton = styled.button`
-    width: 100%;
-    height: 48px;
-    box-sizing: border-box;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 3px;
-    color: #fff;
-    background-color: #2796FF;
-    -webkit-box-shadow: 0 2px 8px 0 rgba(39, 150, 255, 0.6);
-            box-shadow: 0 2px 8px 0 rgba(39, 150, 255, 0.6);
-    font-weight: 700;
-    font-size: 16px;
-    margin-bottom: 32px;
-    :hover {
-        color: #2796FF;
-        background-color: #fff;
-    }
-    :active {
-        -webkit-box-shadow: 0 2px 14px 0 rgba(39, 150, 255, 0.8);
-            box-shadow: 0 2px 14px 0 rgba(39, 150, 255, 0.8);
-    }
-    @media (max-width: 968px) {
-        -ms-grid-column: 1;
-        -ms-grid-column-span: 2;
-        grid-column: 1/3;
-        -ms-grid-row: 3;
-        -ms-grid-row-span: 1;
-        grid-row: 3/4;
-    }
-    @media (max-width: 520px) {
-        grid-column: auto;
-        grid-row: auto;
-    }
+
 `;
 
-export const GoodPage = () => {
+const GoodPage = () => {
 
-    // const selectGood = useSelector(selectedGood);
-    // const { brand, color, cost, name, photo, sizes } = selectGood;
-
+    const dispatch = useDispatch();
     const { good } = useParams();
     const selectGood = useSelector(selectGoodsObj)[good];
-    const { brand, color, cost, name, photo, sizes } = selectGood;
-    console.log('photo: ', photo);
 
+    // хуки стилей селекторов
     const openSelector = useOpenSelector(),
         btnStyle = useBtnStyle();
+
+    // утановка window.title
+    useEffect(() => {
+        const pageTitle = selectGood ? `${selectGood.name} "${selectGood.brand}"` : 'Lomoda';
+        dispatch(setPageTitle(pageTitle));
+    }, [dispatch, selectGood]);
+
+    // вкл/откл кнопки
+    useEffect(() => {
+        // если sizes|color undefined -> ставим флаги true для вкл кнопки
+        (selectGood.color === undefined) ? dispatch(setColorInit(true)) : dispatch(setColorInit(false));
+        (selectGood.sizes === undefined) ? dispatch(setSizeInit(true)) : dispatch(setSizeInit(false));
+        // проверяем состояние кнопки
+        dispatch(checkDisableBuy());
+        // сброс селекторов
+        dispatch(resetSelectors());
+    }, [dispatch, selectGood]);
 
     return (
         <ContextGoodCard.Provider value={{
             openSelector,
             btnStyle,
         }}>
-                <GoodWrapper>
-                    <ImageWrapper>
-                        <img className="card-good__image" src={`../../db/goods-image/${photo}`} alt={name}/>
-                    </ImageWrapper>
-                    <GoodDescription>
-                        <GoodTitleWrapper>
-                            <GoodBrand>{brand}</GoodBrand>
-                            <GoodTitle>{name}</GoodTitle>
-                        </GoodTitleWrapper>
-                        <GoodPrice>{cost} ₽</GoodPrice>
-                        {color && <GoodSelector name="colorList" param={color}/>}
-                        {sizes && <GoodSelector name="sizeList" param={sizes}/>}
-                        <BuyButton>Добавить в корзину</BuyButton>
-                    </GoodDescription>
-                </GoodWrapper>
+            {(selectGood === undefined) ?
+                <Page404/> :
+                <Wrapper>
+                    <GoodImage photo={selectGood.photo} name={selectGood.name}/>
+                    <Description>
+                        <GoodTitle brand={selectGood.brand} name={selectGood.name}/>
+                        <GoodPrice cost={selectGood.cost}/>
+                        {selectGood.color && <GoodSelector name="colorList" param={selectGood.color}/>}
+                        {selectGood.sizes && <GoodSelector name="sizeList" param={selectGood.sizes}/>}
+                        <BuyButton/>
+                    </Description>
+                </Wrapper>
+            }
         </ContextGoodCard.Provider>
     );
-}
+};
+export default GoodPage;

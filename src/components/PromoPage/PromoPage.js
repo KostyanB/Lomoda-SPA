@@ -1,72 +1,161 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+// elements
 import { Container } from '../Styled/Container';
 import { PromoImage } from './PromoImage';
-import { PromoItemBig, PromoItemSmall } from './PromoItems';
+// images
 import beach from '../../image/beach.jpg';
 import sport from '../../image/sport.jpg';
 import umbrella from '../../image/umbrella.jpg';
 import premium from '../../image/premium.jpg';
 import sneakers from '../../image/sneakers.jpg';
 import child from '../../image/child.jpg';
+// store
+import { setPageTitle } from '../store/pageTitleSlice';
 
 const PromoBlock = styled.ul`
     display: -ms-grid;
     display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 16px;
     margin-bottom: 16px;
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+    }
+
+    @media (max-width: 550px) {
+        grid-template-columns: 1fr;
+    }
 `;
-const PromoDirectItemBig = styled(PromoItemBig)`
+const DirectItemBig = styled.li`
     -ms-grid-column: 1;
     -ms-grid-column-span: 2;
-    grid-column: 1/3;
+        grid-column: 1/3;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 2;
+        grid-row: 1/3;
+
+    @media (max-width: 550px) {
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 2;
+            grid-column: 1/3;
+        -ms-grid-row: 1;
+        -ms-grid-row-span: 1;
+            grid-row: 1/2;
+    }
 `;
-const PromoReverseItemBig = styled(PromoItemBig)`
+const ReverseItemBig = styled.li`
     -ms-grid-column: 2;
     -ms-grid-column-span: 2;
-    grid-column: 2/4;
+        grid-column: 2/4;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 2;
+        grid-row: 1/3;
+
     @media (max-width: 768px) {
         -ms-grid-column: 1;
         -ms-grid-column-span: 2;
-        grid-column: 1/3;
+            grid-column: 1/3;
+    }
+
+    @media (max-width: 550px) {
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 2;
+            grid-column: 1/3;
+        -ms-grid-row: 1;
+        -ms-grid-row-span: 1;
+            grid-row: 1/2;
     }
 `;
-const PromoDirectItemSmall = styled(PromoItemSmall)`
+const DirectItemSmall = styled.li`
     -ms-grid-column: 3;
     -ms-grid-column-span: 1;
-    grid-column: 3/4;
+        grid-column: 3/4;
+
+    @media (max-width: 768px) {
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 1;
+            grid-column: 1/2;
+        :nth-child(odd) {
+            -ms-grid-column: 2;
+            -ms-grid-column-span: 1;
+                grid-column: 2/3;
+        }
+    }
+    @media (max-width: 550px) {
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 2;
+            grid-column: 1/3;
+        :nth-child(odd) {
+            -ms-grid-column: 1;
+            -ms-grid-column-span: 2;
+                grid-column: 1/3;
+        }
+    }
 `;
-const PromoReverseItemSmall = styled(PromoItemSmall)`
+const ReverseItemSmall = styled.li`
     -ms-grid-column: 1;
     -ms-grid-column-span: 1;
-    grid-column: 1/2;
+        grid-column: 1/2;
+
+    @media (max-width: 768px) {
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 1;
+        grid-column: 1/2;
+        :nth-child(odd) {
+            -ms-grid-column: 2;
+            -ms-grid-column-span: 1;
+            grid-column: 2/3;
+        }
+    }
+
+    @media (max-width: 550px) {
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 2;
+        grid-column: 1/3;
+        :nth-child(odd) {
+            -ms-grid-column: 1;
+            -ms-grid-column-span: 2;
+            grid-column: 1/3;
+        }
+    }
 `;
 
-export const PromoPage = () => (
-    <section className="promo">
+const PromoPage = () => {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => dispatch(setPageTitle('Lomoda')));
+
+    return (
         <Container>
             <PromoBlock>
-                <PromoDirectItemBig>
+                <DirectItemBig>
                     <PromoImage src={beach} alt="beach"/>
-                </PromoDirectItemBig>
-                <PromoDirectItemSmall>
+                </DirectItemBig>
+                <DirectItemSmall>
                     <PromoImage src={sport} alt="sport"/>
-                </PromoDirectItemSmall>
-                <PromoDirectItemSmall>
+                </DirectItemSmall>
+                <DirectItemSmall>
                     <PromoImage src={umbrella} alt="umbrella"/>
-                </PromoDirectItemSmall>
+                </DirectItemSmall>
             </PromoBlock>
             <PromoBlock>
-                <PromoReverseItemBig>
+                <ReverseItemBig>
                     <PromoImage src={premium} alt="premium"/>
-                </PromoReverseItemBig>
-                <PromoReverseItemSmall>
+                </ReverseItemBig>
+                <ReverseItemSmall>
                     <PromoImage src={sneakers} alt="sneakers"/>
-                </PromoReverseItemSmall>
-                <PromoReverseItemSmall>
+                </ReverseItemSmall>
+                <ReverseItemSmall>
                     <PromoImage src={child} alt="child"/>
-                </PromoReverseItemSmall>
+                </ReverseItemSmall>
             </PromoBlock>
         </Container>
-    </section>
-)
+    );
+}
+export default PromoPage;

@@ -39,8 +39,6 @@ const Columns = styled(Container)`
             grid-template-columns: 1fr;
     }
 `;
-// const Column = props => <div class={props.name}></div>;
-
 const ColumnTitle = styled.h3`
     margin-bottom: 10px;
 `;
@@ -161,7 +159,7 @@ const HsIcon = styled(AppIcon)`
     background-image: url(${hsImg});
 `;
 
-export const Footer = () => {
+const Footer = () => {
 
     return (
         <FooterStyle>
@@ -214,4 +212,5 @@ export const Footer = () => {
             </Columns>
         </FooterStyle>
     );
-}
+};
+export default Footer;

@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialStates } from "./initialStates";
 
+const { initSelectedColor, initSelectedSize } = initialStates;
+
 export const selectedParamSlice = createSlice({
     name: 'selectedParam',
     initialState: {
-        selectedColor: initialStates.initSelectedColor,
-        selectedSize: initialStates.initSelectedSize
+        selectedColor: initSelectedColor,
+        selectedSize: initSelectedSize
     },
     reducers: {
         setSelectedColor: (state, data) => {
@@ -13,11 +15,15 @@ export const selectedParamSlice = createSlice({
         },
         setSelectedSize: (state, data) => {
             state.selectedSize = data.payload;
-        }
+        },
+        resetSelectors: (state) => {
+            state.selectedColor = initSelectedColor;
+            state.selectedSize = initSelectedSize;
+        },
     }
 });
 
-export const { setSelectedColor, setSelectedSize } = selectedParamSlice.actions;
+export const { setSelectedColor, setSelectedSize, resetSelectors } = selectedParamSlice.actions;
 export const selectSelectedColor = state => state.selectedParam?.selectedColor;
 export const selectSelectedSize = state => state.selectedParam?.selectedSize;
 

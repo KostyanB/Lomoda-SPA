@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { ContextGoodCard } from '../Functions/context';
 import { ColGroup, CartTh } from './CartElements';
 import { CartListGoods } from './CartListGoods';
 
@@ -119,7 +118,7 @@ const CartCellWrapper = styled.div`
     margin-top: 5px;
 `;
 
-export const ModalCart = () => {
+const ModalCart = () => {
 
     const dispatch = useDispatch();
 
@@ -166,4 +165,5 @@ export const ModalCart = () => {
             </Cart>
         </CartOverlay>
     );
-}
+};
+export default ModalCart;

@@ -61,6 +61,7 @@ export const GlobalStyle = createGlobalStyle `
     textarea {
         font: inherit;
         margin: 0;
+        padding: 0;
     }
 
     img {
@@ -74,7 +75,9 @@ export const GlobalStyle = createGlobalStyle `
     }
 
     ul,
-    ol {
+    ol,
+    li,
+    nav {
         list-style: none;
     }
 
@@ -86,16 +89,10 @@ export const GlobalStyle = createGlobalStyle `
     ul,
     ol,
     figure,
-    figcaption {
+    figcaption,
+    nav {
         padding: 0;
         margin: 0;
-    }
-
-    /* при работе с float */
-    .clearfix::after {
-        content: "";
-        display: table;
-        clear: both;
     }
 
     button {

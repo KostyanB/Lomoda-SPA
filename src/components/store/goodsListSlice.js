@@ -26,8 +26,6 @@ export const goodsListSlice = createSlice({
         goodsObj: initGoodsObj,
         nameList: initNameList,
     },
-    reducers: {
-    },
     extraReducers: {
         [ fetchGoods.pending ]: state => {
             state.status = 'loading';
@@ -57,12 +55,14 @@ export const goodsListSlice = createSlice({
     }
 });
 
-export const {} = goodsListSlice.actions;
 // массив товаров
 export const selectGoods = state => state.goods.goods;
 // ассоциативный массив товаров
 export const selectGoodsObj = state => state.goods.goodsObj;
 // массив категорий и их имен
 export const selectNameList = state => state.goods.nameList;
-
+//
+export const selectError = state => state.goods.error;
+//
+export const selectStatus = state => state.goods.status;
 export default goodsListSlice.reducer;

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const SelectWrapper = styled.div`
     position: relative;
+    min-width: 200px;
     @media (max-width: 968px) {
         margin-bottom: 0;
         -ms-grid-column: 3;
@@ -9,8 +10,8 @@ export const SelectWrapper = styled.div`
         grid-column: 3/4;
     }
     @media (max-width: 520px) {
-        grid-column: auto;
-        grid-row: auto;
+        grid-column: 1/3;
+        /* grid-row: auto; */
     }
 `;
 

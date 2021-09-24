@@ -10,14 +10,12 @@ const LoadWrap = styled.div`
   background: rgba(0, 40, 120, .7);;
   z-index: 1001;
 `;
-
 export const ErrorLoad = styled(LoadWrap)`
   padding-top: 200px;
   color: red;
   font-size: 30px;
   text-align: center;
 `;
-
 const Loader = styled.div`
   position: absolute;
   top: 50%;
@@ -25,7 +23,6 @@ const Loader = styled.div`
   display: flex;
   left: 50%;
 `;
-
 const Dash = styled.div`
   margin: 0 35px;
   width: 60px;
@@ -38,7 +35,6 @@ const Dash = styled.div`
   font-size: 30px;
   line-height: 40px;
 `;
-
 const Dash1 = styled(Dash)`
   margin-right: -18px;
   transform-origin: center left;
@@ -61,7 +57,6 @@ const Dash1 = styled(Dash)`
     }
   }
 `;
-
 const Dash2 = styled(Dash)`
   transform-origin: center right;
   animation: spin2 3s linear infinite;
@@ -96,7 +91,6 @@ const Dash2 = styled(Dash)`
     }
   }
 `;
-
 const Dash3 = styled(Dash)`
   transform-origin: center right;
   animation: spin3 3s linear infinite;
@@ -134,7 +128,6 @@ const Dash3 = styled(Dash)`
     }
   }
 `;
-
 const Dash4 = styled(Dash)`
   transform-origin: center right;
   animation: spin4 3s linear infinite;

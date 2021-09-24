@@ -4,6 +4,7 @@ import { ContextGoodCard } from '../Functions/context';
 
 import { useDispatch} from 'react-redux';
 import { setSelectedColor, setSelectedSize } from '../store/selectedParamSlice';
+import { setColorInit, setSizeInit, checkDisableBuy } from '../store/buyButtonSlice';
 
 const List = styled.ul`
     display: block;
@@ -19,8 +20,10 @@ const List = styled.ul`
 `;
 const Li = styled.li`
     padding: 8px;
+    cursor: pointer;
     :hover {
         background-color: #ccc;
+        color: #2796FF;
     }
 `;
 
@@ -32,22 +35,32 @@ export const SelectList = ({ items, name }) => {
 
     const dispatch = useDispatch();
 
-    const handleSelector = e => {
-        if (name === 'colorsSelect') {
-            setOpenColorSelector(false);
-            dispatch(setSelectedColor(e.target.id));
-            setBtnColorStyle('');
-        }
-        if (name === 'sizesSelect') {
-            setOpenSizeSelector(false);
-            dispatch(setSelectedSize(e.target.id));
-            setBtnSizeStyle('');
-        }
+    const handleSelectColor = id => {
+        setOpenColorSelector(false);
+        setBtnColorStyle('');
+        dispatch(setSelectedColor(id));
+        dispatch(setColorInit(true));
+    };
+
+    const handleSelectSize = id => {
+        setOpenSizeSelector(false);
+        setBtnSizeStyle('');
+        dispatch(setSelectedSize(id));
+        dispatch(setSizeInit(true));
+    };
+
+    const handleSelectors = e => {
+        console.log('e: ', e.target);
+
+        if (name === 'colorsSelect') handleSelectColor(e.target.id)
+        if (name === 'sizesSelect') handleSelectSize(e.target.id)
+
+        dispatch(checkDisableBuy());
     };
 
     return (
         <List>
-            {items.map(val => <Li key={val} id={val} onClick={handleSelector}>{val}</Li>)}
+            {items.map(val => <Li key={val} id={val} onClick={handleSelectors}>{val}</Li>)}
         </List>
     );
 }

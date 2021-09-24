@@ -9,6 +9,7 @@ export const pageTitleSlice = createSlice({
     reducers: {
         setPageTitle: (state, data) => {
             state.pageTitle = data.payload;
+            document.title = data.payload;
         }
     }
 });

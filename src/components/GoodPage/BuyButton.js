@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { selectSelectedColor, selectSelectedSize } from '../store/selectedParamSlice';
 import { selectDisableBuyButton, selectBuyButtonText } from '../store/buyButtonSlice';
+import { addGood, delGood, clearCart, selectCart } from '../store/cartSlice';
 
 const Button = styled.button`
     width: 100%;

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { ContextGoodCard } from '../Functions/context';
+import { Context } from '../Functions/Context';
 // components
 import { Container } from '../Styled/Container';
 import Page404 from '../Page404/Page404';
@@ -81,7 +81,7 @@ const GoodPage = () => {
     }, [dispatch, selectGood]);
 
     return (
-        <ContextGoodCard.Provider value={{
+        <Context.Provider value={{
             openSelector,
             btnStyle,
         }}>
@@ -98,7 +98,7 @@ const GoodPage = () => {
                     </Description>
                 </Wrapper>
             }
-        </ContextGoodCard.Provider>
+        </Context.Provider>
     );
 };
 export default GoodPage;

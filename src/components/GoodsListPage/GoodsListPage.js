@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+// elements
 import { Container } from '../Styled/Container';
 import { GoodsList } from './GoodsList';
 import Page404 from '../Page404/Page404';
-
-import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+// store
 import { selectGoods, selectNameList } from '../store/goodsListSlice';
 import { setPageTitle } from '../store/pageTitleSlice';
 

@@ -1,4 +1,3 @@
-import './good-page.scss';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
@@ -52,7 +51,6 @@ const Description = styled.div`
         gap: 10px;
         grid-template-columns: repeat(2, 1fr);
     }
-
 `;
 
 const GoodPage = () => {

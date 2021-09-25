@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { initialStates } from "./initialStates";
+import env from '../../env.json';
 
-const { initSelectedColor, initSelectedSize, initDisableBuyButton, buyButtonChecker, initBuyButtonText } = initialStates;
+const { initSelectedColor, initSelectedSize, initDisableBuyButton, buyButtonChecker, initBuyButtonText } = env.initialStates;
 
 export const buyButtonSlice = createSlice({
     name: 'buyButton',

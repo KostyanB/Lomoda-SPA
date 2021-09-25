@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { initialStates } from "./initialStates";
+import env from '../../env.json';
 
 export const showCartSlice = createSlice({
     name: 'showCart',
     initialState: {
-        showCart: initialStates.initShowCart
+        showCart: env.initialStates.initShowCart
     },
     reducers: {
         setShowCart: (state, data) => {

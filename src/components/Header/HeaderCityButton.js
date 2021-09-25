@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import env from '../../env.json';
 import { useSelector, useDispatch } from 'react-redux';
 import { promptCity, selectUserCity } from '../store/userCitySlice';
 
@@ -14,7 +14,7 @@ height: 100%;
 -o-transition: background-color 0.3s;
 transition: background-color 0.3s;
 :hover {
-    color: #2796FF;
+    color: ${env.hoverColor};
 }
 @media (max-width: 480px) {
     margin: 0 auto;

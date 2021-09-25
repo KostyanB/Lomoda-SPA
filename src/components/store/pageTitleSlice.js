@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { initialStates } from "./initialStates";
+import env from '../../env.json';
 
 export const pageTitleSlice = createSlice({
     name: 'pageTitle',
     initialState: {
-        pageTitle: initialStates.initPageTitle
+        pageTitle: env.initialStates.initPageTitle
     },
     reducers: {
         setPageTitle: (state, data) => {

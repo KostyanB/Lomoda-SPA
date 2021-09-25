@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import env from '../../env.json';
 import { Preview } from './Preview';
 import { Link } from 'react-router-dom';
+import Icons from '../Styled/Icons';
 
 const ItemWrap = styled.li`
     -ms-grid-column-align: center;
@@ -59,6 +61,24 @@ const GoodSizes = styled.p`
     color: #888;
     text-align: left;
 `;
+const MoreLink = styled(Link)`
+    -ms-flex-item-align: end;
+        -ms-grid-row-align: end;
+            align-self: end;
+    display: -webkit-box;
+        display: -ms-flexbox;
+            display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin: 0 auto;
+    padding-left: 24px;
+
+    :hover, :hover > svg, :active, :active > svg {
+        color: ${env.hoverColor};
+        stroke: ${env.hoverColor};
+    }
+`;
 
 // ----------------------------------------------------------------
 export const GoodPrewiewCard = ({ param }) => {
@@ -77,9 +97,10 @@ export const GoodPrewiewCard = ({ param }) => {
                     {(sizes) &&
                         <GoodSizes>Размеры (RUS): <span>{sizes.join(' ')}</span></GoodSizes>
                     }
-                    <Link to={`/card/${id}`} className="good-link">
+                    <MoreLink to={`/card/${id}`}>
+                        <Icons name="more" width={20} height={20} stroke="#000" />
                         Подробнее
-                    </Link>
+                    </MoreLink>
                 </GoodDescription>
             </Good>
         </ItemWrap>

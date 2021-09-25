@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { initialStates } from './initialStates';
+import env from '../../env.json';
 import { setLocationStorage } from '../Functions/handleStorage';
 
 export const userCitySlice = createSlice({
     name: 'userCity',
     initialState: {
-        userCity: initialStates.initUserCity
+        userCity: env.initialStates.initUserCity
     },
     reducers: {
         setUserCity: (state, data) => {

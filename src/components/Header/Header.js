@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import env from '../../env.json';
 import { Container } from '../Styled/Container';
 import { HeaderCityButton } from './HeaderCityButton';
-import birthdayImg from '../../image/35.svg';
+import { Birthday } from './Birthday';
 
 const HeaderStyle = styled.header`
     background-color: #000;
@@ -43,29 +44,8 @@ const Title = styled.p`
     -o-transition: background-color 0.3s;
     transition: background-color 0.3s;
     :hover {
-        color: #2796FF;
+        color: ${env.hoverColor};
     }
-`;
-const Birthday = styled.div`
-        display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    padding: 8px 24px;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    background-color: #f93c00;
-    max-height: 100%;
-    *:not(:last-child) {
-        margin-right: 5px;
-    }
-
-    @media (max-width: 768px) {
-        display: none;
-    }
-`;
-const Img = styled.img`
-    max-height: 100%;
 `;
 
 const Header = () => (
@@ -75,11 +55,7 @@ const Header = () => (
             <RightBlock>
                 <Title>Бесконтактная доставка</Title>
                 <Title>Платите как удобно</Title>
-                <Birthday>
-                    <span>нам</span>
-                        <Img src={birthdayImg} alt="35year"/>
-                    <span>лет!</span>
-                </Birthday>
+                <Birthday/>
             </RightBlock>
         </Wrapper>
     </HeaderStyle>

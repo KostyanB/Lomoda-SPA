@@ -13,7 +13,7 @@ export const cartSlice = createSlice({
         },
         delGood: (state, data) => {
             const { id, size, color } = data.payload;
-            const newCart = state.cart.filter(item => (item.id !== id && item.size !== size && item.color !== color));
+            const newCart = state.cart.filter(item => !(item.id === id && item.size === size && item.color === color));
             state.cart = newCart;
         },
         clearCart: (state, data) => {},

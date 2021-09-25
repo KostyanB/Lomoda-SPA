@@ -1,33 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-
+// elements
+import { Button } from '../Styled/Button';
+// store
 import { selectSelectedColor, selectSelectedSize, selectSelectedId } from '../store/selectedParamSlice';
 import { selectDisableBuyButton, selectBuyButtonText } from '../store/buyButtonSlice';
 import { addGood, delGood, clearCart, selectCart } from '../store/cartSlice';
 
-const Button = styled.button`
-    width: 100%;
-    height: 48px;
-    box-sizing: border-box;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 3px;
-    color: #fff;
-    background-color: #2796FF;
-    -webkit-box-shadow: 0 2px 8px 0 rgba(39, 150, 255, 0.6);
-            box-shadow: 0 2px 8px 0 rgba(39, 150, 255, 0.6);
-    font-weight: 700;
-    font-size: 16px;
-    margin-bottom: 32px;
-    :hover {
-        color: #2796FF;
-        background-color: #fff;
-    }
-    :active {
-        -webkit-box-shadow: 0 2px 14px 0 rgba(39, 150, 255, 0.8);
-            box-shadow: 0 2px 14px 0 rgba(39, 150, 255, 0.8);
-    }
+const GoodButton = styled(Button)`
+
     @media (max-width: 968px) {
         -ms-grid-column: 1;
         -ms-grid-column-span: 2;
@@ -52,23 +34,19 @@ export const BuyButton = () => {
         selectedSize = useSelector(selectSelectedSize),
         selectedId = useSelector(selectSelectedId);
 
-
     // товар в/из корзины
     const handleGoodCart = () => {
-        console.log('selectedColor: ', selectedColor);
-        console.log('selectedSize: ', selectedSize);
         const newGood = {
             'id': selectedId,
             'size': selectedSize,
             'color': selectedColor,
-
         }
         dispatch(addGood(newGood));
     };
 
     return (
-        <Button disabled={disableBuyButton} onClick={handleGoodCart}>
+        <GoodButton disabled={disableBuyButton} onClick={handleGoodCart}>
             {buyButtonText}
-        </Button>
+        </GoodButton>
     )
 }

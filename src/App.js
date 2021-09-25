@@ -50,9 +50,10 @@ function App() {
               <Route path="/card/:good" component={GoodPage}/>
               <Route component={Page404}/>
             </Switch>
+            {showCart && <ModalCart/>}
           </Router>
         <Footer/>
-        {showCart && <ModalCart/>}
+
       </>
     }
     {(status === 'loading') && <Preloader/>}

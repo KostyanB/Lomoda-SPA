@@ -13,12 +13,3 @@ export const ColGroup = () => (
     </colgroup>
     </>
 )
-
-export const CartTd = styled.td`
-    border: 1px solid #fff;
-    padding: 5px 10px;
-`;
-export const CartTh = styled.th`
-    border: 1px solid #fff;
-    padding: 5px 10px;
-`;

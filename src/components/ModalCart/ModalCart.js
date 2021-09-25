@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
+import env from '../../env.json';
+import { disableScroll, enableScroll } from '../Functions/scrollControl';
 // elements
-import { ColGroup, CartTh } from './CartElements';
-import { CartListGoods } from './CartListGoods';
+// import { ColGroup } from './CartElements';
+import CartHead from './CartHead';
+import CartBody from './CartBody';
+import CartFoot from './CartFoot';
+import { Button } from '../Styled/Button';
 // store
 import { setShowCart } from '../store/showCartSlice';
-import { addGood, delGood, clearCart, selectCart } from '../store/cartSlice';
+import { selectCart } from '../store/cartSlice';
 import { selectGoodsObj } from '../store/goodsListSlice';
 
 
@@ -60,14 +65,7 @@ const CartTable = styled.table`
     table-layout: fixed;
     margin-bottom: 30px;
 `;
-const TitleNumber = styled(CartTh)`
-    text-align: left;
-`;
-const CartPhoneInput = styled.input`
-    -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-            flex-grow: 1;
-`;
+
 const CartBtnBuy = styled.button`
     width: 100%;
     height: 48px;
@@ -111,22 +109,29 @@ const CartBtnClose = styled.button`
             transform: rotate(-45deg);
     }
     :focus::before, :hover::before, :focus::after, :hover::after {
-        border-color: #f93c00;
+        border-color: ${env.hoverColor};
     }
 `;
-const CartCellWrapper = styled.div`
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    width: 100%;
-    margin-top: 5px;
-`;
+
 
 const ModalCart = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(),
+        cart = useSelector(selectCart),
+        goodsObj = useSelector(selectGoodsObj);
 
-    const closeCart = e => (e.target.id === 'overlay' || e.target.id === 'close-btn') && dispatch(setShowCart(false));
+    const total = cart.reduce((acc, item) => (acc + +goodsObj[item.id].cost), 0);
+
+    useEffect(() => disableScroll());
+
+    const closeCart = e => {
+        (e.target.id === 'overlay' || e.target.id === 'close-btn') && dispatch(setShowCart(false));
+        enableScroll();
+    };
+
+    const sendOrder = () => {
+
+    };
 
     return (
         <CartOverlay onClick={closeCart} id="overlay">
@@ -134,37 +139,13 @@ const ModalCart = () => {
                 <CartTitle>Корзина</CartTitle>
                 <TableWrapper>
                     <CartTable>
-                        <ColGroup/>
-                        <thead>
-                            <tr>
-                                <TitleNumber>#</TitleNumber>
-                                <CartTh>Наименование</CartTh>
-                                <CartTh>Цвет</CartTh>
-                                <CartTh>Размер</CartTh>
-                                <CartTh>Цена</CartTh>
-                                <CartTh></CartTh>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <CartListGoods/>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th></th>
-                                <th>
-                                    <CartCellWrapper>
-                                        <label htmlFor="phone__input"><span id="phone__label">Ваш телефон:   </span></label>
-                                        <CartPhoneInput id="phone__input" type="text" placeholder="+7 (***) ***-**-**"/>
-                                    </CartCellWrapper>
-                                </th>
-                                <th></th>
-                                <th colSpan="2">Итого:  &#8381;</th>
-                                <th></th>
-                            </tr>
-                        </tfoot>
+                        {/* <ColGroup/> */}
+                        <CartHead/>
+                        <CartBody/>
+                        <CartFoot total={total}/>
                     </CartTable>
                 </TableWrapper>
-                <CartBtnBuy>Оформить</CartBtnBuy>
+                <Button onClick={sendOrder}>Оформить</Button>
                 <CartBtnClose onClick={closeCart} id="close-btn"/>
             </Cart>
         </CartOverlay>

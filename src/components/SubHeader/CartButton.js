@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Icons from '../Styled/Icons';
 import env from '../../env.json';
-import { useDispatch } from 'react-redux';
-import { setShowCart } from '../store/showCartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCartTitle, setShowCart } from '../store/cartSlice';
 
 const Button = styled.button`
     -ms-grid-column-align: end;
@@ -36,16 +36,17 @@ const Button = styled.button`
     }
 `;
 
-export const CartButton = () => {
+export const CartButton = ({ title }) => {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(),
+        cartTitle = useSelector(selectCartTitle);
 
     const openCart = () => dispatch(setShowCart(true));
 
     return (
         <Button onClick={openCart}>
             <Icons name="cart" width={24} height={24} stroke="#888" />
-            Корзина
+            {cartTitle}
         </Button>
     )
 }

@@ -4,14 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import env from '../../env.json';
 import { disableScroll, enableScroll } from '../Functions/scrollControl';
 // elements
-// import { ColGroup } from './CartElements';
 import CartHead from './CartHead';
 import CartBody from './CartBody';
 import CartFoot from './CartFoot';
 import { Button } from '../Styled/Button';
 // store
-import { setShowCart } from '../store/showCartSlice';
-import { selectCart } from '../store/cartSlice';
+import { selectCart, setShowCart } from '../store/cartSlice';
 import { selectGoodsObj } from '../store/goodsListSlice';
 
 
@@ -65,21 +63,6 @@ const CartTable = styled.table`
     table-layout: fixed;
     margin-bottom: 30px;
 `;
-
-const CartBtnBuy = styled.button`
-    width: 100%;
-    height: 48px;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 3px;
-    color: #fff;
-    background-color: #2796FF;
-    -webkit-box-shadow: 0 2px 8px 0 rgba(39, 150, 255, 0.6);
-            box-shadow: 0 2px 8px 0 rgba(39, 150, 255, 0.6);
-    font-weight: 700;
-    font-size: 16px;
-    margin-bottom: 32px;
-`;
 const CartBtnClose = styled.button`
     position: absolute;
     top: 0;
@@ -125,8 +108,10 @@ const ModalCart = () => {
     useEffect(() => disableScroll());
 
     const closeCart = e => {
-        (e.target.id === 'overlay' || e.target.id === 'close-btn') && dispatch(setShowCart(false));
-        enableScroll();
+        if (e.target.id === 'overlay' || e.target.id === 'close-btn') {
+            dispatch(setShowCart(false));
+            enableScroll();
+        }
     };
 
     const sendOrder = () => {
@@ -139,7 +124,6 @@ const ModalCart = () => {
                 <CartTitle>Корзина</CartTitle>
                 <TableWrapper>
                     <CartTable>
-                        {/* <ColGroup/> */}
                         <CartHead/>
                         <CartBody/>
                         <CartFoot total={total}/>

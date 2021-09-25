@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import env from '../../env.json';
+import declOfNum from '../Functions/declOfNum';
 // elements
 import { Container } from '../Styled/Container';
 import { NavItem } from './NavItem';
 import { NavLogo } from './NavLogo';
 import { CartButton } from './CartButton';
 //store
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectNameList } from '../store/goodsListSlice';
+import { selectCart, setCartTitle } from '../store/cartSlice';
+
 // styled
 const SubHeaderStyle = styled.section`
     min-height: 90px;
@@ -59,7 +63,19 @@ const Nav = styled.nav`
 //--------------------------------------------------------------------
 const SubHeader = () => {
 
-    const nameList = useSelector(selectNameList);
+    const dispatch = useDispatch(),
+        nameList = useSelector(selectNameList),
+        cart = useSelector(selectCart);
+
+    // set cart title
+    useEffect(() => {
+        if (cart.length > 0) {
+            const newTitle = `В корзине ${cart.length} ${declOfNum(cart.length, ['товар', 'товара', 'товаров'])}`;
+            dispatch(setCartTitle(newTitle));
+        } else {
+            dispatch(setCartTitle(env.initialStates.initCartTitle));
+        }
+    }, [dispatch, cart]);
 
     return (
         <SubHeaderStyle>

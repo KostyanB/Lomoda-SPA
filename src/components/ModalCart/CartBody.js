@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import env from '../../env.json';
 import { enableScroll } from '../Functions/scrollControl';
 // store
-import { delGood, selectCart } from '../store/cartSlice';
+import { delGood, selectCart, setShowCart } from '../store/cartSlice';
 import { selectGoodsObj } from '../store/goodsListSlice';
-import { setShowCart } from '../store/showCartSlice';
+
 
 const CartTd = styled.td`
     border: 1px solid #fff;

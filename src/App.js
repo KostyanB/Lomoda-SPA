@@ -16,7 +16,7 @@ import { ErrorLoad, Preloader } from './components/Styled/Preloader';
 import Page404 from './components/Page404/Page404';
 // store
 import { fetchGoods, selectStatus, selectError } from './components/store/goodsListSlice';
-import { selectShowCart } from './components/store/showCartSlice';
+import { selectShowCart } from './components/store/cartSlice';
 import { setUserCity } from './components/store/userCitySlice';
 
 

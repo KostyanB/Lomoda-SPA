@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 // component
 import { SelectWrapper, GoodSelectBtn } from './SelectorElements';
 import { SelectList } from './SelectList';
-import { ContextGoodCard } from '../Functions/context';
+import { Context } from '../Functions/Context';
 //store
 import { selectSelectedColor, selectSelectedSize } from '../store/selectedParamSlice';
 
@@ -35,7 +35,7 @@ export const GoodSelector = ({ name, param }) => {
             toggleBtnColor, toggleBtnSize, btnColorStyle,
             setBtnColorStyle, btnSizeStyle, setBtnSizeStyle
         },
-    } = useContext(ContextGoodCard);
+    } = useContext(Context);
 
     const selectedColor = useSelector(selectSelectedColor),
         selectedSize = useSelector(selectSelectedSize);

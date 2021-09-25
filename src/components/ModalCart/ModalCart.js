@@ -1,10 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+// elements
 import { ColGroup, CartTh } from './CartElements';
 import { CartListGoods } from './CartListGoods';
-
-import { useDispatch } from 'react-redux';
+// store
 import { setShowCart } from '../store/showCartSlice';
+import { addGood, delGood, clearCart, selectCart } from '../store/cartSlice';
+import { selectGoodsObj } from '../store/goodsListSlice';
+
 
 const CartOverlay = styled.div`
     display: -webkit-box;

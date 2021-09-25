@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { ContextGoodCard } from '../Functions/context';
+import { Context } from '../Functions/Context';
 
 import { useDispatch} from 'react-redux';
 import { setSelectedColor, setSelectedSize } from '../store/selectedParamSlice';
@@ -31,7 +31,7 @@ export const SelectList = ({ items, name }) => {
 
     const { openSelector: { setOpenColorSelector, setOpenSizeSelector },
         btnStyle: { setBtnColorStyle, setBtnSizeStyle },
-    } = useContext(ContextGoodCard);
+    } = useContext(Context);
 
     const dispatch = useDispatch();
 

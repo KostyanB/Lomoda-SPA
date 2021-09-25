@@ -17,7 +17,7 @@ import { useBtnStyle } from '../Hooks/useBtnStyle';
 // store
 import { selectGoodsObj } from '../store/goodsListSlice';
 import { setPageTitle } from '../store/pageTitleSlice';
-import { resetSelectors } from '../store/selectedParamSlice';
+import { setSelectedId, resetSelectors } from '../store/selectedParamSlice';
 import { checkDisableBuy, setColorInit, setSizeInit } from '../store/buyButtonSlice';
 
 const Wrapper = styled(Container)`
@@ -78,7 +78,8 @@ const GoodPage = () => {
         dispatch(checkDisableBuy());
         // сброс селекторов
         dispatch(resetSelectors());
-    }, [dispatch, selectGood]);
+        dispatch(setSelectedId(good));
+    }, [dispatch, selectGood, good]);
 
     return (
         <Context.Provider value={{

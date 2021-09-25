@@ -8,16 +8,13 @@ export const cartSlice = createSlice({
     },
     reducers: {
         addGood: (state, data) => {
-            const { id, size, color } = data.payload;
-            console.log('color: ', color);
-            console.log('size: ', size);
-            console.log('id: ', id);
+            // const { id, size, color } = data.payload;
+            state.cart.push(data.payload)
         },
         delGood: (state, data) => {
             const { id, size, color } = data.payload;
-            console.log('color: ', color);
-            console.log('size: ', size);
-            console.log('id: ', id);
+            const newCart = state.cart.filter(item => (item.id !== id && item.size !== size && item.color !== color));
+            state.cart = newCart;
         },
         clearCart: (state, data) => {},
     }

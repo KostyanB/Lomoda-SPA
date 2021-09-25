@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectSelectedColor, selectSelectedSize } from '../store/selectedParamSlice';
+import { selectSelectedColor, selectSelectedSize, selectSelectedId } from '../store/selectedParamSlice';
 import { selectDisableBuyButton, selectBuyButtonText } from '../store/buyButtonSlice';
 import { addGood, delGood, clearCart, selectCart } from '../store/cartSlice';
 
@@ -45,20 +45,29 @@ const Button = styled.button`
 
 // ------------------------------
 export const BuyButton = () => {
+    const dispatch = useDispatch(),
+        disableBuyButton = useSelector(selectDisableBuyButton),
+        buyButtonText = useSelector(selectBuyButtonText),
+        selectedColor = useSelector(selectSelectedColor),
+        selectedSize = useSelector(selectSelectedSize),
+        selectedId = useSelector(selectSelectedId);
 
-    const disableBuyButton = useSelector(selectDisableBuyButton);
-    const buyButtonText = useSelector(selectBuyButtonText);
-    const selectedColor = useSelector(selectSelectedColor);
-    const selectedSize = useSelector(selectSelectedSize);
 
     // товар в/из корзины
-    const handleGoodToCart = () => {
+    const handleGoodCart = () => {
         console.log('selectedColor: ', selectedColor);
         console.log('selectedSize: ', selectedSize);
+        const newGood = {
+            'id': selectedId,
+            'size': selectedSize,
+            'color': selectedColor,
+
+        }
+        dispatch(addGood(newGood));
     };
 
     return (
-        <Button disabled={disableBuyButton} onClick={handleGoodToCart}>
+        <Button disabled={disableBuyButton} onClick={handleGoodCart}>
             {buyButtonText}
         </Button>
     )

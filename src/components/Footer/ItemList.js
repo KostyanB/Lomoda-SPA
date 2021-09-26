@@ -9,12 +9,13 @@ const ColumnItem = styled.li`
     }
 `;
 
-const Item = props => (
-    <ColumnItem><a  href="#top">{props.name}</a></ColumnItem>
-);
-
-export const ItemList = ({ list }) => (
+const ItemList = ({ list }) => (
     <>
-        {list.map(item => <Item key={item} name={item}/>)}
+        {list.map(item =>
+            <ColumnItem key={item}>
+                <a  href="#top">{item}</a>
+            </ColumnItem>
+        )}
     </>
 )
+export default ItemList;

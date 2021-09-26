@@ -1,15 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ColumnIcons, ColumnTitle } from './FooterElems';
-// import Icons from '../Styled/Icons';
-import fB from '../../image/facebook.svg';
-import fbHov from '../../image/facebook_hover.svg';
-import vK from '../../image/vk.svg';
-import vkHov from '../../image/vk_hover.svg';
-import yT from '../../image/youtube.svg';
-import ytHov from '../../image/youtube_hover.svg';
-import iG from '../../image/instagram.svg';
-import igHov from '../../image/instagram_hover.svg';
+import env from '../../env.json';
+import { ColumnIcons } from './FooterElems';
+import { FacebookIcon, YoutubeIcon, VkontakteIcon, InstagramIcon } from '../Styled/SocIcons/SocIcons';
 
 const Icon = styled.li`
     display: block;
@@ -19,41 +12,42 @@ const Icon = styled.li`
     width: 24px;
     height: 24px;
     cursor: pointer;
-`;
-const Fb = styled(Icon)`
-    background-image: url(${fB});
+
+    color: #888;
     :hover {
-        background-image: url(${fbHov});
+        color: ${env.hoverColor};
     }
-`;
-const Vk = styled(Icon)`
-    background-image: url(${vK});
+    /* .soc-icon-path-stroke {
+    stroke: #888;
     :hover {
-        background-image: url(${vkHov});
+        stroke: #2796FF;
     }
-`;
-const Yt = styled(Icon)`
-    background-image: url(${yT});
+}
+.soc-icon-path-fill {
+    fill: #888;
     :hover {
-        background-image: url(${ytHov});
+        fill: #2796FF;
     }
-`;
-const Ig = styled(Icon)`
-    background-image: url(${iG});
-    :hover {
-        background-image: url(${igHov});
+} */
+
+    /* svg {
+
+        .soc-icon-path-stroke {
+        stroke: #888;
+        :hover {
+            stroke: ${env.hoverColor};
+        }
     }
+} */
+
 `;
 
-export const SocIcons = () => (
-
-    <>
-    <ColumnTitle>О нас</ColumnTitle>
+const SocIcons = () => (
     <ColumnIcons>
-        <Fb/>
-        <Vk/>
-        <Yt/>
-        <Ig/>
+        <Icon><FacebookIcon/></Icon>
+        <Icon><VkontakteIcon/></Icon>
+        <Icon><YoutubeIcon/></Icon>
+        <Icon><InstagramIcon/></Icon>
     </ColumnIcons>
-    </>
 )
+export default SocIcons;

@@ -29,14 +29,14 @@ const Button = styled.button`
         grid-column: 2 / 3;
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 576px) {
         -webkit-box-ordinal-group: 0;
             -ms-flex-order: -1;
                 order: -1;
     }
 `;
 
-export const CartButton = ({ title }) => {
+const CartButton = ({ title }) => {
 
     const dispatch = useDispatch(),
         cartTitle = useSelector(selectCartTitle);
@@ -50,3 +50,4 @@ export const CartButton = ({ title }) => {
         </Button>
     )
 }
+export default CartButton;

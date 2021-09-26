@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { Context } from '../Functions/Context';
+import { Context } from './Context';
 
 import { useDispatch} from 'react-redux';
 import { setSelectedColor, setSelectedSize } from '../store/selectedParamSlice';

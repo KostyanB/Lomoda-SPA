@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
+import checkActiveNav from '../Functions/checkActiveNav';
 // elements
 import { Container } from '../Styled/Container';
 import { PromoImage } from './PromoImage';
@@ -128,8 +129,10 @@ const ReverseItemSmall = styled.li`
 const PromoPage = () => {
 
     const dispatch = useDispatch();
-
+    // ставим тайтл
     useEffect(() => dispatch(setPageTitle('Lomoda')));
+    // убираем подсветку активной ссылки в nav
+    useEffect(() => checkActiveNav());
 
     return (
         <Container>

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { Context } from '../Functions/Context';
+import { Context } from './Context';
 // components
 import { Container } from '../Styled/Container';
 import Page404 from '../Page404/Page404';

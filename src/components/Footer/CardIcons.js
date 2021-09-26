@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ColumnIcons, ColumnTitle } from './FooterElems';
+import { ColumnIcons } from './FooterElems';
 import mcardImg from '../../image/icon-mastercard.svg';
 import visaImg from '../../image/icon-visa.svg';
 import mirImg from '../../image/icon-mir.svg';
@@ -27,13 +27,11 @@ const Mir = styled(Icon)`
     background-image: url(${mirImg});
 `;
 
-export const CardIcons = () => (
-    <>
-    <ColumnTitle>Способы оплаты</ColumnTitle>
+const CardIcons = () => (
     <ColumnIcons>
         <Mcard/>
         <Visa/>
         <Mir/>
     </ColumnIcons>
-    </>
 )
+export default CardIcons;

@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import env from '../../env.json';
 import { Container } from '../Styled/Container';
 import { ColumnTitle } from './FooterElems';
-import { CardIcons } from './CardIcons';
-import { AppIcons } from './AppIcons';
-import { SocIcons } from './SocIcons';
-import { ItemList } from './ItemList';
+import CardIcons from './CardIcons';
+import AppIcons from './AppIcons';
+import SocIcons from './SocIcons';
+import ItemList from './ItemList';
 
 const FooterStyle = styled.footer`
     padding: 25px 0;
@@ -36,6 +36,13 @@ const ColumnList = styled.ul`
         margin-bottom: 20px;
     }
 `;
+const ColumnSubTitle = styled.p`
+    font-size: 0.8em;
+
+    a:hover {
+        color: ${env.hoverColor};
+    }
+`;
 
 //  ****************************************************
 const Footer = () => {
@@ -58,18 +65,19 @@ const Footer = () => {
                 </div>
 
                 <div>
-                    <div className="footer__column-item">
-                        <CardIcons/>
-                    </div>
-                    <p className="footer__column-item">
+                    <ColumnTitle>Способы оплаты</ColumnTitle>
+                    <CardIcons/>
+                    <ColumnSubTitle className="footer__column-item">
                         Вы можете оплатить покупки<br/>
                         наличными при получении, либо<br/>
-                        выбрать <a href="#top">другой способ оплаты</a>.</p>
+                        выбрать <a href="#top">другой способ оплаты</a>.</ColumnSubTitle>
                 </div>
+
                 <div>
+                    <ColumnTitle>Для мобильных устройств</ColumnTitle>
                     <AppIcons/>
-                    <p className="footer__column-item">Вы также можете перейти<br/>
-                        на <a href="#top">мобильную версию сайта</a>.</p>
+                    <ColumnSubTitle className="footer__column-item">Вы также можете перейти<br/>
+                        на <a href="#top">мобильную версию сайта</a>.</ColumnSubTitle>
                 </div>
             </Columns>
         </FooterStyle>

@@ -5,15 +5,15 @@ import { GlobalStyle } from './components/Styled/GlobalStyle';
 // functions
 import { getLocationStorage } from './components/Functions/handleStorage';
 // components
-import Header from './components/Header/Header';
-import SubHeader from './components/SubHeader/SubHeader';
-import Footer from './components/Footer/Footer';
-import PromoPage from './components/PromoPage/PromoPage';
-import GoodsListPage from './components/GoodsListPage/GoodsListPage';
-import GoodPage from './components/GoodPage/GoodPage';
-import ModalCart from './components/ModalCart/ModalCart';
+import Header from './components/Header';
+import SubHeader from './components/SubHeader';
+import Footer from './components/Footer';
+import PromoPage from './components/PromoPage';
+import GoodsListPage from './components/GoodsListPage';
+import GoodPage from './components/GoodPage';
+import ModalCart from './components/ModalCart';
+import Page404 from './components/Page404';
 import { ErrorLoad, Preloader } from './components/Styled/Preloader';
-import Page404 from './components/Page404/Page404';
 // store
 import { fetchGoods, selectStatus, selectError } from './components/store/goodsListSlice';
 import { selectShowCart } from './components/store/cartSlice';

@@ -5,19 +5,14 @@ import { useSelector, useDispatch } from 'react-redux';
 // elements
 import { Container } from '../Styled/Container';
 import { GoodsList } from './GoodsList';
-import Page404 from '../Page404/Page404';
+import Page404 from '../Page404';
+import checkActiveNav from '../Functions/checkActiveNav';
 // store
 import { selectGoods, selectNameList } from '../store/goodsListSlice';
 import { setPageTitle } from '../store/pageTitleSlice';
 
 const Goods = styled.section`
     padding-bottom: 30px;
-`;
-const GoodsTitle = styled.h2`
-    margin-bottom: 30px;
-    @media (max-width: 480px) {
-        text-align: center;
-    }
 `;
 
 const GoodsListPage = () => {
@@ -30,17 +25,17 @@ const GoodsListPage = () => {
 
     const currentList = (list === 'all') ? goods : goods.filter(item => item.category === list);
 
+    // ставим тайтл
     useEffect(() => dispatch(setPageTitle(`Lomoda ${pageName}`)));
+    // подсвечиваем активную ссылку в nav
+    useEffect(() => checkActiveNav());
 
     return (
         <Goods>
             <Container>
             {(currentList.length === 0) ?
                 <Page404/> :
-                <>
-                    <GoodsTitle>{pageName}</GoodsTitle>
-                    <GoodsList currentList={currentList}/>
-                </>
+                <GoodsList currentList={currentList}/>
             }
             </Container>
         </Goods>

@@ -4,11 +4,10 @@ import { Link } from 'react-router-dom';
 import Icons from '../Styled/Icons';
 import env from '../../env.json';
 
-const Logo = styled.li`
-    display: block;
-    max-width: 180px;
-    -ms-grid-column-align: center;
-        justify-self: center;
+const Logo = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 100%;
 
     @media (max-width: 768px) {
         -webkit-box-ordinal-group: 0;
@@ -19,7 +18,7 @@ const Logo = styled.li`
         grid-column: 1 / 3;
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 576px) {
         -ms-grid-column: 1;
         -ms-grid-column-span: 1;
             grid-column: 1 / 2;
@@ -28,11 +27,15 @@ const Logo = styled.li`
         fill: ${env.hoverColor};
     }
 `;
+const LogoLink = styled(Link)`
+    display: flex;
+`;
 
-export const NavLogo = () => (
+const NavLogo = () => (
     <Logo>
-        <Link to="/" className="nav-link">
-            <Icons name="logo" height={90} fill="#000"/>
-        </Link>
+        <LogoLink to="/" className="nav-link">
+            <Icons name="logo" height={80} width={180} fill="#000"/>
+        </LogoLink>
     </Logo>
 )
+export default NavLogo;

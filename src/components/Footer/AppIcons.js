@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ColumnIcons, ColumnTitle } from './FooterElems';
-import Icons from '../Styled/Icons';
-import gpImg from '../../image/icon-googleplay.svg';
+import { ColumnIcons } from './FooterElems';
+import { ReactComponent as GooglePay } from '../../image/icon-googleplay.svg';
+import { ReactComponent as AppStore } from '../../image/icon-appstore.svg';
+import { ReactComponent as HuaweiStore } from '../../image/icon-huaweistore.svg';
 
 const ColumnIconsApp = styled(ColumnIcons)`
     -webkit-box-orient: vertical;
@@ -14,14 +15,11 @@ const ColumnIconsApp = styled(ColumnIcons)`
             align-items: flex-start;
 `;
 
-export const AppIcons = () => (
-    <>
-    <ColumnTitle>Для мобильных устройств</ColumnTitle>
+const AppIcons = () => (
     <ColumnIconsApp>
-        <Icons name="appstore" width={85} height={25}/>
-        <img src={gpImg} alt="googleplay"/>
-        {/* <Icons name="googleplay" width={85} height={25}/> */}
-        <Icons name="huaweistore" width={85} height={25}/>
+        <AppStore/>
+        <GooglePay/>
+        <HuaweiStore/>
     </ColumnIconsApp>
-    </>
 )
+export default AppIcons;

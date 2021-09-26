@@ -4,9 +4,9 @@ import env from '../../env.json';
 import declOfNum from '../Functions/declOfNum';
 // elements
 import { Container } from '../Styled/Container';
-import { NavItem } from './NavItem';
-import { NavLogo } from './NavLogo';
-import { CartButton } from './CartButton';
+import NavItem from './NavItem';
+import NavLogo from './NavLogo';
+import CartButton from './CartButton';
 //store
 import { useSelector, useDispatch } from 'react-redux';
 import { selectNameList } from '../store/goodsListSlice';
@@ -14,12 +14,10 @@ import { selectCart, setCartTitle } from '../store/cartSlice';
 
 // styled
 const SubHeaderStyle = styled.section`
-    min-height: 90px;
+    height: fit-content;
     width: 100vw;
     padding-right: 17px;
-    @media (max-width: 768px) {
-        min-height: 60px;
-    }
+    padding-bottom: 15px;
 `;
 const Wrapper = styled(Container)`
     position: relative;
@@ -53,7 +51,7 @@ const Nav = styled.nav`
         justify-content: center;
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 576px) {
         -ms-grid-column: 1;
         -ms-grid-column-span: 2;
             grid-column: 1 / 3;

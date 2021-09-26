@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 // component
 import { SelectWrapper, GoodSelectBtn } from './SelectorElements';
 import { SelectList } from './SelectList';
-import { Context } from '../Functions/Context';
+import { Context } from './Context';
 //store
 import { selectSelectedColor, selectSelectedSize } from '../store/selectedParamSlice';
 

@@ -6,7 +6,7 @@ import { Button } from '../Styled/Button';
 // store
 import { selectSelectedColor, selectSelectedSize, selectSelectedId } from '../store/selectedParamSlice';
 import { selectDisableBuyButton, selectBuyButtonText } from '../store/buyButtonSlice';
-import { addGood, delGood, clearCart, selectCart } from '../store/cartSlice';
+import { addGood } from '../store/cartSlice';
 
 const GoodButton = styled(Button)`
 

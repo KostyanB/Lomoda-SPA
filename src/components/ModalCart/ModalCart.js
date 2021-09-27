@@ -3,14 +3,16 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import env from '../../env.json';
 import { disableScroll, enableScroll } from '../Functions/scrollControl';
+import checkPhoneLength from '../Functions/checkPhoneLength';
 // elements
 import CartHead from './CartHead';
 import CartBody from './CartBody';
 import CartFoot from './CartFoot';
 import { Button } from '../Styled/Button';
 // store
-import { selectCart, setShowCart, sendOrder } from '../store/cartSlice';
+import { selectCart, setShowCart, sendOrder, selectCartTitle, setCartTitle } from '../store/cartSlice';
 import { selectGoodsObj } from '../store/goodsListSlice';
+import { selectDisableSendButton, checkDisableSend, setPhoneCheck, setCartCheck } from '../store/sendButtonSlice';
 
 
 const CartOverlay = styled.div`
@@ -56,7 +58,7 @@ const CartTitle = styled.h2`
 `;
 const TableWrapper = styled.div`
     overflow-y: auto;
-    max-width: 100%;
+    width: 100%;
 `;
 const CartTable = styled.table`
     border-collapse: collapse;
@@ -96,17 +98,17 @@ const CartBtnClose = styled.button`
     }
 `;
 
-
+// ****************************************
 const ModalCart = () => {
 
     const dispatch = useDispatch(),
         cart = useSelector(selectCart),
+        cartTitle = useSelector(selectCartTitle),
         goodsObj = useSelector(selectGoodsObj),
+        disableSend = useSelector(selectDisableSendButton),
         input = useRef();
 
     const total = cart.reduce((acc, item) => (acc + +goodsObj[item.id].cost), 0);
-
-    useEffect(() => disableScroll());
 
     const closeCart = e => {
         if (e.target.id === 'overlay' || e.target.id === 'close-btn') {
@@ -114,27 +116,57 @@ const ModalCart = () => {
             enableScroll();
         }
     };
-
-    const handleOrder = () => {
+    // отправка заказа
+    const orderSend = () => {
         const data = {
             'tel' : input.current.value,
             'order': cart
         }
         dispatch(sendOrder(data));
     };
+    // валидация длины телефона
+    const chekPhone = () => {
+        if (checkPhoneLength(input.current.value)) {
+            dispatch(setPhoneCheck(true));
+            input.current.className = 'valid';
+            // dispatch(setInputLabel(env.initialStates.cart.initLabel));
+        } else {
+            dispatch(setPhoneCheck(false));
+            input.current.className = '';
+            // dispatch(setInputLabel('Неправильный телефон'));
+        }
+        dispatch(checkDisableSend());
+    };
+    // валидация наличия товара в корзине
+    const checkCart = () => {
+        if (cart.length <= 0) {
+            dispatch(setCartTitle('Корзина пуста!!!'));
+            dispatch(setCartCheck(false));
+        } else if (cart.length > 0) {
+            dispatch(setCartTitle(env.initialStates.cart.initCartTitle));
+            dispatch(setCartCheck(true));
+        }
+    };
+    // откл скролл, проверка тел и корзины, вкл кнопки отправить
+    useEffect(() => {
+        disableScroll();
+        checkCart();
+        chekPhone();
+        dispatch(checkDisableSend());
+    });
 
     return (
         <CartOverlay onClick={closeCart} id="overlay">
             <Cart>
-                <CartTitle>Корзина</CartTitle>
+                <CartTitle>{cartTitle}</CartTitle>
                 <TableWrapper>
                     <CartTable>
                         <CartHead/>
                         <CartBody/>
-                        <CartFoot total={total} input={input}/>
+                        <CartFoot total={total} input={input} chekPhone={chekPhone}/>
                     </CartTable>
                 </TableWrapper>
-                <Button onClick={handleOrder}>Оформить</Button>
+                <Button disabled={disableSend} onClick={orderSend}>Оформить</Button>
                 <CartBtnClose onClick={closeCart} id="close-btn"/>
             </Cart>
         </CartOverlay>

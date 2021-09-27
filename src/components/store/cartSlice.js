@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import env from '../../env.json';
 
-const { initCart, initCartTitle, initShowCart, initOrderStatus, initOrderError } = env.initialStates.cart;
+const { initCart, initCartBtnTitle, initShowCart, initOrderStatus, initOrderError, initCartTitle } = env.initialStates.cart;
 const { sendUrl } = env.backend;
 
 export const sendOrder = createAsyncThunk (
-    'goods/sendOrder',
+    'cart/sendOrder',
     async function(data, {rejectWithValue}) {
         try {
             const response = await fetch(sendUrl, {
@@ -16,8 +16,7 @@ export const sendOrder = createAsyncThunk (
                 body: JSON.stringify(data)
             });
             if(!response) throw new Error('Server error');
-            const result = await response.json();
-            return result;
+            return true;
         } catch (error) {
             return rejectWithValue(error.message);
         }
@@ -28,10 +27,11 @@ export const cartSlice = createSlice({
     name: 'cart',
     initialState: {
         cart: initCart,
-        cartTitle: initCartTitle,
+        cartBtnTitle: initCartBtnTitle,
         showCart: initShowCart,
         orderStatus: initOrderStatus,
         orderError: initOrderError,
+        cartTitle: initCartTitle,
     },
     reducers: {
         addGood: (state, data) => {
@@ -45,13 +45,16 @@ export const cartSlice = createSlice({
             const newCart = state.cart.filter(item => !(item.id === id && item.size === size && item.color === color));
             state.cart = newCart;
         },
-        setCartTitle: (state, data) => {
-            state.cartTitle = data.payload;
+        setCartBtnTitle: (state, data) => {
+            state.cartBtnTitle = data.payload;
         },
         setShowCart: (state, data) => {
             state.showCart = data.payload;
         },
-        clearCart: (state, data) => {},
+        setCartTitle: (state, data) => {
+            state.cartTitle = data.payload;
+        },
+        clearCart: (state) => {},
     },
     extraReducers: {
         [ sendOrder.pending ]: state => {
@@ -62,6 +65,7 @@ export const cartSlice = createSlice({
             state.orderStatus = 'success';
             state.orderError = null;
             state.cart = initCart;
+            state.showCart = false;
         },
         [ sendOrder.rejected ]: (state, action) => {
             state.orderStatus = 'rejected';
@@ -70,9 +74,11 @@ export const cartSlice = createSlice({
     }
 });
 
-export const { addGood, delGood, clearCart, setCartTitle, setShowCart } = cartSlice.actions;
+export const { addGood, delGood, clearCart, setCartBtnTitle, setShowCart, setCartTitle, setInputLabel } = cartSlice.actions;
 export const selectCart = state => state.cart.cart;
-export const selectCartTitle = state => state.cart.cartTitle;
+export const selectCartBtnTitle = state => state.cart.cartBtnTitle;
 export const selectShowCart = state => state.cart.showCart;
+export const selectCartTitle = state => state.cart.cartTitle;
+export const selectInputLabel = state => state.cart.inputLabel;
 
 export default cartSlice.reducer;

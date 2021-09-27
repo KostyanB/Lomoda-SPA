@@ -10,7 +10,7 @@ import CartButton from './CartButton';
 //store
 import { useSelector, useDispatch } from 'react-redux';
 import { selectNameList } from '../store/goodsListSlice';
-import { selectCart, setCartTitle } from '../store/cartSlice';
+import { selectCart, setCartBtnTitle } from '../store/cartSlice';
 
 // styled
 const SubHeaderStyle = styled.section`
@@ -69,9 +69,9 @@ const SubHeader = () => {
     useEffect(() => {
         if (cart.length > 0) {
             const newTitle = `В корзине ${cart.length} ${declOfNum(cart.length, ['товар', 'товара', 'товаров'])}`;
-            dispatch(setCartTitle(newTitle));
+            dispatch(setCartBtnTitle(newTitle));
         } else {
-            dispatch(setCartTitle(env.initialStates.initCartTitle));
+            dispatch(setCartBtnTitle(env.initialStates.cart.initCartBtnTitle));
         }
     }, [dispatch, cart]);
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Icons from '../Styled/Icons';
 import env from '../../env.json';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCartTitle, setShowCart } from '../store/cartSlice';
+import { selectCartBtnTitle, setShowCart } from '../store/cartSlice';
 
 const Button = styled.button`
     -ms-grid-column-align: end;
@@ -17,6 +17,7 @@ const Button = styled.button`
     background: none;
     padding-left: 28px;
     border: none;
+    width: max-max-content;
 
     :hover, :hover > svg, :active, :active > svg {
         color: ${env.hoverColor};
@@ -36,17 +37,17 @@ const Button = styled.button`
     }
 `;
 
-const CartButton = ({ title }) => {
+const CartButton = () => {
 
     const dispatch = useDispatch(),
-        cartTitle = useSelector(selectCartTitle);
+        cartBtnTitle = useSelector(selectCartBtnTitle);
 
     const openCart = () => dispatch(setShowCart(true));
 
     return (
         <Button onClick={openCart}>
             <Icons name="cart" width={24} height={24} stroke="#888" />
-            {cartTitle}
+            {cartBtnTitle}
         </Button>
     )
 }

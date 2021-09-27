@@ -5,6 +5,7 @@ import selectedParamReducer from './selectedParamSlice';
 import userCityReducer from './userCitySlice';
 import buyButtonReducer from './buyButtonSlice';
 import cartReducer from './cartSlice';
+import sendButtonReducer from './sendButtonSlice';
 
 export default configureStore({
     reducer: {
@@ -14,5 +15,6 @@ export default configureStore({
         userCity: userCityReducer,
         buyButton: buyButtonReducer,
         cart: cartReducer,
+        sendButton: sendButtonReducer,
     },
 });

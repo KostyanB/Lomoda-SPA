@@ -1,25 +1,51 @@
-import React, { useRef } from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import maskPhone from '../Functions/maskPhone';
+import env from '../../env.json';
+
+import { selectInputLabel } from '../store/cartSlice';
 
 const Form = styled.form`
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    align-items: center;
     width: 100%;
     margin-top: 5px;
-`;
-const Input = styled.input`
-    -webkit-box-flex: 1;
+    input {
+        color: #f93c00;
+        padding-left: 5px;
+        -webkit-box-flex: 1;
         -ms-flex-positive: 1;
             flex-grow: 1;
-    padding-left: 10px;
+    }
+    .valid {
+        color: ${env.hoverColor} !important;
+    }
+    label {
+        padding-right: 5px;
+    }
 `;
 
-const PhoneInput = ({ input }) => {
+const PhoneInput = ({ input, chekPhone }) => {
+
+    const inputLabel = useSelector(selectInputLabel);
+
+    useEffect(() => maskPhone(input.current));
+
     return (
     <Form>
-        <label htmlFor="phone__input"><span id="phone__label">Ваш телефон:   </span></label>
-        <Input ref={input} id="phone__input" type="text" placeholder="+7 (***) ***-**-**"/>
+        <label htmlFor="phone__input">
+            {inputLabel}
+        </label>
+        <input ref={input}
+            id="phone__input"
+            type="text"
+            placeholder="+7 (***) ***-**-**"
+            onChange={chekPhone}
+            onBlur={chekPhone}
+        />
     </Form>
 );
 }

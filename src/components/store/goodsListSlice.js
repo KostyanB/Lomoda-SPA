@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import env from '../../env.json';
 
-const { initGoods, initStatus, initError, initGoodsObj, initNameList } = env.initialStates;
+const { initGoods, initStatus, initError, initGoodsObj, initNameList } = env.initialStates.goodsInit;
+const { dbUrl } = env.backend;
 
 export const fetchGoods = createAsyncThunk (
     'goods/fetchGoods',
     async function(_, {rejectWithValue}) {
         try {
-            const response = await fetch(env.dbUrl);
+            const response = await fetch(dbUrl);
             if(!response) throw new Error('Server error');
             const result = await response.json();
             return result;

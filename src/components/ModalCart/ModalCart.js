@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import env from '../../env.json';
@@ -9,7 +9,7 @@ import CartBody from './CartBody';
 import CartFoot from './CartFoot';
 import { Button } from '../Styled/Button';
 // store
-import { selectCart, setShowCart } from '../store/cartSlice';
+import { selectCart, setShowCart, sendOrder } from '../store/cartSlice';
 import { selectGoodsObj } from '../store/goodsListSlice';
 
 
@@ -101,7 +101,8 @@ const ModalCart = () => {
 
     const dispatch = useDispatch(),
         cart = useSelector(selectCart),
-        goodsObj = useSelector(selectGoodsObj);
+        goodsObj = useSelector(selectGoodsObj),
+        input = useRef();
 
     const total = cart.reduce((acc, item) => (acc + +goodsObj[item.id].cost), 0);
 
@@ -114,8 +115,12 @@ const ModalCart = () => {
         }
     };
 
-    const sendOrder = () => {
-
+    const handleOrder = () => {
+        const data = {
+            'tel' : input.current.value,
+            'order': cart
+        }
+        dispatch(sendOrder(data));
     };
 
     return (
@@ -126,10 +131,10 @@ const ModalCart = () => {
                     <CartTable>
                         <CartHead/>
                         <CartBody/>
-                        <CartFoot total={total}/>
+                        <CartFoot total={total} input={input}/>
                     </CartTable>
                 </TableWrapper>
-                <Button onClick={sendOrder}>Оформить</Button>
+                <Button onClick={handleOrder}>Оформить</Button>
                 <CartBtnClose onClick={closeCart} id="close-btn"/>
             </Cart>
         </CartOverlay>

@@ -1,12 +1,37 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import env from '../../env.json';
+
+const { initCart, initCartTitle, initShowCart, initOrderStatus, initOrderError } = env.initialStates.cart;
+const { sendUrl } = env.backend;
+
+export const sendOrder = createAsyncThunk (
+    'goods/sendOrder',
+    async function(data, {rejectWithValue}) {
+        try {
+            const response = await fetch(sendUrl, {
+                method: 'POST',
+                header: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            if(!response) throw new Error('Server error');
+            const result = await response.json();
+            return result;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
 
 export const cartSlice = createSlice({
     name: 'cart',
     initialState: {
-        cart: env.initialStates.initCart,
-        cartTitle: env.initialStates.initCartTitle,
-        showCart: env.initialStates.initShowCart,
+        cart: initCart,
+        cartTitle: initCartTitle,
+        showCart: initShowCart,
+        orderStatus: initOrderStatus,
+        orderError: initOrderError,
     },
     reducers: {
         addGood: (state, data) => {
@@ -27,6 +52,21 @@ export const cartSlice = createSlice({
             state.showCart = data.payload;
         },
         clearCart: (state, data) => {},
+    },
+    extraReducers: {
+        [ sendOrder.pending ]: state => {
+            state.orderStatus = 'loading';
+            state.orderError = null;
+        },
+        [ sendOrder.fulfilled ]: state => {
+            state.orderStatus = 'success';
+            state.orderError = null;
+            state.cart = initCart;
+        },
+        [ sendOrder.rejected ]: (state, action) => {
+            state.orderStatus = 'rejected';
+            state.orderError = action.payload;
+        }
     }
 });
 

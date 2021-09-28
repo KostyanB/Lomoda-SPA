@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import env from '../../env.json';
+import { getCartStorage, setCartStorage, clearCartStorage } from '../Functions/handleStorage';
 
 // корзина товаров
 const {
@@ -14,7 +15,11 @@ const {
     initMessage
 } = env.initialStates.cart;
 
+const initOrder = (getCartStorage()) ? getCartStorage() : initCart;
+
 const { sendUrl } = env.backend;
+
+
 
 export const sendOrder = createAsyncThunk (
     'cart/sendOrder',
@@ -39,7 +44,7 @@ export const sendOrder = createAsyncThunk (
 export const cartSlice = createSlice({
     name: 'cart',
     initialState: {
-        cart: initCart,
+        cart: initOrder,
         cartBtnTitle: initCartBtnTitle,
         showCart: initShowCart,
         showOrder: initShowOrder,
@@ -54,12 +59,14 @@ export const cartSlice = createSlice({
             const { size, color } = data.payload;
             if (size === env.initialStates.initSelectedSize) data.payload.size = '-';
             if (color === env.initialStates.initSelectedColor) data.payload.color = '-';
-            state.cart.push(data.payload)
+            state.cart.push(data.payload);
+            setCartStorage(state.cart);
         },
         delGood: (state, data) => {
             const { id, size, color } = data.payload;
             const newCart = state.cart.filter(item => !(item.id === id && item.size === size && item.color === color));
             state.cart = newCart;
+            setCartStorage(newCart);
         },
         setCartBtnTitle: (state, data) => {
             state.cartBtnTitle = data.payload;
@@ -84,9 +91,10 @@ export const cartSlice = createSlice({
         [ sendOrder.fulfilled ]: (state) => {
             state.orderStatus = 'success';
             state.orderError = null;
-            state.cart = initCart;
             state.showOrder = false;
             state.showMessage = true;
+            state.cart = initCart;
+            clearCartStorage();
         },
         [ sendOrder.rejected ]: (state, action) => {
             state.orderStatus = 'rejected';

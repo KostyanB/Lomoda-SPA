@@ -3,5 +3,6 @@ export const setLocationStorage = value => localStorage.setItem('lomoda-location
 export const getLocationStorage = () => localStorage.getItem('lomoda-location');
 
 // cart storage
-export const setCartStorage = value => localStorage.setItem('lomoda-cart', value);
-export const getCartStorage = () => localStorage.getItem('lomoda-cart');
+export const setCartStorage = data => localStorage.setItem('lomoda-cart', JSON.stringify(data));
+export const getCartStorage = () => JSON?.parse(localStorage.getItem('lomoda-cart'));
+export const clearCartStorage = () => localStorage.removeItem('lomoda-cart');

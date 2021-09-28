@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import env from '../../env.json';
 import { setLocationStorage } from '../Functions/handleStorage';
 
+// город пользователя
 export const userCitySlice = createSlice({
     name: 'userCity',
     initialState: {

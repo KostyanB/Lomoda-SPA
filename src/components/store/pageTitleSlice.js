@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import env from '../../env.json';
 
+// тайтл страницы
 export const pageTitleSlice = createSlice({
     name: 'pageTitle',
     initialState: {

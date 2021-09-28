@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import env from '../../env.json';
 
-const { initDisableBuyButton, buyButtonChecker, initBuyButtonText } = env.initialStates;
+const {
+    initDisableBuyButton,
+    buyButtonChecker,
+    initBuyButtonText
+} = env.initialStates;
 
 export const buyButtonSlice = createSlice({
     name: 'buyButton',
@@ -30,7 +34,13 @@ export const buyButtonSlice = createSlice({
     }
 });
 
-export const { checkDisableBuy, setColorInit, setSizeInit, toggleBtnText } = buyButtonSlice.actions;
+export const {
+    checkDisableBuy,
+    setColorInit,
+    setSizeInit,
+    toggleBtnText
+} = buyButtonSlice.actions;
+
 export const selectDisableBuyButton = state => state.buyButton.disableBuyButton;
 export const selectBuyButtonText = state => state.buyButton.buyButtonText;
 

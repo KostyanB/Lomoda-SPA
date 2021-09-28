@@ -3,6 +3,7 @@ import env from '../../env.json';
 
 const { initDisableSendButton, sendButtonChecker } = env.initialStates;
 
+// управление отключением кнопки "отправить"
 export const sendButtonSlice = createSlice({
     name: 'sendButton',
     initialState: {
@@ -23,7 +24,12 @@ export const sendButtonSlice = createSlice({
     }
 });
 
-export const { checkDisableSend, setPhoneCheck, setCartCheck } = sendButtonSlice.actions;
+export const {
+    checkDisableSend,
+    setPhoneCheck,
+    setCartCheck
+} = sendButtonSlice.actions;
+
 export const selectDisableSendButton = state => state.sendButton.disableSendButton;
 
 export default sendButtonSlice.reducer;

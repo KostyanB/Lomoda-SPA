@@ -17,29 +17,6 @@ const Icon = styled.li`
     :hover {
         color: ${env.hoverColor};
     }
-    /* .soc-icon-path-stroke {
-    stroke: #888;
-    :hover {
-        stroke: #2796FF;
-    }
-}
-.soc-icon-path-fill {
-    fill: #888;
-    :hover {
-        fill: #2796FF;
-    }
-} */
-
-    /* svg {
-
-        .soc-icon-path-stroke {
-        stroke: #888;
-        :hover {
-            stroke: ${env.hoverColor};
-        }
-    }
-} */
-
 `;
 
 const SocIcons = () => (

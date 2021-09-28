@@ -1,6 +1,7 @@
 import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 import { fetchGoods } from './fetchGoodsSlice';
 
+// store товаров
 export const goodsAdapter = createEntityAdapter();
 
 export const goodsSlice = createSlice({

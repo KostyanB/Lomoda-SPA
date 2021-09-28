@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# "Lomoda"
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Pet-проект. SPA-приложение по дизайн-макету реального известного интернет-магазина
 
-## Available Scripts
+## О приложениии
 
-In the project directory, you can run:
+Демо [Lomoda](https://lomoda-spa.web.app)
 
-### `npm start`
+* SPA приложение собрано на ReactJS полностью с нуля
+* Хранение локации пользователя в LocalStorage
+* Загрузка товаров и настройки приложения в json файлах
+* Файл `src/env.json` : initialState для Store, ссылки backend для api-запросов, базовое название магазина, названия категорий товаров дла nav menu, маска и префикс номера телефона, цвет стилизации :hover, списки навигации footer.
+* Прелоадер и оповещение при ошибке сервера
+* Роутинг по страницам групп товаров и отдельного товара
+* Вывод 404 ошибки
+* Индикация количества товара в корзине
+* На странице товара блокировка кнопки добавления в корзину при невыбранных параметрах товара
+* В модальной корзине: удаление товара, блокировка кнопки отправки товара при пустой корзине и невалидном телефоне.
+* Валидация номера телефона
+* Оповещение о статусе отправки заказа и очистка корзины
+* Отключение скролла при открытии корзины
+* Получение списка товаров и отправка заказа по RestAPI
+* Использование SVG иконок спрайтом и React компонентами
+* Создание навигации меню в subheader на основании полученного по API списка товаров и настроек в env.json
+* Навигация в footer на основании env.json
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Стек технологий
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* ReactJS, Redux/Toolkit, Router, ReactHooks, StyledComponents, ContextProvider, SASS/SCSS, Grid/Flex, Local Storage.
+* Настройки приложения в `env.json`.
+* Исходные данные товаров в `public/db`.
+* Сборка с помощью [Create React App](https://github.com/facebook/create-react-app).
+* Деплой демо готовой сборки на [Firebase Hosting](https://firebase.google.com).
 
-### `npm test`
+## Как установить?
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* Скопировать содержимое репозитория в рабочую папку
+* В терминале выполнить команду `npm install`
+* В случае создания проекта с помощью Create React App дополнительно установить пакеты из `add_packages.txt`.
+* Проверить соответствие версий установленной `NodeJS` и пакета `node-sass` в [документации](https://www.npmjs.com/package/node-sass).
+* Запустить development mode командой `npm start`.
+* Открыть `http://localhost:3000` для просмотра в браузере.
+* Для сборки приложения команда `npm run build`. Готовый проект будет в папке `build` рабочей директории.

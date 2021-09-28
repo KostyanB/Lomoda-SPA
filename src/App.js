@@ -26,11 +26,11 @@ function App() {
     error = useSelector(selectError),
     status = useSelector(selectStatus),
     showCart = useSelector(selectShowCart);
-
+  // получение товаров с сервера
   useEffect(() => {
     dispatch(fetchGoods());
   }, [dispatch]);
-
+  // получение локации из LocalStorage
   useEffect(() => {
     const city = getLocationStorage();
     (city) && dispatch(setUserCity(city));

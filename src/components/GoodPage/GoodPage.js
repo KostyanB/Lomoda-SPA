@@ -13,8 +13,8 @@ import GoodPrice from './GoodPrice';
 import GoodSelector from './GoodSelector';
 import BuyButton from './BuyButton';
 // hooks
-import { useOpenSelector } from '../Hooks/useOpenSelector';
-import { useBtnStyle } from '../Hooks/useBtnStyle';
+import { useOpenSelector } from '../Hooks/goodPageHooks/useOpenSelector';
+import { useBtnStyle } from '../Hooks/goodPageHooks/useBtnStyle';
 // store
 import { selectGoodsEntities } from '../store/goodsSlice';
 import { setPageTitle } from '../store/pageTitleSlice';

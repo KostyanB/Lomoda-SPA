@@ -1,7 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import env from '../../env.json';
 
-const { initCart, initCartBtnTitle, initShowCart, initOrderStatus, initOrderError, initCartTitle } = env.initialStates.cart;
+// корзина товаров
+const {
+    initCart,
+    initCartBtnTitle,
+    initShowCart,
+    initShowOrder,
+    initShowMessage,
+    initOrderStatus,
+    initOrderError,
+    initCartTitle,
+    initMessage
+} = env.initialStates.cart;
+
 const { sendUrl } = env.backend;
 
 export const sendOrder = createAsyncThunk (
@@ -15,8 +27,9 @@ export const sendOrder = createAsyncThunk (
                 },
                 body: JSON.stringify(data)
             });
-            if(!response) throw new Error('Server error');
-            return true;
+            if(!response.ok) throw new Error('Server error');
+            const res = response.text();
+            return res;
         } catch (error) {
             return rejectWithValue(error.message);
         }
@@ -29,9 +42,12 @@ export const cartSlice = createSlice({
         cart: initCart,
         cartBtnTitle: initCartBtnTitle,
         showCart: initShowCart,
+        showOrder: initShowOrder,
+        showMessage: initShowMessage,
         orderStatus: initOrderStatus,
         orderError: initOrderError,
         cartTitle: initCartTitle,
+        message: initMessage,
     },
     reducers: {
         addGood: (state, data) => {
@@ -54,31 +70,54 @@ export const cartSlice = createSlice({
         setCartTitle: (state, data) => {
             state.cartTitle = data.payload;
         },
-        clearCart: (state) => {},
+        resetCart: (state) => {
+            state.showOrder = true;
+            state.showMessage = false;
+            state.message = initMessage;
+        },
     },
     extraReducers: {
         [ sendOrder.pending ]: state => {
             state.orderStatus = 'loading';
             state.orderError = null;
         },
-        [ sendOrder.fulfilled ]: state => {
+        [ sendOrder.fulfilled ]: (state) => {
             state.orderStatus = 'success';
             state.orderError = null;
             state.cart = initCart;
-            state.showCart = false;
+            state.showOrder = false;
+            state.showMessage = true;
         },
         [ sendOrder.rejected ]: (state, action) => {
             state.orderStatus = 'rejected';
             state.orderError = action.payload;
+            state.message = `Ошибка: ${action.payload}. Попробуйте повторить позже.`;
+            state.showOrder = false;
+            state.showMessage = true;
         }
     }
 });
 
-export const { addGood, delGood, clearCart, setCartBtnTitle, setShowCart, setCartTitle, setInputLabel } = cartSlice.actions;
+export const {
+    addGood,
+    delGood,
+    resetCart,
+    setCartBtnTitle,
+    setShowCart,
+    setCartTitle,
+} = cartSlice.actions;
+
+// корзина
 export const selectCart = state => state.cart.cart;
+// заголовок кнопки корзина в субхедере
 export const selectCartBtnTitle = state => state.cart.cartBtnTitle;
+// показ корзины/заказа/сообщения
 export const selectShowCart = state => state.cart.showCart;
+export const selectShowOrder = state => state.cart.showOrder;
+export const selectShowMessage = state => state.cart.showMessage;
+// заголовок корзины
 export const selectCartTitle = state => state.cart.cartTitle;
-export const selectInputLabel = state => state.cart.inputLabel;
+// сообщение об отправке
+export const selectMessage = state => state.cart.message;
 
 export default cartSlice.reducer;

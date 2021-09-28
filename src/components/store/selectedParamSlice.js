@@ -1,8 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import env from '../../env.json';
 
-const { initSelectedColor, initSelectedSize, initSelectedId } = env.initialStates;
+const {
+    initSelectedColor,
+    initSelectedSize,
+    initSelectedId
+} = env.initialStates;
 
+// фиксация параметров выбранного товара
 export const selectedParamSlice = createSlice({
     name: 'selectedParam',
     initialState: {
@@ -27,7 +32,14 @@ export const selectedParamSlice = createSlice({
     }
 });
 
-export const { setSelectedColor, setSelectedSize, setSelectedId, resetSelectors } = selectedParamSlice.actions;
+export const {
+    setSelectedColor,
+    setSelectedSize,
+    setSelectedId,
+    resetSelectors
+} = selectedParamSlice.actions;
+
+// цвет, размер и id выбранного товара
 export const selectSelectedColor = state => state.selectedParam?.selectedColor;
 export const selectSelectedSize = state => state.selectedParam?.selectedSize;
 export const selectSelectedId = state => state.selectedParam?.selectedId;

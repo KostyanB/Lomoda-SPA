@@ -27,7 +27,7 @@ const Li = styled.li`
     }
 `;
 
-export const SelectList = ({ items, name }) => {
+const SelectList = ({ items, name }) => {
 
     const { openSelector: { setOpenColorSelector, setOpenSizeSelector },
         btnStyle: { setBtnColorStyle, setBtnSizeStyle },
@@ -50,11 +50,8 @@ export const SelectList = ({ items, name }) => {
     };
 
     const handleSelectors = e => {
-        console.log('e: ', e.target);
-
         if (name === 'colorsSelect') handleSelectColor(e.target.id)
         if (name === 'sizesSelect') handleSelectSize(e.target.id)
-
         dispatch(checkDisableBuy());
     };
 
@@ -64,3 +61,4 @@ export const SelectList = ({ items, name }) => {
         </List>
     );
 }
+export default SelectList;

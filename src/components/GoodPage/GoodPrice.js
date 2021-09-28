@@ -18,8 +18,9 @@ const Price = styled.p`
     }
 `;
 
-export const GoodPrice = ({ cost }) => (
+const GoodPrice = ({ cost }) => (
     <>
     <Price>{cost} ₽</Price>
     </>
 )
+export default GoodPrice;

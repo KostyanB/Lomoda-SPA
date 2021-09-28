@@ -26,7 +26,7 @@ const GoodButton = styled(Button)`
 `;
 
 // ------------------------------
-export const BuyButton = () => {
+const BuyButton = () => {
     const dispatch = useDispatch(),
         disableBuyButton = useSelector(selectDisableBuyButton),
         buyButtonText = useSelector(selectBuyButtonText),
@@ -50,3 +50,4 @@ export const BuyButton = () => {
         </GoodButton>
     )
 }
+export default BuyButton;

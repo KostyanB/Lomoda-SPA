@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import './goodPage.scss';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -6,16 +7,16 @@ import { Context } from './Context';
 // components
 import { Container } from '../Styled/Container';
 import Page404 from '../Page404/Page404';
-import { GoodImage } from './GoodImage';
-import { GoodTitle } from './GoodTitle';
-import { GoodPrice } from './GoodPrice';
-import { GoodSelector } from './GoodSelector';
-import { BuyButton } from './BuyButton';
+import GoodImage from './GoodImage';
+import GoodTitle from './GoodTitle';
+import GoodPrice from './GoodPrice';
+import GoodSelector from './GoodSelector';
+import BuyButton from './BuyButton';
 // hooks
 import { useOpenSelector } from '../Hooks/useOpenSelector';
 import { useBtnStyle } from '../Hooks/useBtnStyle';
 // store
-import { selectGoodsObj } from '../store/goodsListSlice';
+import { selectGoodsEntities } from '../store/goodsSlice';
 import { setPageTitle } from '../store/pageTitleSlice';
 import { setSelectedId, resetSelectors } from '../store/selectedParamSlice';
 import { checkDisableBuy, setColorInit, setSizeInit } from '../store/buyButtonSlice';
@@ -57,7 +58,7 @@ const GoodPage = () => {
 
     const dispatch = useDispatch();
     const { good } = useParams();
-    const selectGood = useSelector(selectGoodsObj)[good];
+    const selectGood = useSelector(selectGoodsEntities)[good];
 
     // хуки стилей селекторов
     const openSelector = useOpenSelector(),

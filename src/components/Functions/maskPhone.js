@@ -1,5 +1,6 @@
+import env from '../../env.json';
 
-const maskPhone = function(elem, masked = '+7 (___) ___-__-__') {
+const maskPhone = function(elem, masked = env.phoneMask) {
 	// const elems = document.querySelectorAll(selector);
 	const mask = function(event) {
 		const keyCode = event.keyCode;

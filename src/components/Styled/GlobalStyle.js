@@ -113,16 +113,4 @@ export const GlobalStyle = createGlobalStyle `
         margin: 0 auto;
         padding: 0 20px;
     }
-
-    .open {
-        border-bottom-color: #ccc;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
-    .open:after {
-        margin-top: 6px;
-        border-color: #000 #000 transparent transparent;
-    }
-
 `;

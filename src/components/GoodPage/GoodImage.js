@@ -5,8 +5,9 @@ const ImageWrapper = styled.div`
     max-width: 750px;
 `;
 
-export const GoodImage = ({ photo, name }) => (
+const GoodImage = ({ photo, name }) => (
     <ImageWrapper>
         <img className="card-good__image" src={`../../db/goods-image/${photo}`} alt={name}/>
     </ImageWrapper>
 )
+export default GoodImage;

@@ -28,9 +28,10 @@ const Brand = styled.p`
     margin-bottom: 15px;
 `;
 
-export const GoodTitle = ({ brand, name }) => (
+const GoodTitle = ({ brand, name }) => (
     <TitleWrapper>
         <Brand>{brand}</Brand>
         <Title>{name}</Title>
     </TitleWrapper>
 )
+export default GoodTitle;

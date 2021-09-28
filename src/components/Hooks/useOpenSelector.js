@@ -7,5 +7,12 @@ export const useOpenSelector = () => {
     const toggleColorSelect = () => (openColorSelector) ? setOpenColorSelector(false) : setOpenColorSelector(true);
     const toggleSizeSelect = () => (openSizeSelector) ? setOpenSizeSelector(false) : setOpenSizeSelector(true);
 
-    return { openColorSelector, setOpenColorSelector, toggleColorSelect, openSizeSelector, setOpenSizeSelector, toggleSizeSelect };
+    return {
+        openColorSelector,
+        setOpenColorSelector,
+        toggleColorSelect,
+        openSizeSelector,
+        setOpenSizeSelector,
+        toggleSizeSelect
+    };
 }

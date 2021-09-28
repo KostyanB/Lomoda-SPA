@@ -1,13 +1,26 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-// component
-import { SelectWrapper, GoodSelectBtn } from './SelectorElements';
-import { SelectList } from './SelectList';
 import { Context } from './Context';
+// component
+import SelectButton from './SelectButton';
+import SelectList from './SelectList';
 //store
 import { selectSelectedColor, selectSelectedSize } from '../store/selectedParamSlice';
-
+// styled
+const SelectWrapper = styled.div`
+    position: relative;
+    min-width: 200px;
+    @media (max-width: 968px) {
+        margin-bottom: 0;
+        -ms-grid-column: 3;
+        -ms-grid-column-span: 1;
+        grid-column: 3/4;
+    }
+    @media (max-width: 520px) {
+        grid-column: 1/3;
+    }
+`;
 const ColorWrapper = styled(SelectWrapper)`
     margin-bottom: 15px;
     @media (max-width: 968px) {
@@ -25,7 +38,8 @@ const SizesWrapper = styled(SelectWrapper)`
     }
 `;
 
-export const GoodSelector = ({ name, param }) => {
+//*******************************************
+const GoodSelector = ({ name, param }) => {
 
     const { openSelector: {
             openColorSelector, setOpenColorSelector, toggleColorSelect,
@@ -40,13 +54,14 @@ export const GoodSelector = ({ name, param }) => {
     const selectedColor = useSelector(selectSelectedColor),
         selectedSize = useSelector(selectSelectedSize);
 
-    const handleColor = () => {
+    const handleColorBtn = () => {
         toggleColorSelect();
         setOpenSizeSelector(false);
         toggleBtnColor();
         setBtnSizeStyle('');
     };
-    const handleSize = () => {
+
+    const handleSizeBtn = () => {
         toggleSizeSelect();
         setOpenColorSelector(false);
         toggleBtnSize();
@@ -57,20 +72,17 @@ export const GoodSelector = ({ name, param }) => {
         <>
         {(name === 'colorList') &&
             <ColorWrapper>
-                <GoodSelectBtn className={btnColorStyle} key="colorBtn" onClick={() => handleColor()}>
-                    {selectedColor}
-                </GoodSelectBtn>
+                <SelectButton  className={btnColorStyle} handle={handleColorBtn} title={selectedColor}/>
                 {openColorSelector && <SelectList items={param} name="colorsSelect"/>}
             </ColorWrapper>
         }
         {(name === 'sizeList') &&
             <SizesWrapper>
-                <GoodSelectBtn className={btnSizeStyle} key="sizeBtn" onClick={() => handleSize()}>
-                    {selectedSize}
-                </GoodSelectBtn>
+            <SelectButton className={btnSizeStyle} handle={handleSizeBtn} title={selectedSize}/>
                 {openSizeSelector && <SelectList items={param} name="sizesSelect"/>}
             </SizesWrapper>
         }
         </>
     );
 }
+export default GoodSelector;

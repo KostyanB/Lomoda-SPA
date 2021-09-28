@@ -15,7 +15,7 @@ import ModalCart from './components/ModalCart';
 import Page404 from './components/Page404';
 import { ErrorLoad, Preloader } from './components/Styled/Preloader';
 // store
-import { fetchGoods, selectStatus, selectError } from './components/store/goodsListSlice';
+import { fetchGoods, selectStatus, selectError } from './components/store/fetchGoodsSlice';
 import { selectShowCart } from './components/store/cartSlice';
 import { setUserCity } from './components/store/userCitySlice';
 

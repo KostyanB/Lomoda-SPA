@@ -11,7 +11,7 @@ import CartFoot from './CartFoot';
 import { Button } from '../Styled/Button';
 // store
 import { selectCart, setShowCart, sendOrder, selectCartTitle, setCartTitle } from '../store/cartSlice';
-import { selectGoodsObj } from '../store/goodsListSlice';
+import { selectGoodsEntities } from '../store/goodsSlice';
 import { selectDisableSendButton, checkDisableSend, setPhoneCheck, setCartCheck } from '../store/sendButtonSlice';
 
 
@@ -104,11 +104,11 @@ const ModalCart = () => {
     const dispatch = useDispatch(),
         cart = useSelector(selectCart),
         cartTitle = useSelector(selectCartTitle),
-        goodsObj = useSelector(selectGoodsObj),
+        goodsEntities = useSelector(selectGoodsEntities),
         disableSend = useSelector(selectDisableSendButton),
         input = useRef();
 
-    const total = cart.reduce((acc, item) => (acc + +goodsObj[item.id].cost), 0);
+    const total = cart.reduce((acc, item) => (acc + +goodsEntities[item.id].cost), 0);
 
     const closeCart = e => {
         if (e.target.id === 'overlay' || e.target.id === 'close-btn') {

@@ -6,7 +6,7 @@ import env from '../../env.json';
 import { enableScroll } from '../Functions/scrollControl';
 // store
 import { delGood, selectCart, setShowCart } from '../store/cartSlice';
-import { selectGoodsObj } from '../store/goodsListSlice';
+import { selectGoodsEntities } from '../store/goodsSlice';
 
 
 const CartTd = styled.td`
@@ -31,7 +31,7 @@ const CartLink = styled(Link)`
 
 const CartBody = () => {
 
-    const goodsObj = useSelector(selectGoodsObj),
+    const goodsEntities = useSelector(selectGoodsEntities),
         cart = useSelector(selectCart),
         dispatch = useDispatch();
 
@@ -47,7 +47,7 @@ const CartBody = () => {
         <tbody>
         {cart.map((item, key) => {
             const { id, size, color } = item,
-                { brand, name, cost } = goodsObj[id];
+                { brand, name, cost } = goodsEntities[id];
             return (
                 <tr key={key}>
                     <CartTd>{key + 1}</CartTd>

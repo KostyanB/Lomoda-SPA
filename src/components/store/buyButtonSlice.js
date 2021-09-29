@@ -5,7 +5,7 @@ const {
     initDisableBuyButton,
     buyButtonChecker,
     initBuyButtonText
-} = env.initialStates;
+} = env.initialStates.buyButton;
 
 export const buyButtonSlice = createSlice({
     name: 'buyButton',

@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import fetchGoodsReducer from './fetchGoodsSlice';
+import getGoodsReducer from './getGoodsSlice';
 import goodsReducer from './goodsSlice';
+import categoryReducer from './categorySlice';
 import pageTitleReducer from './pageTitleSlice';
 import selectedParamReducer from './selectedParamSlice';
 import userCityReducer from './userCitySlice';
@@ -10,8 +11,9 @@ import sendButtonReducer from './sendButtonSlice';
 
 export default configureStore({
     reducer: {
-        fetch: fetchGoodsReducer,
+        getGoods: getGoodsReducer,
         goods: goodsReducer,
+        category: categoryReducer,
         pageTitle: pageTitleReducer,
         selectedParam: selectedParamReducer,
         userCity: userCityReducer,

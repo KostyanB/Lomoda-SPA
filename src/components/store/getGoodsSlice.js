@@ -6,12 +6,11 @@ const {
     initGoods,
     initStatus,
     initError,
-    initCategoryList
-} = env.initialStates.goodsInit;
+} = env.initialStates.getGoodsInit;
 
 const { dbUrl } = env.backend;
 
-export const fetchGoods = createAsyncThunk (
+export const getGoods = createAsyncThunk (
     'goods/fetchGoods',
     async function(_, {rejectWithValue}) {
         try {
@@ -25,29 +24,24 @@ export const fetchGoods = createAsyncThunk (
     }
 );
 
-export const fetchGoodsSlice = createSlice({
-    name: 'fetch',
+export const getGoodsSlice = createSlice({
+    name: 'getGoods',
     initialState: {
         goodsData: initGoods,
         status: initStatus,
         error: initError,
-        categoryList: initCategoryList,
     },
+    reducers: {},
     extraReducers: {
-        [ fetchGoods.pending ]: state => {
+        [ getGoods.pending ]: state => {
             state.status = 'loading';
             state.error = null;
         },
-        [ fetchGoods.fulfilled ]: (state, action) => {
-            const data = action.payload;
+        [ getGoods.fulfilled ]: (state, action) => {
             state.status = 'success';
-            state.goodsData = data;
-            // коллекция - список категорий
-            const list = new Set();
-            data.forEach(item => list.add(item.category));
-            state.categoryList = [...list];
+            state.goodsData = action.payload;
         },
-        [ fetchGoods.rejected ]: (state, action) => {
+        [ getGoods.rejected ]: (state, action) => {
             state.status = 'rejected';
             state.error = action.payload;
         }
@@ -55,11 +49,9 @@ export const fetchGoodsSlice = createSlice({
 });
 
 // массив товаров
-export const selectGoods = state => state.fetch.goodsData;
-// массив категорий
-export const selectCategoryList = state => state.fetch.categoryList;
+export const selectGoods = state => state.getGoods.goodsData;
 
-export const selectError = state => state.fetch.error;
-export const selectStatus = state => state.fetch.status;
+export const selectError = state => state.getGoods.error;
+export const selectStatus = state => state.getGoods.status;
 
-export default fetchGoodsSlice.reducer;
+export default getGoodsSlice.reducer;

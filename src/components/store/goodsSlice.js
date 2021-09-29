@@ -1,16 +1,18 @@
 import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
-import { fetchGoods } from './fetchGoodsSlice';
+import { getGoods } from './getGoodsSlice';
 
 // store товаров
 export const goodsAdapter = createEntityAdapter();
+export const categotyAdapter = createEntityAdapter();
 
 export const goodsSlice = createSlice({
     name: 'goods',
     initialState: goodsAdapter.getInitialState(),
     extraReducers: (builder) => {
-        builder.addCase(
-            fetchGoods.fulfilled,
-            goodsAdapter.setAll,
+        builder
+        .addCase(
+            getGoods.fulfilled,
+            goodsAdapter.setAll
         );
     },
 });

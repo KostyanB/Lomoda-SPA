@@ -5,7 +5,7 @@ const {
     initSelectedColor,
     initSelectedSize,
     initSelectedId
-} = env.initialStates;
+} = env.initialStates.selectedParam;
 
 // фиксация параметров выбранного товара
 export const selectedParamSlice = createSlice({

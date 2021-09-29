@@ -15,6 +15,12 @@ const {
     initMessage
 } = env.initialStates.cart;
 
+const {
+    initSelectedColor,
+    initSelectedSize
+} = env.initialStates.selectedParam;
+
+// проверка LocalStorage на наличие товаров
 const initOrder = (getCartStorage()) ? getCartStorage() : initCart;
 
 const { sendUrl } = env.backend;
@@ -55,18 +61,21 @@ export const cartSlice = createSlice({
         message: initMessage,
     },
     reducers: {
-        addGood: (state, data) => {
-            const { size, color } = data.payload;
-            if (size === env.initialStates.initSelectedSize) data.payload.size = '-';
-            if (color === env.initialStates.initSelectedColor) data.payload.color = '-';
-            state.cart.push(data.payload);
-            setCartStorage(state.cart);
+        addGood: {
+            reducer: (state, data) => {
+                state.cart.push(data.payload);
+                setCartStorage(state.cart);
+            },
+            prepare: ({id, size, color}) => {
+                const newSize = (size === initSelectedSize) ? '-' : size,
+                    newColor = (color === initSelectedColor) ? '-' : color;
+                return {payload: {'id': id, 'size': newSize, 'color': newColor}};
+            },
         },
         delGood: (state, data) => {
             const { id, size, color } = data.payload;
-            const newCart = state.cart.filter(item => !(item.id === id && item.size === size && item.color === color));
-            state.cart = newCart;
-            setCartStorage(newCart);
+            state.cart = state.cart.filter(item => !(item.id === id && item.size === size && item.color === color));
+            setCartStorage(state.cart);
         },
         setCartBtnTitle: (state, data) => {
             state.cartBtnTitle = data.payload;

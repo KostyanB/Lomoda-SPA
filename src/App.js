@@ -15,7 +15,7 @@ import ModalCart from './components/ModalCart';
 import Page404 from './components/Page404';
 import { ErrorLoad, Preloader } from './components/Styled/Preloader';
 // store
-import { fetchGoods, selectStatus, selectError } from './components/store/fetchGoodsSlice';
+import { getGoods, selectStatus, selectError } from './components/store/getGoodsSlice';
 import { selectShowCart } from './components/store/cartSlice';
 import { setUserCity } from './components/store/userCitySlice';
 
@@ -28,7 +28,7 @@ function App() {
     showCart = useSelector(selectShowCart);
   // получение товаров с сервера
   useEffect(() => {
-    dispatch(fetchGoods());
+    dispatch(getGoods());
   }, [dispatch]);
   // получение локации из LocalStorage
   useEffect(() => {

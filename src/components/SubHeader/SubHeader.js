@@ -9,7 +9,7 @@ import NavLogo from './NavLogo';
 import CartButton from './CartButton';
 //store
 import { useSelector, useDispatch } from 'react-redux';
-import { selectCategoryList } from '../store/fetchGoodsSlice';
+import { selectCategory } from '../store/categorySlice';
 import { selectCart, setCartBtnTitle } from '../store/cartSlice';
 
 // styled
@@ -62,7 +62,7 @@ const Nav = styled.nav`
 const SubHeader = () => {
 
     const dispatch = useDispatch(),
-        categoryList = useSelector(selectCategoryList), // категории
+        category = useSelector(selectCategory), // категории
         names = env.categoryNames, // имена для меню
         cart = useSelector(selectCart);
 
@@ -81,7 +81,7 @@ const SubHeader = () => {
             <Wrapper>
                 <Nav>
                     <NavItem key="allgoods" src="all" text="Все товары"/>
-                    {categoryList.map(item => (
+                    {category.map(item => (
                         <NavItem key={item} src={item} text={names[item]}/>
                     ))}
                 </Nav>

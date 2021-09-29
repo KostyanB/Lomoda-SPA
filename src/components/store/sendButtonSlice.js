@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import env from '../../env.json';
 
-const { initDisableSendButton, sendButtonChecker } = env.initialStates;
+const {
+    initDisableSendButton,
+    sendButtonChecker
+} = env.initialStates.sendButton;
 
 // управление отключением кнопки "отправить"
 export const sendButtonSlice = createSlice({

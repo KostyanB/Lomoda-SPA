@@ -15,7 +15,7 @@ export const getGoods = createAsyncThunk (
     async function(_, {rejectWithValue}) {
         try {
             const response = await fetch(dbUrl);
-            if(!response) throw new Error('Server error');
+            if(!response.ok) throw new Error('Server error');
             const result = await response.json();
             return result;
         } catch (error) {

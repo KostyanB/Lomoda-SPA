@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import env from '../../env.json';
 import { getCartStorage, setCartStorage, clearCartStorage } from '../Functions/handleStorage';
 
-// корзина товаров
+// init корзины товаров
 const {
     initCart,
     initCartBtnTitle,
@@ -22,16 +22,12 @@ const {
 
 // проверка LocalStorage на наличие товаров
 const initOrder = (getCartStorage()) ? getCartStorage() : initCart;
-
-const { sendUrl } = env.backend;
-
-
-
+// отправка заказа
 export const sendOrder = createAsyncThunk (
     'cart/sendOrder',
     async function(data, {rejectWithValue}) {
         try {
-            const response = await fetch(sendUrl, {
+            const response = await fetch(env.backend.sendUrl, {
                 method: 'POST',
                 header: {
                     'content-type': 'application/json',
@@ -46,7 +42,7 @@ export const sendOrder = createAsyncThunk (
         }
     }
 );
-
+// корзина
 export const cartSlice = createSlice({
     name: 'cart',
     initialState: {

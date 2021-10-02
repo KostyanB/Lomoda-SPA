@@ -1,12 +1,12 @@
 import React from 'react';
 import PhoneInput from './PhoneInput';
 
-const CartFoot = ({ total, input, chekPhone }) => (
+const CartFoot = ({ total }) => (
     <tfoot>
         <tr>
             <th></th>
             <th>
-                <PhoneInput input={input} chekPhone={chekPhone}/>
+                <PhoneInput/>
             </th>
             <th></th>
             <th colSpan="2">Итого: {total} &#8381;</th>

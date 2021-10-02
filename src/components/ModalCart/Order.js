@@ -1,19 +1,18 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import env from '../../env.json';
-import checkPhoneLength from '../Functions/checkPhoneLength';
 // elements
 import CartHead from './CartHead';
 import CartBody from './CartBody';
 import CartFoot from './CartFoot';
 import { Button } from '../Styled/Button';
 // store
-import { selectCart, sendOrder, selectCartTitle, setCartTitle } from '../store/cartSlice';
+import { selectCart, selectCartTitle, setCartTitle } from '../store/cartSlice';
 import { selectGoodsEntities } from '../store/goodsSlice';
-import { selectDisableSendButton, checkDisableSend, setPhoneCheck, setCartCheck } from '../store/sendButtonSlice';
+import { selectDisableSendButton, checkDisableSend, setCartCheck } from '../store/sendButtonSlice';
 
-// styled
+// styled components
 const CartTitle = styled.h2`
     text-align: left;
     font-size: 32px;
@@ -36,30 +35,10 @@ const Order = () => {
         cart = useSelector(selectCart),
         cartTitle = useSelector(selectCartTitle),
         goodsEntities = useSelector(selectGoodsEntities),
-        disableSend = useSelector(selectDisableSendButton),
-        input = useRef();
+        disableSend = useSelector(selectDisableSendButton);
 
     const total = cart.reduce((acc, item) => (acc + +goodsEntities[item.id].cost), 0);
 
-    // отправка заказа
-    const orderSend = () => {
-        const data = {
-            'tel' : input.current.value,
-            'order': cart
-        }
-        dispatch(sendOrder(data));
-    };
-    // валидация длины телефона
-    const chekPhone = () => {
-        if (checkPhoneLength(input.current.value)) {
-            dispatch(setPhoneCheck(true));
-            input.current.className = 'valid';
-        } else {
-            dispatch(setPhoneCheck(false));
-            input.current.className = '';
-        }
-        dispatch(checkDisableSend());
-    };
     // валидация наличия товара в корзине
     const checkCart = () => {
         if (cart.length <= 0) {
@@ -70,10 +49,9 @@ const Order = () => {
             dispatch(setCartCheck(true));
         }
     };
-    // откл скролл, проверка тел и корзины, вкл кнопки отправить
+    // откл скролл, проверка корзины, вкл кнопки отправить
     useEffect(() => {
         checkCart();
-        chekPhone();
         dispatch(checkDisableSend());
     });
 
@@ -84,10 +62,10 @@ const Order = () => {
             <CartTable>
                 <CartHead/>
                 <CartBody/>
-                <CartFoot total={total} input={input} chekPhone={chekPhone}/>
+                <CartFoot total={total}/>
             </CartTable>
         </TableWrapper>
-        <Button disabled={disableSend} onClick={orderSend}>Оформить</Button>
+        <Button disabled={disableSend} type="submit" form="phone_form">Оформить</Button>
         </>
     );
 };

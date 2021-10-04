@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import './goodPage.scss';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,7 +13,7 @@ import GoodSelector from './GoodSelector';
 import BuyButton from './BuyButton';
 // hooks
 import { useOpenSelector } from '../Hooks/goodPageHooks/useOpenSelector';
-import { useBtnStyle } from '../Hooks/goodPageHooks/useBtnStyle';
+import { useOpenButton } from '../Hooks/goodPageHooks/useOpenButton';
 // store
 import { selectGoodsEntities } from '../store/goodsSlice';
 import { setPageTitle } from '../store/pageTitleSlice';
@@ -62,7 +61,7 @@ const GoodPage = () => {
 
     // хуки стилей селекторов
     const openSelector = useOpenSelector(),
-        btnStyle = useBtnStyle();
+        openButton = useOpenButton();
 
     // утановка window.title
     useEffect(() => {
@@ -85,7 +84,7 @@ const GoodPage = () => {
     return (
         <Context.Provider value={{
             openSelector,
-            btnStyle,
+            openButton,
         }}>
             {(selectGood === undefined) ?
                 <Page404/> :

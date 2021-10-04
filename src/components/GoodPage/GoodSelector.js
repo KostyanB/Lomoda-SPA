@@ -45,9 +45,9 @@ const GoodSelector = ({ name, param }) => {
             openColorSelector, setOpenColorSelector, toggleColorSelect,
             openSizeSelector, setOpenSizeSelector, toggleSizeSelect
         },
-        btnStyle: {
-            toggleBtnColor, toggleBtnSize, btnColorStyle,
-            setBtnColorStyle, btnSizeStyle, setBtnSizeStyle
+        openButton: {
+            toggleBtnColor, toggleBtnSize, openBtnColor,
+            setOpenBtnColor, openBtnSize, setOpenBtnSize
         },
     } = useContext(Context);
 
@@ -58,27 +58,27 @@ const GoodSelector = ({ name, param }) => {
         toggleColorSelect();
         setOpenSizeSelector(false);
         toggleBtnColor();
-        setBtnSizeStyle('');
+        setOpenBtnSize(false);
     };
 
     const handleSizeBtn = () => {
         toggleSizeSelect();
         setOpenColorSelector(false);
         toggleBtnSize();
-        setBtnColorStyle('');
+        setOpenBtnColor(false);
     };
 
     return (
         <>
         {(name === 'colorList') &&
             <ColorWrapper>
-                <SelectButton  className={btnColorStyle} handle={handleColorBtn} title={selectedColor}/>
+                <SelectButton  isOpen={openBtnColor} handle={handleColorBtn} title={selectedColor}/>
                 {openColorSelector && <SelectList items={param} name="colorsSelect"/>}
             </ColorWrapper>
         }
         {(name === 'sizeList') &&
             <SizesWrapper>
-            <SelectButton className={btnSizeStyle} handle={handleSizeBtn} title={selectedSize}/>
+            <SelectButton isOpen={openBtnSize} handle={handleSizeBtn} title={selectedSize}/>
                 {openSizeSelector && <SelectList items={param} name="sizesSelect"/>}
             </SizesWrapper>
         }

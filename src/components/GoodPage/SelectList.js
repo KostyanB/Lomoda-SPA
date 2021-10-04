@@ -30,21 +30,21 @@ const Li = styled.li`
 const SelectList = ({ items, name }) => {
 
     const { openSelector: { setOpenColorSelector, setOpenSizeSelector },
-        btnStyle: { setBtnColorStyle, setBtnSizeStyle },
+        openButton: { setOpenBtnColor, setOpenBtnSize },
     } = useContext(Context);
 
     const dispatch = useDispatch();
 
     const handleSelectColor = id => {
         setOpenColorSelector(false);
-        setBtnColorStyle('');
+        setOpenBtnColor(false);
         dispatch(setSelectedColor(id));
         dispatch(setColorInit(true));
     };
 
     const handleSelectSize = id => {
         setOpenSizeSelector(false);
-        setBtnSizeStyle('');
+        setOpenBtnSize(false);
         dispatch(setSelectedSize(id));
         dispatch(setSizeInit(true));
     };

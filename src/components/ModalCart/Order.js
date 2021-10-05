@@ -6,7 +6,7 @@ import env from '../../env.json';
 import CartHead from './CartHead';
 import CartBody from './CartBody';
 import CartFoot from './CartFoot';
-import { Button } from '../Styled/Button';
+import Button from '../Styled/Button';
 // store
 import { selectCart, selectCartTitle, setCartTitle } from '../store/cartSlice';
 import { selectGoodsEntities } from '../store/goodsSlice';
@@ -27,6 +27,9 @@ const CartTable = styled.table`
     table-layout: fixed;
     margin-bottom: 30px;
 `;
+const CartButton = styled(Button).attrs({
+    type: 'submit',
+})``;
 
 // ****************************************
 const Order = () => {
@@ -65,7 +68,9 @@ const Order = () => {
                 <CartFoot total={total}/>
             </CartTable>
         </TableWrapper>
-        <Button disabled={disableSend} type="submit" form="phone_form">Оформить</Button>
+        <CartButton disable={disableSend}
+            text="Оформить"
+            form="phone_form"/>
         </>
     );
 };

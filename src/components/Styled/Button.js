@@ -18,10 +18,13 @@ const Btn = styled.button.attrs((props) => ({
     font-weight: 700;
     font-size: 16px;
     margin-bottom: 32px;
+    cursor: ${(props) => props.disable ? 'not-allowed' : 'pointer'};
+
     &:hover {
         color: ${(props) => props.disable ? '#fff' : env.hoverColor};
         background-color: ${(props) => props.disable ? '#ccc' : '#fff'};
     }
+
     &:active {
         -webkit-box-shadow: 0 2px 14px 0 rgba(39, 150, 255, 0.8);
             box-shadow: 0 2px 14px 0 rgba(39, 150, 255, 0.8);

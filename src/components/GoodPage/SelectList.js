@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { Context } from './Context';
 
 import { useDispatch} from 'react-redux';
-import { setSelectedColor, setSelectedSize } from '../store/selectedParamSlice';
-import { setColorInit, setSizeInit, checkDisableBuy } from '../store/buyButtonSlice';
+import { setSelectedColor, setSelectedSize } from '../../store/selectedParamSlice';
+import { setColorInit, setSizeInit, checkDisableBuy } from '../../store/buyButtonSlice';
 
 const List = styled.ul`
     display: block;

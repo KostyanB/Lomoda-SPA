@@ -3,10 +3,14 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import env from '../../env.json';
-import { enableScroll } from '../Functions/scrollControl';
+import { enableScroll } from '../../functions/scrollControl';
 // store
-import { delGood, selectCart, setShowCart } from '../store/cartSlice';
-import { selectGoodsEntities } from '../store/goodsSlice';
+import {
+    delGood,
+    selectCart,
+    setShowCart
+} from '../../store/cartSlice';
+import { selectGoodsEntities } from '../../store/goodsSlice';
 
 
 const CartTd = styled.td`
@@ -37,7 +41,8 @@ const CartBody = () => {
 
     const delGoodFromCart = good => {
         dispatch(delGood(good));
-    }
+    };
+
     const closeCart = () => {
         dispatch(setShowCart(false));
         enableScroll();
@@ -46,16 +51,24 @@ const CartBody = () => {
     return (
         <tbody>
         {cart.map((item, key) => {
-            const { id, size, color } = item,
-                { brand, name, cost } = goodsEntities[id];
+            const { id, size, color } = item;
+            const { brand, name, cost } = goodsEntities[id];
             return (
                 <tr key={key}>
                     <CartTd>{key + 1}</CartTd>
-                    <CartTd><CartLink to={`/card/${id}`} onClick={closeCart}>{brand} {name}</CartLink></CartTd>
+                    <CartTd>
+                        <CartLink to={`/card/${id}`} onClick={closeCart}>
+                            {brand} {name}
+                        </CartLink>
+                    </CartTd>
                     <CartTd>{color}</CartTd>
                     <CartTd>{size}</CartTd>
                     <CartTd>{cost} &#8381;</CartTd>
-                    <CartTd><BtnDelete onClick={() => delGoodFromCart(item)}>&times;</BtnDelete></CartTd>
+                    <CartTd>
+                        <BtnDelete onClick={() => delGoodFromCart(item)}>
+                            &times;
+                        </BtnDelete>
+                    </CartTd>
                 </tr>
             );
         })}

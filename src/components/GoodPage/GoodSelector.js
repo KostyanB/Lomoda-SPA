@@ -6,7 +6,7 @@ import { Context } from './Context';
 import SelectButton from './SelectButton';
 import SelectList from './SelectList';
 //store
-import { selectSelectedColor, selectSelectedSize } from '../store/selectedParamSlice';
+import { selectSelectedColor, selectSelectedSize } from '../../store/selectedParamSlice';
 // styled
 const SelectWrapper = styled.div`
     position: relative;
@@ -72,14 +72,24 @@ const GoodSelector = ({ name, param }) => {
         <>
         {(name === 'colorList') &&
             <ColorWrapper>
-                <SelectButton  isOpen={openBtnColor} handle={handleColorBtn} title={selectedColor}/>
-                {openColorSelector && <SelectList items={param} name="colorsSelect"/>}
+                <SelectButton isOpen={openBtnColor}
+                    handle={handleColorBtn}
+                    title={selectedColor}
+                />
+                {openColorSelector &&
+                    <SelectList items={param} name="colorsSelect"/>
+                }
             </ColorWrapper>
         }
         {(name === 'sizeList') &&
             <SizesWrapper>
-            <SelectButton isOpen={openBtnSize} handle={handleSizeBtn} title={selectedSize}/>
-                {openSizeSelector && <SelectList items={param} name="sizesSelect"/>}
+                <SelectButton isOpen={openBtnSize}
+                    handle={handleSizeBtn}
+                    title={selectedSize}
+                />
+                {openSizeSelector &&
+                    <SelectList items={param} name="sizesSelect"/>
+                }
             </SizesWrapper>
         }
         </>

@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 import env from '../../env.json';
-import declOfNum from '../Functions/declOfNum';
+//functions
+import declOfNum from '../../functions/declOfNum';
 // elements
 import { Container } from '../Styled/Container';
 import NavItem from './NavItem';
 import NavLogo from './NavLogo';
 import CartButton from './CartButton';
 //store
-import { useSelector, useDispatch } from 'react-redux';
-import { selectCategory } from '../store/categorySlice';
-import { selectCart, setCartBtnTitle } from '../store/cartSlice';
+import { selectCategory } from '../../store/categorySlice';
+import { selectCart, setCartBtnTitle } from '../../store/cartSlice';
 
 // styled
 const SubHeaderStyle = styled.section`

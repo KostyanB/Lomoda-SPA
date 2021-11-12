@@ -12,13 +12,13 @@ import GoodPrice from './GoodPrice';
 import GoodSelector from './GoodSelector';
 import BuyButton from './BuyButton';
 // hooks
-import { useOpenSelector } from '../Hooks/goodPageHooks/useOpenSelector';
-import { useOpenButton } from '../Hooks/goodPageHooks/useOpenButton';
+import { useOpenSelector } from './hooks/useOpenSelector';
+import { useOpenButton } from './hooks/useOpenButton';
 // store
-import { selectGoodsEntities } from '../store/goodsSlice';
-import { setPageTitle } from '../store/pageTitleSlice';
-import { setSelectedId, resetSelectors } from '../store/selectedParamSlice';
-import { checkDisableBuy, setColorInit, setSizeInit } from '../store/buyButtonSlice';
+import { selectGoodsEntities } from '../../store/goodsSlice';
+import { setPageTitle } from '../../store/pageTitleSlice';
+import { setSelectedId, resetSelectors } from '../../store/selectedParamSlice';
+import { checkDisableBuy, setColorInit, setSizeInit } from '../../store/buyButtonSlice';
 
 const Wrapper = styled(Container)`
     display: -webkit-box;

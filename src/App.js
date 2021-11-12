@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 // functions
-import { getLocationStorage } from './components/Functions/handleStorage';
+import { getLocationStorage } from '../src/functions/handleStorage';
 // components
 import { GlobalStyle } from './components/Styled/GlobalStyle';
 import Header from './components/Header';
@@ -12,9 +12,9 @@ import Footer from './components/Footer';
 import ModalCart from './components/ModalCart';
 import { ErrorLoad, Preloader } from './components/Styled/Preloader';
 // store
-import { getGoods, selectStatus, selectError } from './components/store/getGoodsSlice';
-import { selectShowCart } from './components/store/cartSlice';
-import { setUserCity } from './components/store/userCitySlice';
+import { getGoods, selectStatus, selectError } from './store/getGoodsSlice';
+import { selectShowCart } from './store/cartSlice';
+import { setUserCity } from './store/userCitySlice';
 
 function App() {
   const dispatch = useDispatch(),

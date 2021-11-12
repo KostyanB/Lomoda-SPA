@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import checkActiveNav from '../Functions/checkActiveNav';
+import checkActiveNav from '../../functions/checkActiveNav';
 // elements
 import { Container } from '../Styled/Container';
 import { PromoImage } from './PromoImage';
@@ -13,7 +13,7 @@ import premium from '../../image/premium.jpg';
 import sneakers from '../../image/sneakers.jpg';
 import child from '../../image/child.jpg';
 // store
-import { setPageTitle } from '../store/pageTitleSlice';
+import { setPageTitle } from '../../store/pageTitleSlice';
 
 const PromoBlock = styled.ul`
     display: -ms-grid;

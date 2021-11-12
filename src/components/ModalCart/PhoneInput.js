@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import env from '../../env.json';
 //functions
-import maskPhone from '../Functions/maskPhone';
-import checkPhoneLength from '../Functions/checkPhoneLength';
+import maskPhone from '../../functions/maskPhone';
+import checkPhoneLength from '../../functions/checkPhoneLength';
 // store
-import { selectCart, sendOrder } from '../store/cartSlice';
-import { checkDisableSend, setPhoneCheck } from '../store/sendButtonSlice';
+import { selectCart, sendOrder } from '../../store/cartSlice';
+import { checkDisableSend, setPhoneCheck } from '../../store/sendButtonSlice';
 
 // styled components
 const Form = styled.form`

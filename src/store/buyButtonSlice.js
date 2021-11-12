@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import env from '../../env.json';
+import env from '../env.json';
 
 const {
     initDisableBuyButton,

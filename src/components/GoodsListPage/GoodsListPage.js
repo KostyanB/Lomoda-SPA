@@ -7,10 +7,11 @@ import env from '../../env.json';
 import { Container } from '../Styled/Container';
 import { GoodsList } from './GoodsList';
 import Page404 from '../Page404';
-import checkActiveNav from '../Functions/checkActiveNav';
+//functions
+import checkActiveNav from '../../functions/checkActiveNav';
 // store
-import { setPageTitle } from '../store/pageTitleSlice';
-import { selectAllGoods } from '../store/goodsSlice';
+import { setPageTitle } from '../../store/pageTitleSlice';
+import { selectAllGoods } from '../../store/goodsSlice';
 
 
 const Goods = styled.section`

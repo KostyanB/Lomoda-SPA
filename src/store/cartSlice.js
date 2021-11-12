@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import env from '../../env.json';
-import { getCartStorage, setCartStorage, clearCartStorage } from '../Functions/handleStorage';
+import env from '../env.json';
+import { getCartStorage, setCartStorage, clearCartStorage } from '../functions/handleStorage';
 
 // init корзины товаров
 const {

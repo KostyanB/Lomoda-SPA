@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import env from '../../env.json';
-import { setLocationStorage } from '../Functions/handleStorage';
+import env from '../env.json';
+import { setLocationStorage } from '../functions/handleStorage';
 
 // город пользователя
 export const userCitySlice = createSlice({

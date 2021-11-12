@@ -1,15 +1,20 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
+import { animated, useTransition } from 'react-spring'
 import env from '../../env.json';
-import { disableScroll, enableScroll } from '../Functions/scrollControl';
+import { disableScroll, enableScroll } from '../../functions/scrollControl';
 // components
 import Order from './Order';
 import Message from './Message';
 // store
-import { selectShowCart, setShowCart, resetCart, selectShowOrder, selectShowMessage } from '../store/cartSlice';
+import { selectShowCart,
+    setShowCart,
+    resetCart,
+    selectShowOrder,
+    selectShowMessage
+} from '../../store/cartSlice';
 
-import { animated, useTransition, config } from 'react-spring'
 // styled
 const CartOverlay = styled.div`
     display: -webkit-box;

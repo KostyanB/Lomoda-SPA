@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import Icons from '../Styled/Icons';
-import env from '../../env.json';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCartBtnTitle, setShowCart } from '../store/cartSlice';
-
+import env from '../../env.json';
+//components
+import Icons from '../Styled/Icons';
+//store
+import { selectCartBtnTitle, setShowCart } from '../../store/cartSlice';
+// styled
 const Button = styled.button`
     -ms-grid-column-align: end;
         justify-self: end;
@@ -49,6 +51,6 @@ const CartButton = () => {
             <Icons name="cart" width={24} height={24} stroke="#888" />
             {cartBtnTitle}
         </Button>
-    )
+    );
 }
 export default CartButton;

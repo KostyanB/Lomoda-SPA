@@ -8,9 +8,17 @@ import CartBody from './CartBody';
 import CartFoot from './CartFoot';
 import Button from '../Styled/Button';
 // store
-import { selectCart, selectCartTitle, setCartTitle } from '../store/cartSlice';
-import { selectGoodsEntities } from '../store/goodsSlice';
-import { selectDisableSendButton, checkDisableSend, setCartCheck } from '../store/sendButtonSlice';
+import {
+    selectCart,
+    selectCartTitle,
+    setCartTitle
+} from '../../store/cartSlice';
+import { selectGoodsEntities } from '../../store/goodsSlice';
+import {
+    selectDisableSendButton,
+    checkDisableSend,
+    setCartCheck
+} from '../../store/sendButtonSlice';
 
 // styled components
 const CartTitle = styled.h2`

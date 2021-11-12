@@ -3,9 +3,16 @@ import { useSelector, useDispatch } from 'react-redux';
 // elements
 import Button from '../Styled/Button';
 // store
-import { selectSelectedColor, selectSelectedSize, selectSelectedId } from '../store/selectedParamSlice';
-import { selectDisableBuyButton, selectBuyButtonText } from '../store/buyButtonSlice';
-import { addGood } from '../store/cartSlice';
+import {
+    selectSelectedColor,
+    selectSelectedSize,
+    selectSelectedId
+} from '../../store/selectedParamSlice';
+import {
+    selectDisableBuyButton,
+    selectBuyButtonText
+} from '../../store/buyButtonSlice';
+import { addGood } from '../../store/cartSlice';
 
 // ******************************************
 const BuyButton = () => {

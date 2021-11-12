@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import env from '../../env.json';
 // store
-import { selectMessage } from '../store/cartSlice';
+import { selectMessage } from '../../store/cartSlice';
 // styled
 const Wrap = styled.div`
     width: 100%;

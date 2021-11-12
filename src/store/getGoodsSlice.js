@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import env from '../../env.json';
+import env from '../env.json';
 
 // запрос БД товаров с сервера
 const {

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import Icons from '../Styled/Icons';
 import env from '../../env.json';
+import Icons from '../Styled/Icons';
 
 const Logo = styled.div`
     display: flex;

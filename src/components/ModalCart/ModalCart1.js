@@ -7,9 +7,7 @@ import { disableScroll, enableScroll } from '../Functions/scrollControl';
 import Order from './Order';
 import Message from './Message';
 // store
-import { selectShowCart, setShowCart, resetCart, selectShowOrder, selectShowMessage } from '../store/cartSlice';
-
-import { animated, useTransition, config } from 'react-spring'
+import { setShowCart, resetCart, selectShowOrder, selectShowMessage } from '../store/cartSlice';
 // styled
 const CartOverlay = styled.div`
     display: -webkit-box;
@@ -87,7 +85,6 @@ const CartBtnClose = styled.button`
 const ModalCart = () => {
 
     const dispatch = useDispatch(),
-        showCart = useSelector(selectShowCart),
         showOrder = useSelector(selectShowOrder),
         showMessage = useSelector(selectShowMessage);
     // закрытие корзины и сброс
@@ -100,25 +97,14 @@ const ModalCart = () => {
     };
     // откл скролл
     useEffect(() => disableScroll());
-    // анимация открытия корзины
-    const transitions = useTransition(showCart, {
-        from: { opacity: 0, transform: `scale(0, 0)` },
-        enter: { opacity: 1, transform: `scale(1, 1)` },
-        leave: { opacity: 0, transform: `scale(0, 0)`},
-        delay: 200
-    });
 
     return (
         <CartOverlay onClick={closeCart} id="overlay">
-            {transitions((styles, item) => item &&
-                <animated.div style={styles}>
-                    <Cart>
-                        {showOrder && <Order/>}
-                        {showMessage && <Message/>}
-                        <CartBtnClose onClick={closeCart} id="close-btn"/>
-                    </Cart>
-                </animated.div>
-            )}
+            <Cart>
+                {showOrder && <Order/>}
+                {showMessage && <Message/>}
+                <CartBtnClose onClick={closeCart} id="close-btn"/>
+            </Cart>
         </CartOverlay>
     );
 };

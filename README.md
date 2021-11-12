@@ -12,6 +12,7 @@ Pet-проект. SPA-приложение по дизайн-макету реа
 * Файл `src/env.json` : initialState для Store, ссылки backend для api-запросов, базовое название магазина, названия категорий товаров дла nav menu, маска и префикс номера телефона, цвет стилизации :hover, списки навигации footer.
 * Прелоадер и оповещение при ошибке сервера
 * Роутинг по страницам групп товаров и отдельного товара
+* Анимация роутинга и модальной корзины React-Spring
 * Вывод 404 ошибки
 * Индикация количества товара в корзине
 * На странице товара блокировка кнопки добавления в корзину при невыбранных параметрах товара
@@ -27,7 +28,7 @@ Pet-проект. SPA-приложение по дизайн-макету реа
 
 ## Стек технологий
 
-* ReactJS, Redux/Toolkit, Router, ReactHooks, StyledComponents, ContextProvider, SASS/SCSS, Grid/Flex, Local Storage.
+* ReactJS, Redux/Toolkit, Router, ReactHooks, React-Spring,StyledComponents, ContextProvider, SASS/SCSS, Grid/Flex, Local Storage.
 * Настройки приложения в `env.json`.
 * Исходные данные товаров в `public/db`.
 * Сборка с помощью [Create React App](https://github.com/facebook/create-react-app).

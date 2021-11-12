@@ -1,35 +1,32 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { GlobalStyle } from './components/Styled/GlobalStyle';
+import { BrowserRouter as Router } from 'react-router-dom';
 // functions
 import { getLocationStorage } from './components/Functions/handleStorage';
 // components
+import { GlobalStyle } from './components/Styled/GlobalStyle';
 import Header from './components/Header';
 import SubHeader from './components/SubHeader';
+import AnimatedRoutes from './components/AnimatedRoutes';
 import Footer from './components/Footer';
-import PromoPage from './components/PromoPage';
-import GoodsListPage from './components/GoodsListPage';
-import GoodPage from './components/GoodPage';
 import ModalCart from './components/ModalCart';
-import Page404 from './components/Page404';
 import { ErrorLoad, Preloader } from './components/Styled/Preloader';
 // store
 import { getGoods, selectStatus, selectError } from './components/store/getGoodsSlice';
 import { selectShowCart } from './components/store/cartSlice';
 import { setUserCity } from './components/store/userCitySlice';
 
-
 function App() {
-
   const dispatch = useDispatch(),
     error = useSelector(selectError),
     status = useSelector(selectStatus),
     showCart = useSelector(selectShowCart);
+
   // получение товаров с сервера
   useEffect(() => {
     dispatch(getGoods());
   }, [dispatch]);
+
   // получение локации из LocalStorage
   useEffect(() => {
     const city = getLocationStorage();
@@ -44,13 +41,8 @@ function App() {
         <Header/>
         <Router>
           <SubHeader/>
-            <Switch>
-              <Route exact path="/" component={PromoPage}/>
-              <Route path="/goods/:list" component={GoodsListPage}/>
-              <Route path="/card/:good" component={GoodPage}/>
-              <Route component={Page404}/>
-            </Switch>
-            {showCart && <ModalCart/>}
+          <AnimatedRoutes/>
+          {showCart && <ModalCart/>}
           </Router>
         <Footer/>
 

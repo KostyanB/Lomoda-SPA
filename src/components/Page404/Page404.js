@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 import { Container } from '../Styled/Container';
 
 const Wrapper = styled(Container)`
@@ -11,10 +12,13 @@ const Wrapper = styled(Container)`
     font-size: 30px;
 `;
 
-const Page404 = () => (
-    <Wrapper>
-        Упс, ошибка 404! Такой странички у нас нет!!!
-    </Wrapper>
+const Page404 = () => {
+    const location = useLocation();
 
-);
+    return (
+        <Wrapper>
+            Упс, ошибочка! Странички "<code>{location.pathname}</code>" у нас нет!!!
+        </Wrapper>
+    );
+}
 export default Page404;

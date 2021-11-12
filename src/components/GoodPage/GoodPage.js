@@ -72,8 +72,8 @@ const GoodPage = () => {
     // вкл/откл кнопки
     useEffect(() => {
         // если sizes|color undefined -> ставим флаги true для вкл кнопки
-        (selectGood.color === undefined) ? dispatch(setColorInit(true)) : dispatch(setColorInit(false));
-        (selectGood.sizes === undefined) ? dispatch(setSizeInit(true)) : dispatch(setSizeInit(false));
+        (selectGood?.color === undefined) ? dispatch(setColorInit(true)) : dispatch(setColorInit(false));
+        (selectGood?.sizes === undefined) ? dispatch(setSizeInit(true)) : dispatch(setSizeInit(false));
         // проверяем состояние кнопки
         dispatch(checkDisableBuy());
         // сброс селекторов

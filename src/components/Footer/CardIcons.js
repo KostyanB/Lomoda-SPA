@@ -1,37 +1,37 @@
-import React from 'react';
-import styled from 'styled-components';
-import { ColumnIcons } from './FooterElems';
-import mcardImg from '../../image/icon-mastercard.svg';
-import visaImg from '../../image/icon-visa.svg';
-import mirImg from '../../image/icon-mir.svg';
+import React from "react";
+import styled from "styled-components";
+import { ColumnIcons } from "./FooterElems";
+import mcardImg from "../../image/icon-mastercard.svg";
+import visaImg from "../../image/icon-visa.svg";
+import mirImg from "../../image/icon-mir.svg";
 
 const Icon = styled.li`
-    display: block;
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
+  display: block;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 `;
 const Mcard = styled(Icon)`
-    width: 43px;
-    height: 28px;
-    background-image: url(${mcardImg});
+  width: 43px;
+  height: 28px;
+  background-image: url(${mcardImg});
 `;
 const Visa = styled(Icon)`
-    width: 49px;
-    height: 16px;
-    background-image: url(${visaImg});
+  width: 49px;
+  height: 16px;
+  background-image: url(${visaImg});
 `;
 const Mir = styled(Icon)`
-    width: 57px;
-    height: 16px;
-    background-image: url(${mirImg});
+  width: 57px;
+  height: 16px;
+  background-image: url(${mirImg});
 `;
 
 const CardIcons = () => (
-    <ColumnIcons>
-        <Mcard/>
-        <Visa/>
-        <Mir/>
-    </ColumnIcons>
-)
+  <ColumnIcons>
+    <Mcard />
+    <Visa />
+    <Mir />
+  </ColumnIcons>
+);
 export default CardIcons;

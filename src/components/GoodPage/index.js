@@ -1,3 +1,3 @@
-import GoodPage from './GoodPage';
+import GoodPage from "./GoodPage";
 
 export default GoodPage;

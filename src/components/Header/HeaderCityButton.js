@@ -1,36 +1,33 @@
-import React from 'react';
-import styled from 'styled-components';
-import env from '../../env.json';
-import { useSelector, useDispatch } from 'react-redux';
-import { promptCity, selectUserCity } from '../../store/userCitySlice';
+import React from "react";
+import styled from "styled-components";
+import env from "../../env.json";
+import { useSelector, useDispatch } from "react-redux";
+import { promptCity, selectUserCity } from "../../store/userCitySlice";
 
 const CityButton = styled.button`
-background-color: transparent;
-color: inherit;
-/* padding: 0 12px; */
-border: none;
-height: 100%;
--webkit-transition: background-color 0.3s;
--o-transition: background-color 0.3s;
-transition: background-color 0.3s;
-:hover {
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  height: 100%;
+  -webkit-transition: background-color 0.3s;
+  -o-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+
+  &:hover {
     color: ${env.hoverColor};
-}
-@media (max-width: 480px) {
+  }
+
+  @media (max-width: 480px) {
     margin: 0 auto;
-}
+  }
 `;
 
-export const HeaderCityButton = () => {
+const HeaderCityButton = () => {
+  const dispatch = useDispatch(),
+    userCity = useSelector(selectUserCity);
 
-    const dispatch = useDispatch(),
-        userCity = useSelector(selectUserCity);
+  const getCity = () => dispatch(promptCity());
 
-    const getCity = () => dispatch(promptCity());
-
-    return (
-        <CityButton onClick={getCity}>
-            {userCity}
-        </CityButton>
-    );
-}
+  return <CityButton onClick={getCity}>{userCity}</CityButton>;
+};
+export default HeaderCityButton;

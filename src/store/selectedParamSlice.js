@@ -1,42 +1,39 @@
 import { createSlice } from "@reduxjs/toolkit";
-import env from '../env.json';
+import env from "../env.json";
 
-const {
-    initSelectedColor,
-    initSelectedSize,
-    initSelectedId
-} = env.initialStates.selectedParam;
+const { initSelectedColor, initSelectedSize, initSelectedId } =
+  env.initialStates.selectedParam;
 
 // фиксация параметров выбранного товара
 export const selectedParamSlice = createSlice({
-    name: 'selectedParam',
-    initialState: {
-        selectedColor: initSelectedColor,
-        selectedSize: initSelectedSize,
-        selectedId: initSelectedId,
+  name: "selectedParam",
+  initialState: {
+    selectedColor: initSelectedColor,
+    selectedSize: initSelectedSize,
+    selectedId: initSelectedId,
+  },
+  reducers: {
+    setSelectedColor: (state, data) => {
+      state.selectedColor = data.payload;
     },
-    reducers: {
-        setSelectedColor: (state, data) => {
-            state.selectedColor = data.payload;
-        },
-        setSelectedSize: (state, data) => {
-            state.selectedSize = data.payload;
-        },
-        setSelectedId: (state, data) => {
-            state.selectedId = data.payload;
-        },
-        resetSelectors: (state) => {
-            state.selectedColor = initSelectedColor;
-            state.selectedSize = initSelectedSize;
-        },
-    }
+    setSelectedSize: (state, data) => {
+      state.selectedSize = data.payload;
+    },
+    setSelectedId: (state, data) => {
+      state.selectedId = data.payload;
+    },
+    resetSelectors: state => {
+      state.selectedColor = initSelectedColor;
+      state.selectedSize = initSelectedSize;
+    },
+  },
 });
 
 export const {
-    setSelectedColor,
-    setSelectedSize,
-    setSelectedId,
-    resetSelectors
+  setSelectedColor,
+  setSelectedSize,
+  setSelectedId,
+  resetSelectors,
 } = selectedParamSlice.actions;
 
 // цвет, размер и id выбранного товара

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import React from 'react';
+import styled from "styled-components";
+import React from "react";
 
 const LoadWrap = styled.div`
   position: fixed;
@@ -7,7 +7,7 @@ const LoadWrap = styled.div`
   top: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 40, 120, .7);;
+  background: rgba(0, 40, 120, 0.7);
   z-index: 1001;
 `;
 export const ErrorLoad = styled(LoadWrap)`
@@ -60,7 +60,7 @@ const Dash1 = styled(Dash)`
 const Dash2 = styled(Dash)`
   transform-origin: center right;
   animation: spin2 3s linear infinite;
-  animation-delay: .2s;
+  animation-delay: 0.2s;
   @keyframes spin2 {
     0% {
       transform: rotate(0deg);
@@ -94,7 +94,7 @@ const Dash2 = styled(Dash)`
 const Dash3 = styled(Dash)`
   transform-origin: center right;
   animation: spin3 3s linear infinite;
-  animation-delay: .3s;
+  animation-delay: 0.3s;
   @keyframes spin3 {
     0% {
       transform: rotate(0deg);
@@ -131,7 +131,7 @@ const Dash3 = styled(Dash)`
 const Dash4 = styled(Dash)`
   transform-origin: center right;
   animation: spin4 3s linear infinite;
-  animation-delay: .4s;
+  animation-delay: 0.4s;
   @keyframes spin4 {
     0% {
       transform: rotate(0deg);

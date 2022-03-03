@@ -1,38 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
-import env from '../env.json';
+import env from "../env.json";
 
-const {
-    initDisableSendButton,
-    sendButtonChecker
-} = env.initialStates.sendButton;
+const { initDisableSendButton, sendButtonChecker } =
+  env.initialStates.sendButton;
 
 // управление отключением кнопки "отправить"
 export const sendButtonSlice = createSlice({
-    name: 'sendButton',
-    initialState: {
-        sendButtonChecker: sendButtonChecker,
-        disableSendButton: initDisableSendButton,
+  name: "sendButton",
+  initialState: {
+    sendButtonChecker: sendButtonChecker,
+    disableSendButton: initDisableSendButton,
+  },
+  reducers: {
+    checkDisableSend: state => {
+      const check = !Object.values(state.sendButtonChecker).every(item => item);
+      state.disableSendButton = check;
     },
-    reducers: {
-        checkDisableSend: (state) => {
-            const check = !Object.values(state.sendButtonChecker).every(item => item);
-            state.disableSendButton = check;
-        },
-        setPhoneCheck: (state, data) => {
-            state.sendButtonChecker.checkPhoneLength = data.payload;
-        },
-        setCartCheck: (state, data) => {
-            state.sendButtonChecker.checkCartLength = data.payload;
-        },
-    }
+    setPhoneCheck: (state, data) => {
+      state.sendButtonChecker.checkPhoneLength = data.payload;
+    },
+    setCartCheck: (state, data) => {
+      state.sendButtonChecker.checkCartLength = data.payload;
+    },
+  },
 });
 
-export const {
-    checkDisableSend,
-    setPhoneCheck,
-    setCartCheck
-} = sendButtonSlice.actions;
+export const { checkDisableSend, setPhoneCheck, setCartCheck } =
+  sendButtonSlice.actions;
 
-export const selectDisableSendButton = state => state.sendButton.disableSendButton;
+export const selectDisableSendButton = state =>
+  state.sendButton.disableSendButton;
 
 export default sendButtonSlice.reducer;

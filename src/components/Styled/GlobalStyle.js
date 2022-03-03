@@ -1,8 +1,6 @@
-import {
-    createGlobalStyle
-} from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
-export const GlobalStyle = createGlobalStyle `
+export const GlobalStyle = createGlobalStyle`
     @font-face {
         font-family: 'CoFo Sans';
         src: local("CoFo Sans Bold"), local("CoFoSans-Bold"), url("./fonts/CoFoSans-Bold.woff2") format("woff2"), url("./fonts/CoFoSans-Bold.woff") format("woff");

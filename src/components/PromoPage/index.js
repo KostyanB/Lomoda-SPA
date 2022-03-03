@@ -1,3 +1,3 @@
-import PromoPage from './PromoPage';
+import PromoPage from "./PromoPage";
 
 export default PromoPage;

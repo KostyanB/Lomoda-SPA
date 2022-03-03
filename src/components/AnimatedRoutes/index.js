@@ -1,3 +1,3 @@
-import AnimatedRoutes from './AnimatedRoutes';
+import AnimatedRoutes from "./AnimatedRoutes";
 
 export default AnimatedRoutes;

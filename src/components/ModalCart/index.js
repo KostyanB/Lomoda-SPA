@@ -1,3 +1,3 @@
-import ModalCart from './ModalCart';
+import ModalCart from "./ModalCart";
 
 export default ModalCart;

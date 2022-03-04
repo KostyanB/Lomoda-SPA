@@ -1,16 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import env from "../env.json";
 
-// запрос БД товаров с сервера
-// const { initGoods, initStatus, initError } = env.initialStates.getGoodsInit;
 const initialStates = {
-  initGoods: [],
+  initPromo: null,
   initStatus: null,
   initError: null,
 };
 
-export const getGoods = createAsyncThunk(
-  "getGoods/fetchGoods",
+export const getPromo = createAsyncThunk(
+  "promo/fetchPromo",
   async function (url, { rejectWithValue }) {
     try {
       const response = await fetch(url);
@@ -23,24 +20,24 @@ export const getGoods = createAsyncThunk(
   }
 );
 
-export const getGoodsSlice = createSlice({
-  name: "getGoods",
+export const promoSlice = createSlice({
+  name: "promo",
   initialState: {
-    goodsData: initialStates.initGoods,
+    promoDb: initialStates.initPromo,
     status: initialStates.initStatus,
     error: initialStates.initError,
   },
   reducers: {},
   extraReducers: {
-    [getGoods.pending]: state => {
+    [getPromo.pending]: state => {
       state.status = "loading";
       state.error = null;
     },
-    [getGoods.fulfilled]: (state, action) => {
+    [getPromo.fulfilled]: (state, action) => {
       state.status = "success";
-      state.goodsData = action.payload;
+      state.promoDb = action.payload;
     },
-    [getGoods.rejected]: (state, action) => {
+    [getPromo.rejected]: (state, action) => {
       state.status = "rejected";
       state.error = action.payload;
     },
@@ -48,9 +45,9 @@ export const getGoodsSlice = createSlice({
 });
 
 // массив товаров
-export const selectGoods = state => state.getGoods.goodsData;
+export const selectPromo = state => state.promo.promoDb;
 
-export const selectError = state => state.getGoods.error;
-export const selectStatus = state => state.getGoods.status;
+export const selectError = state => state.promo.error;
+export const selectStatus = state => state.promo.status;
 
-export default getGoodsSlice.reducer;
+export default promoSlice.reducer;

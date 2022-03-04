@@ -3,7 +3,6 @@ import { getGoods } from "./getGoodsSlice";
 
 // store товаров
 export const goodsAdapter = createEntityAdapter();
-export const categotyAdapter = createEntityAdapter();
 
 export const goodsSlice = createSlice({
   name: "goods",
@@ -12,6 +11,8 @@ export const goodsSlice = createSlice({
     builder.addCase(getGoods.fulfilled, goodsAdapter.setAll);
   },
 });
+
+export const { getGoodsDb } = goodsSlice.actions;
 
 export const {
   selectById: selectGoodsById,

@@ -1,0 +1,26 @@
+{
+  "img1": {
+    "name": "Summer sale",
+    "img": "summer.webp"
+  },
+  "img2": {
+    "name": "Sport sale",
+    "img": "sport.webp"
+  },
+  "img3": {
+    "name": "Umbrella sale",
+    "img": "umbrella.webp"
+  },
+  "img4": {
+    "name": "Premium sale",
+    "img": "premium.webp"
+  },
+  "img5": {
+    "name": "Sneakers sale",
+    "img": "sneakers.webp"
+  },
+  "img6": {
+    "name": "Child sale",
+    "img": "child.webp"
+  }
+}

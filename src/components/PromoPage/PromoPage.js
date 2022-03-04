@@ -1,19 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, Suspense } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import checkActiveNav from "../../functions/checkActiveNav";
 // elements
 import { Container } from "../Styled/Container";
-import { PromoImage } from "./PromoImage";
-// images
-import beach from "../../image/beach.jpg";
-import sport from "../../image/sport.jpg";
-import umbrella from "../../image/umbrella.jpg";
-import premium from "../../image/premium.jpg";
-import sneakers from "../../image/sneakers.jpg";
-import child from "../../image/child.jpg";
+import PromoImage from "./PromoImage";
+import { Preloader } from "../Styled/Preloader";
 // store
 import { setPageTitle } from "../../store/pageTitleSlice";
+import { getPromo, selectPromo } from "../../store/promoSlice";
+// env
+import env from "../../env.json";
 
 const PromoBlock = styled.ul`
   display: grid;
@@ -31,7 +28,7 @@ const PromoBlock = styled.ul`
     grid-template-columns: 1fr;
   }
 `;
-const DirectItemBig = styled.li`
+const DirectBig = styled.li`
   grid-column: 1/3;
   grid-row: 1/3;
 
@@ -40,7 +37,7 @@ const DirectItemBig = styled.li`
     grid-row: 1/2;
   }
 `;
-const ReverseItemBig = styled.li`
+const ReverseBig = styled.li`
   grid-column: 2/4;
   grid-row: 1/3;
 
@@ -53,7 +50,7 @@ const ReverseItemBig = styled.li`
     grid-row: 1/2;
   }
 `;
-const DirectItemSmall = styled.li`
+const DirectSmall = styled.li`
   grid-column: 3/4;
 
   @media (max-width: 768px) {
@@ -71,7 +68,7 @@ const DirectItemSmall = styled.li`
     }
   }
 `;
-const ReverseItemSmall = styled.li`
+const ReverseSmall = styled.li`
   grid-column: 1/2;
 
   @media (max-width: 768px) {
@@ -92,37 +89,48 @@ const ReverseItemSmall = styled.li`
 `;
 
 const PromoPage = () => {
+  const promoUrl = useMemo(() => env.backend.promoUrl, []);
   const dispatch = useDispatch();
-  // ставим тайтл
-  useEffect(() => dispatch(setPageTitle("Lomoda")));
-  // убираем подсветку активной ссылки в nav
-  useEffect(() => checkActiveNav());
+  const promoDb = useSelector(selectPromo);
+
+  useEffect(() => {
+    // ставим тайтл
+    dispatch(setPageTitle("Lomoda"));
+    // убираем подсветку активной ссылки в nav
+    checkActiveNav();
+    // грузим фото если еще нет
+    !promoDb && dispatch(getPromo(promoUrl));
+  }, [promoDb, promoUrl, dispatch]);
 
   return (
-    <Container>
-      <PromoBlock>
-        <DirectItemBig>
-          <PromoImage src={beach} alt="beach" />
-        </DirectItemBig>
-        <DirectItemSmall>
-          <PromoImage src={sport} alt="sport" />
-        </DirectItemSmall>
-        <DirectItemSmall>
-          <PromoImage src={umbrella} alt="umbrella" />
-        </DirectItemSmall>
-      </PromoBlock>
-      <PromoBlock>
-        <ReverseItemBig>
-          <PromoImage src={premium} alt="premium" />
-        </ReverseItemBig>
-        <ReverseItemSmall>
-          <PromoImage src={sneakers} alt="sneakers" />
-        </ReverseItemSmall>
-        <ReverseItemSmall>
-          <PromoImage src={child} alt="child" />
-        </ReverseItemSmall>
-      </PromoBlock>
-    </Container>
+    <Suspense fallback={Preloader}>
+      {promoDb && (
+        <Container>
+          <PromoBlock>
+            <DirectBig>
+              <PromoImage photo={promoDb["img1"]} />
+            </DirectBig>
+            <DirectSmall>
+              <PromoImage photo={promoDb["img2"]} />
+            </DirectSmall>
+            <DirectSmall>
+              <PromoImage photo={promoDb["img3"]} />
+            </DirectSmall>
+          </PromoBlock>
+          <PromoBlock>
+            <ReverseBig>
+              <PromoImage photo={promoDb["img4"]} />
+            </ReverseBig>
+            <ReverseSmall>
+              <PromoImage photo={promoDb["img5"]} />
+            </ReverseSmall>
+            <ReverseSmall>
+              <PromoImage photo={promoDb["img6"]} />
+            </ReverseSmall>
+          </PromoBlock>
+        </Container>
+      )}
+    </Suspense>
   );
 };
 export default PromoPage;

@@ -7,11 +7,7 @@ const ImageWrapper = styled.div`
 
 const GoodImage = ({ photo, name }) => (
   <ImageWrapper>
-    <img
-      className="card-good__image"
-      src={`../../db/goods-image/${photo}`}
-      alt={name}
-    />
+    <img src={`../../db/goods-image/${photo}`} alt={name} />
   </ImageWrapper>
 );
 export default GoodImage;

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 // functions
 import { getLocationStorage } from "../src/functions/handleStorage";
-//
+// context
 import { Context } from "./components/Context";
 // components
 import { GlobalStyle } from "./components/Styled/GlobalStyle";
@@ -16,11 +16,15 @@ import { ErrorLoad, Preloader } from "./components/Styled/Preloader";
 // store
 import { getGoods, selectStatus, selectError } from "./store/getGoodsSlice";
 import { setUserCity } from "./store/userCitySlice";
+// env
+import env from "./env.json";
 
 function App() {
   const dispatch = useDispatch(),
     error = useSelector(selectError),
     status = useSelector(selectStatus);
+
+  const { dbUrl } = env.backend;
 
   const {
     modalOpen: { isModalOpen },
@@ -28,8 +32,8 @@ function App() {
 
   // получение товаров с сервера
   useEffect(() => {
-    dispatch(getGoods());
-  }, [dispatch]);
+    dispatch(getGoods(dbUrl));
+  }, [dispatch, dbUrl]);
 
   // получение локации из LocalStorage
   useEffect(() => {

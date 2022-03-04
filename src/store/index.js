@@ -8,9 +8,11 @@ import userCityReducer from "./userCitySlice";
 import buyButtonReducer from "./buyButtonSlice";
 import cartReducer from "./cartSlice";
 import sendButtonReducer from "./sendButtonSlice";
+import promoReducer from "./promoSlice";
 
 export default configureStore({
   reducer: {
+    promo: promoReducer,
     getGoods: getGoodsReducer,
     goods: goodsReducer,
     category: categoryReducer,

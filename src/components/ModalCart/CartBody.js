@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import env from "../../env.json";
-import { Context } from "../Context";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import env from '../../env.json';
+import { Context } from '../../context';
 // store
-import { delGood, selectCart } from "../../store/cartSlice";
-import { selectGoodsEntities } from "../../store/goodsSlice";
+import { delGood, selectCart } from '../../store/cartSlice';
+import { selectGoodsEntities } from '../../store/goodsSlice';
 // variable
 const hoverColor = env.hoverColor;
 // styled

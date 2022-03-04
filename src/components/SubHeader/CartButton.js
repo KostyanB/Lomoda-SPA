@@ -1,14 +1,14 @@
-import React, { useContext, useState, useEffect } from "react";
-import styled from "styled-components";
-import { useSelector } from "react-redux";
-import { Context } from "../Context";
-import env from "../../env.json";
+import React, { useContext, useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { Context } from '../../context';
+import env from '../../env.json';
 //store
-import { selectCart } from "../../store/cartSlice";
+import { selectCart } from '../../store/cartSlice';
 //functions
-import declOfNum from "../../functions/declOfNum";
+import declOfNum from '../../functions/declOfNum';
 //components
-import Icons from "../Styled/Icons";
+import Icons from '../Styled/Icons';
 // variable
 const hoverColor = env.hoverColor;
 // styled
@@ -53,7 +53,7 @@ const Button = styled.button`
 `;
 
 const CartButton = () => {
-  const initTitle = "Корзина";
+  const initTitle = 'Корзина';
   const [title, setTitle] = useState(initTitle);
   const cart = useSelector(selectCart);
 
@@ -66,8 +66,8 @@ const CartButton = () => {
   // set cart title
   useEffect(() => {
     if (cart.length > 0) {
-      const goodTitle = declOfNum(cart.length, ["товар", "товара", "товаров"]);
-      const newButtonTitle = `${cart.length} ${goodTitle}`;
+      const goodTitle = declOfNum(cart.length, ['товар', 'товара', 'товаров']);
+      const newButtonTitle = `В корзине ${cart.length} ${goodTitle}`;
       setTitle(newButtonTitle);
     } else {
       setTitle(initTitle);
@@ -76,8 +76,8 @@ const CartButton = () => {
 
   return (
     <Button onClick={openCart}>
-      <Icons name="cart" width={24} height={24} stroke="#888" />
-      <span>В корзине </span>
+      <Icons name='cart' width={24} height={24} stroke='#888' />
+      {/* <span>В корзине </span> */}
       {title}
     </Button>
   );

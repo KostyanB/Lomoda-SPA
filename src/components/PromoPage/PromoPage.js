@@ -1,16 +1,16 @@
-import React, { useEffect, useMemo, Suspense } from "react";
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import checkActiveNav from "../../functions/checkActiveNav";
+import React, { useEffect, useMemo, Suspense } from 'react';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import checkActiveNav from '../../functions/checkActiveNav';
 // elements
-import { Container } from "../Styled/Container";
-import PromoImage from "./PromoImage";
-import { Preloader } from "../Styled/Preloader";
+import { Container } from '../Styled/Container';
+import PromoImage from './PromoImage';
+import { Preloader } from '../Styled/Preloader';
 // store
-import { setPageTitle } from "../../store/pageTitleSlice";
-import { getPromo, selectPromo } from "../../store/promoSlice";
+import { setPageTitle } from '../../store/pageTitleSlice';
+import { getPromo, selectPromo } from '../../store/promoSlice';
 // env
-import env from "../../env.json";
+import env from '../../env.json';
 
 const PromoBlock = styled.ul`
   display: grid;
@@ -95,7 +95,7 @@ const PromoPage = () => {
 
   useEffect(() => {
     // ставим тайтл
-    dispatch(setPageTitle("Lomoda"));
+    dispatch(setPageTitle('Lomoda'));
     // убираем подсветку активной ссылки в nav
     checkActiveNav();
     // грузим фото если еще нет
@@ -108,24 +108,24 @@ const PromoPage = () => {
         <Container>
           <PromoBlock>
             <DirectBig>
-              <PromoImage photo={promoDb["img1"]} />
+              <PromoImage photo={promoDb['img1']} />
             </DirectBig>
             <DirectSmall>
-              <PromoImage photo={promoDb["img2"]} />
+              <PromoImage photo={promoDb['img2']} />
             </DirectSmall>
             <DirectSmall>
-              <PromoImage photo={promoDb["img3"]} />
+              <PromoImage photo={promoDb['img3']} />
             </DirectSmall>
           </PromoBlock>
           <PromoBlock>
             <ReverseBig>
-              <PromoImage photo={promoDb["img4"]} />
+              <PromoImage photo={promoDb['img4']} />
             </ReverseBig>
             <ReverseSmall>
-              <PromoImage photo={promoDb["img5"]} />
+              <PromoImage photo={promoDb['img5']} />
             </ReverseSmall>
             <ReverseSmall>
-              <PromoImage photo={promoDb["img6"]} />
+              <PromoImage photo={promoDb['img6']} />
             </ReverseSmall>
           </PromoBlock>
         </Container>

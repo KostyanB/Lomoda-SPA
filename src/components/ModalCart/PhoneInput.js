@@ -1,13 +1,14 @@
-import React, { useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import styled from "styled-components";
-import env from "../../env.json";
+import React, { useEffect, useRef, useContext } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components';
+import env from '../../env.json';
 //functions
-import maskPhone from "../../functions/maskPhone";
-import checkPhoneLength from "../../functions/checkPhoneLength";
+import maskPhone from '../../functions/maskPhone';
+import checkPhoneLength from '../../functions/checkPhoneLength';
+//context
+import { OrderContext } from '../../context';
 // store
-import { selectCart, sendOrder } from "../../store/cartSlice";
-import { checkDisableSend, setPhoneCheck } from "../../store/sendButtonSlice";
+import { selectCart, sendOrder } from '../../store/cartSlice';
 
 // styled components
 const Form = styled.form`
@@ -33,11 +34,15 @@ const Form = styled.form`
     padding-right: 5px;
   }
 `;
-//***************************************
+
 const PhoneInput = () => {
   const dispatch = useDispatch(),
     cart = useSelector(selectCart),
     input = useRef();
+
+  const {
+    sendButton: { setPhoneCheck },
+  } = useContext(OrderContext);
 
   useEffect(() => {
     maskPhone(input.current);
@@ -55,25 +60,25 @@ const PhoneInput = () => {
   // валидация длины телефона
   const chekPhone = () => {
     if (checkPhoneLength(input.current.value)) {
-      dispatch(setPhoneCheck(true));
-      input.current.className = "valid";
+      setPhoneCheck(true);
+      input.current.className = 'valid';
     } else {
-      dispatch(setPhoneCheck(false));
-      input.current.className = "";
+      setPhoneCheck(false);
+      input.current.className = '';
     }
-    dispatch(checkDisableSend());
   };
 
   return (
-    <Form id="phone_form" onSubmit={handleSubmit}>
-      <label htmlFor="phone_input">Ваш телефон:</label>
+    <Form id='phone_form' onSubmit={handleSubmit}>
+      <label htmlFor='phone_input'>Ваш телефон:</label>
       <input
         ref={input}
-        id="phone_input"
-        type="text"
-        placeholder="+7 (***) ***-**-**"
+        id='phone_input'
+        type='text'
+        placeholder='+7 (***) ***-**-**'
         onChange={chekPhone}
         onBlur={chekPhone}
+        onInput={chekPhone}
       />
     </Form>
   );

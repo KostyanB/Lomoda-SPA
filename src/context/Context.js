@@ -1,6 +1,6 @@
-import React, { createContext } from "react";
-import { useScrollLock } from "../../hooks/useScrollLock";
-import { useOpenModal } from "../../hooks/useOpenModal";
+import React, { createContext } from 'react';
+import { useScrollLock } from '../hooks/useScrollLock';
+import { useOpenModal } from '../hooks/useOpenModal';
 
 export const Context = createContext();
 

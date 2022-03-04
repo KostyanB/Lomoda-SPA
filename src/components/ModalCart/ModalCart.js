@@ -1,20 +1,21 @@
-import React, { useEffect, useContext } from "react";
-import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
-import { animated, useTransition } from "react-spring";
-import env from "../../env.json";
-import { Context } from "../Context";
+import React, { useEffect, useContext } from 'react';
+import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+import { animated, useTransition } from 'react-spring';
+import env from '../../env.json';
+import { Context, OrderContextProvider } from '../../context';
 // components
-import Order from "./Order";
-import Message from "./Message";
+import Order from './Order';
+import Message from './Message';
 // store
 import {
   resetCart,
   selectShowOrder,
   selectShowMessage,
-} from "../../store/cartSlice";
+} from '../../store/cartSlice';
 
 // styled
+const hoverColor = env.hoverColor;
 const CartOverlay = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
@@ -53,6 +54,10 @@ const Cart = styled.div`
   background-color: #000;
   color: #fff;
   font-weight: 300;
+
+  @media (max-width: 768px) {
+    width: 100vw;
+  }
 `;
 const CartBtnClose = styled.button`
   position: absolute;
@@ -67,7 +72,7 @@ const CartBtnClose = styled.button`
   outline: none;
   ::before,
   ::after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     top: 50%;
@@ -87,7 +92,7 @@ const CartBtnClose = styled.button`
   :hover::before,
   :focus::after,
   :hover::after {
-    border-color: ${env.hoverColor};
+    border-color: ${hoverColor};
   }
 `;
 
@@ -104,7 +109,7 @@ const ModalCart = () => {
 
   // закрытие корзины и сброс
   const closeCart = e => {
-    if (e.target.id === "overlay" || e.target.id === "close-btn") {
+    if (e.target.id === 'overlay' || e.target.id === 'close-btn') {
       closeModal();
       unlockScroll();
       dispatch(resetCart());
@@ -121,18 +126,22 @@ const ModalCart = () => {
   });
 
   return (
-    <CartOverlay onClick={closeCart} id="overlay">
+    <CartOverlay onClick={closeCart} id='overlay'>
       {transitions(
         (styles, item) =>
           item && (
             <animated.div style={styles}>
               <Cart>
-                {showOrder && <Order />}
+                {showOrder && (
+                  <OrderContextProvider>
+                    <Order />
+                  </OrderContextProvider>
+                )}
                 {showMessage && <Message />}
-                <CartBtnClose onClick={closeCart} id="close-btn" />
+                <CartBtnClose onClick={closeCart} id='close-btn' />
               </Cart>
             </animated.div>
-          )
+          ),
       )}
     </CartOverlay>
   );

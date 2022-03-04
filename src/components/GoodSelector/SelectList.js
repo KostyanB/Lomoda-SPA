@@ -1,17 +1,12 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import { SelectorContext } from "../Context";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import { GoodPageContext } from '../../context';
 
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 import {
   setSelectedColor,
   setSelectedSize,
-} from "../../store/selectedParamSlice";
-import {
-  setColorInit,
-  setSizeInit,
-  checkDisableBuy,
-} from "../../store/buyButtonSlice";
+} from '../../store/selectedParamSlice';
 
 const List = styled.ul`
   display: block;
@@ -38,28 +33,28 @@ const SelectList = ({ items, name }) => {
   const {
     openSelector: { setOpenColorSelector, setOpenSizeSelector },
     openButton: { setOpenBtnColor, setOpenBtnSize },
-  } = useContext(SelectorContext);
+    buyButton: { setColorCheck, setSizeCheck },
+  } = useContext(GoodPageContext);
 
   const dispatch = useDispatch();
 
   const handleSelectColor = id => {
     setOpenColorSelector(false);
     setOpenBtnColor(false);
+    setColorCheck(true);
     dispatch(setSelectedColor(id));
-    dispatch(setColorInit(true));
   };
 
   const handleSelectSize = id => {
     setOpenSizeSelector(false);
     setOpenBtnSize(false);
+    setSizeCheck(true);
     dispatch(setSelectedSize(id));
-    dispatch(setSizeInit(true));
   };
 
   const handleSelectors = e => {
-    if (name === "colorsSelect") handleSelectColor(e.target.id);
-    if (name === "sizesSelect") handleSelectSize(e.target.id);
-    dispatch(checkDisableBuy());
+    if (name === 'colorsSelect') handleSelectColor(e.target.id);
+    if (name === 'sizesSelect') handleSelectSize(e.target.id);
   };
 
   return (
@@ -73,3 +68,4 @@ const SelectList = ({ items, name }) => {
   );
 };
 export default SelectList;
+//

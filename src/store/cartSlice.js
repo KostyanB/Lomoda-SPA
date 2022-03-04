@@ -1,55 +1,59 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import env from "../env.json";
-import {
-  getCartStorage,
-  setCartStorage,
-  clearCartStorage,
-} from "../functions/handleStorage";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import env from '../env.json';
+import { setCartStorage, clearCartStorage } from '../functions/handleStorage';
 
-// init корзины товаров
-const {
-  initCart,
-  initShowOrder,
-  initShowMessage,
-  initOrderStatus,
-  initOrderError,
-  initMessage,
-} = env.initialStates.cart;
+const initialStates = {
+  initCart: [],
+  initShowOrder: true,
+  initShowMessage: false,
+  initOrderStatus: null,
+  initOrderError: null,
+  initMessage: 'Спасибо за Ваш заказ!',
+};
 
-const { initSelectedColor, initSelectedSize } = env.initialStates.selectedParam;
+const { initSelectedColor, initSelectedSize } = env.initSelectors;
 
-// проверка LocalStorage на наличие товаров
-const initOrder = getCartStorage() ? getCartStorage() : initCart;
+const checkValue = (str, checked) => (str === checked ? '-' : str);
+
+const createPayload = ({ id, size, color }) => ({
+  payload: {
+    id: id,
+    size: checkValue(size, initSelectedSize),
+    color: checkValue(color, initSelectedColor),
+  },
+});
+
 // отправка заказа
 export const sendOrder = createAsyncThunk(
-  "cart/sendOrder",
+  'cart/sendOrder',
   async function (data, { rejectWithValue }) {
     try {
       const response = await fetch(env.backend.sendUrl, {
-        method: "POST",
+        method: 'POST',
         header: {
-          "content-type": "application/json",
+          'content-type': 'application/json',
         },
         body: JSON.stringify(data),
       });
-      if (!response.ok) throw new Error("Server error");
+      if (!response.ok) throw new Error('Server error');
       const res = response.text();
       return res;
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
+
 // корзина
 export const cartSlice = createSlice({
-  name: "cart",
+  name: 'cart',
   initialState: {
-    cart: initOrder,
-    showOrder: initShowOrder,
-    showMessage: initShowMessage,
-    orderStatus: initOrderStatus,
-    orderError: initOrderError,
-    message: initMessage,
+    cart: initialStates.initCart,
+    showOrder: initialStates.initShowOrder,
+    showMessage: initialStates.initShowMessage,
+    orderStatus: initialStates.initOrderStatus,
+    orderError: initialStates.initOrderError,
+    message: initialStates.initMessage,
   },
   reducers: {
     addGood: {
@@ -57,46 +61,43 @@ export const cartSlice = createSlice({
         state.cart.push(data.payload);
         setCartStorage(state.cart);
       },
-      prepare: ({ id, size, color }) => {
-        const newSize = size === initSelectedSize ? "-" : size,
-          newColor = color === initSelectedColor ? "-" : color;
-        return {
-          payload: {
-            id: id,
-            size: newSize,
-            color: newColor,
-          },
-        };
-      },
+      prepare: data => createPayload(data),
     },
-    delGood: (state, data) => {
-      const { id, size, color } = data.payload;
-      state.cart = state.cart.filter(
-        item => !(item.id === id && item.size === size && item.color === color)
-      );
-      setCartStorage(state.cart);
+    delGood: {
+      reducer: (state, data) => {
+        const { id, size, color } = data.payload;
+        state.cart = state.cart.filter(
+          item =>
+            !(item.id === id && item.size === size && item.color === color),
+        );
+        setCartStorage(state.cart);
+      },
+      prepare: data => createPayload(data),
     },
     resetCart: state => {
       state.showOrder = true;
       state.showMessage = false;
-      state.message = initMessage;
+      state.message = initialStates.initMessage;
+    },
+    setCardFromStorage: (state, data) => {
+      state.cart = data.payload;
     },
   },
   extraReducers: {
     [sendOrder.pending]: state => {
-      state.orderStatus = "loading";
+      state.orderStatus = 'loading';
       state.orderError = null;
     },
     [sendOrder.fulfilled]: state => {
-      state.orderStatus = "success";
+      state.orderStatus = 'success';
       state.orderError = null;
       state.showOrder = false;
       state.showMessage = true;
-      state.cart = initCart;
+      state.cart = initialStates.initCart;
       clearCartStorage();
     },
     [sendOrder.rejected]: (state, action) => {
-      state.orderStatus = "rejected";
+      state.orderStatus = 'rejected';
       state.orderError = action.payload;
       state.message = `Ошибка: ${action.payload}. Попробуйте повторить позже.`;
       state.showOrder = false;
@@ -105,7 +106,8 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addGood, delGood, resetCart, setCartTitle } = cartSlice.actions;
+export const { addGood, delGood, resetCart, setCardFromStorage } =
+  cartSlice.actions;
 
 // корзина
 export const selectCart = state => state.cart.cart;

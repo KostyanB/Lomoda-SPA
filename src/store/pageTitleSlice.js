@@ -1,11 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import env from "../env.json";
+import { createSlice } from '@reduxjs/toolkit';
+
+const initPageTitle = 'Lomoda';
 
 // тайтл страницы
 export const pageTitleSlice = createSlice({
-  name: "pageTitle",
+  name: 'pageTitle',
   initialState: {
-    pageTitle: env.initialStates.initPageTitle,
+    pageTitle: initPageTitle,
   },
   reducers: {
     setPageTitle: (state, data) => {

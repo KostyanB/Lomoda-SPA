@@ -1,8 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import env from "../../env.json";
-import { useSelector, useDispatch } from "react-redux";
-import { promptCity, selectUserCity } from "../../store/userCitySlice";
+import React from 'react';
+import styled from 'styled-components';
+import env from '../../env.json';
+import { useUserCity } from '../../hooks/useUserCity';
 
 const CityButton = styled.button`
   background-color: transparent;
@@ -23,10 +22,9 @@ const CityButton = styled.button`
 `;
 
 const HeaderCityButton = () => {
-  const dispatch = useDispatch(),
-    userCity = useSelector(selectUserCity);
+  const { userCity, promptCity } = useUserCity();
 
-  const getCity = () => dispatch(promptCity());
+  const getCity = () => promptCity();
 
   return <CityButton onClick={getCity}>{userCity}</CityButton>;
 };

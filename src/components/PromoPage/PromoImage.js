@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Image = styled.img`
   width: 100%;
@@ -14,7 +14,7 @@ const PromoImage = ({ photo }) => (
   <Image
     src={`../../db/promo-image/${photo.img}`}
     alt={photo.name}
-    loading="lazy"
+    loading='lazy'
   />
 );
 

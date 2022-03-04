@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useEffect, useContext } from 'react';
+import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import env from '../../env.json';
+import { OrderContext } from '../../context';
 // elements
-import CartHead from "./CartHead";
-import CartBody from "./CartBody";
-import CartFoot from "./CartFoot";
-import Button from "../Styled/Button";
+import CartHead from './CartHead';
+import CartBody from './CartBody';
+import CartFoot from './CartFoot';
+import CartButton from './CartButton';
 // store
-import { selectCart } from "../../store/cartSlice";
-import { selectGoodsEntities } from "../../store/goodsSlice";
-import {
-  selectDisableSendButton,
-  checkDisableSend,
-  setCartCheck,
-} from "../../store/sendButtonSlice";
+import { selectCart } from '../../store/cartSlice';
+import { selectGoodsEntities } from '../../store/goodsSlice';
 
 // styled components
+const hoverColor = env.hoverColor;
+
 const CartTitle = styled.h2`
   text-align: left;
   font-size: 32px;
@@ -24,40 +23,50 @@ const CartTitle = styled.h2`
 const TableWrapper = styled.div`
   overflow-y: auto;
   width: 100%;
+
+  &::-webkit-scrollbar {
+    height: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${hoverColor};
+    border-radius: 50px;
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 10px;
+  }
 `;
 const CartTable = styled.table`
   border-collapse: collapse;
   table-layout: fixed;
   margin-bottom: 30px;
 `;
-const CartButton = styled(Button).attrs({
-  type: "submit",
-})``;
 
-// ****************************************
 const Order = () => {
-  const dispatch = useDispatch(),
-    cart = useSelector(selectCart),
-    goodsEntities = useSelector(selectGoodsEntities),
-    disableSend = useSelector(selectDisableSendButton);
-  const initCartTitle = "Корзина";
+  const cart = useSelector(selectCart);
+  const goodsEntities = useSelector(selectGoodsEntities);
+
+  const {
+    sendButton: { setCartCheck },
+  } = useContext(OrderContext);
+
+  const initCartTitle = 'Корзина';
   const [cartTitle, setCartTitle] = useState();
 
   const total = cart.reduce(
     (acc, item) => acc + +goodsEntities[item.id].cost,
-    0
+    0,
   );
 
   useEffect(() => {
     if (cart.length > 0) {
       setCartTitle(initCartTitle);
-      dispatch(setCartCheck(true));
+      setCartCheck(true);
     } else {
-      setCartTitle("Корзина пуста!!!");
-      dispatch(setCartCheck(false));
+      setCartTitle('Корзина пуста!!!');
+      setCartCheck(false);
     }
-    dispatch(checkDisableSend());
-  }, [cart, dispatch]);
+  }, [cart, setCartCheck]);
 
   return (
     <>
@@ -69,7 +78,7 @@ const Order = () => {
           <CartFoot total={total} />
         </CartTable>
       </TableWrapper>
-      <CartButton disable={disableSend} text="Оформить" form="phone_form" />
+      <CartButton />
     </>
   );
 };

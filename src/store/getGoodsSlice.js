@@ -1,8 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import env from "../env.json";
 
-// запрос БД товаров с сервера
-// const { initGoods, initStatus, initError } = env.initialStates.getGoodsInit;
 const initialStates = {
   initGoods: [],
   initStatus: null,

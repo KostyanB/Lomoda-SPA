@@ -1,12 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
-import env from "../env.json";
+import { createSlice } from '@reduxjs/toolkit';
+import env from '../env.json';
 
-const { initSelectedColor, initSelectedSize, initSelectedId } =
-  env.initialStates.selectedParam;
+const { initSelectedColor, initSelectedSize } = env.initSelectors;
+
+const initSelectedId = '';
 
 // фиксация параметров выбранного товара
 export const selectedParamSlice = createSlice({
-  name: "selectedParam",
+  name: 'selectedParam',
   initialState: {
     selectedColor: initSelectedColor,
     selectedSize: initSelectedSize,
